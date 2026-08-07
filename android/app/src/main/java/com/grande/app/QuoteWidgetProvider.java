@@ -26,7 +26,13 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
 
 public class QuoteWidgetProvider extends AppWidgetProvider {
 
@@ -168,14 +174,65 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
         return bmp;
     }
 
-    // 앱이 쓰는 quotes.js를 그대로 읽어, 앱과 동일한 규칙(ID 해시 기반 셔플)으로
-    // "오늘의 글" 인덱스를 계산한다. 배열 저장 순서와 무관해야 앱과 항상 같은 결과가 나온다.
+    // ── 오늘의 글 선정 ───────────────────────────────────────────────────────
+    // 앱이 쓰는 public/quotes.js를 그대로 읽어 "오늘의 글"을 고른다.
+    //
+    // 이 아래 세 함수는 www/index.html의 simpleHash / buildDailyOrder /
+    // daysSinceEpoch와 **반드시 같은 결과를 내야 한다**. 하나라도 어긋나면
+    // 위젯과 앱이 같은 날 서로 다른 글을 보여준다.
+    // index.html의 선정 로직을 고칠 때는 여기도 같이 고칠 것.
     private static long simpleHash(String str) {
         long hash = 0;
         for (int i = 0; i < str.length(); i++) {
             hash = (hash * 31 + str.charAt(i)) % 1000000007L;
         }
         return hash;
+    }
+
+    private static final class OrderItem {
+        final String id; final double key; final long tb;
+        OrderItem(String id, double key, long tb) { this.id = id; this.key = key; this.tb = tb; }
+    }
+
+    // 저자별로 묶은 뒤 저자마다 다른 위상(phase)을 주어 고르게 흩뿌린다.
+    // 같은 저자의 글이 연달아 나오지 않게 하려는 것으로, 배열 저장 순서와는 무관하다.
+    private static List<String> buildDailyOrder(JSONArray arr) throws Exception {
+        Map<String, List<String>> groups = new LinkedHashMap<>();
+        for (int i = 0; i < arr.length(); i++) {
+            JSONObject o = arr.getJSONObject(i);
+            String author = o.optString("author", "");
+            List<String> ids = groups.get(author);
+            if (ids == null) { ids = new ArrayList<>(); groups.put(author, ids); }
+            ids.add(o.getString("id"));
+        }
+
+        List<OrderItem> items = new ArrayList<>();
+        for (Map.Entry<String, List<String>> e : groups.entrySet()) {
+            List<String> ids = new ArrayList<>(e.getValue());
+            Collections.sort(ids, (x, y) -> Long.compare(simpleHash(x), simpleHash(y)));
+            int c = ids.size();
+            double phase = (double) simpleHash(e.getKey()) / 1000000007.0;
+            for (int i = 0; i < c; i++) {
+                items.add(new OrderItem(ids.get(i), (i + phase) / c, simpleHash(ids.get(i))));
+            }
+        }
+        Collections.sort(items, (x, y) -> {
+            int c = Double.compare(x.key, y.key);
+            return c != 0 ? c : Long.compare(x.tb, y.tb);
+        });
+
+        List<String> order = new ArrayList<>(items.size());
+        for (OrderItem it : items) order.add(it.id);
+        return order;
+    }
+
+    // 날짜 부분만 UTC로 정규화해 얻은 일수. 서머타임·시간대와 무관하게
+    // 하루에 정확히 한 칸씩 움직인다.
+    private static long daysSinceEpoch(Calendar local) {
+        Calendar utc = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        utc.clear();
+        utc.set(local.get(Calendar.YEAR), local.get(Calendar.MONTH), local.get(Calendar.DAY_OF_MONTH));
+        return Math.floorDiv(utc.getTimeInMillis(), 86400000L);
     }
 
     private static String[] getTodayQuote(Context context) {
@@ -194,28 +251,24 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
 
             JSONArray arr = new JSONArray(jsonStr);
             int n = arr.length();
+            if (n == 0) return null;
 
-            // id 해시로 정렬한 고정 순서(셔플)를 만든다 — 배열 원래 저장 순서와 무관
-            Integer[] order = new Integer[n];
-            final long[] hashes = new long[n];
+            List<String> order = buildDailyOrder(arr);
+
+            // 예전에는 YYYYMMDD를 그대로 나머지 연산해서 월 경계마다 인덱스가
+            // 70칸씩(연 경계엔 8870칸) 건너뛰었다. 일수 차이를 쓰면 한 주기 동안
+            // 중복도 누락도 없이 정확히 한 바퀴 돈다.
+            long days = daysSinceEpoch(Calendar.getInstance());
+            int pos = (int) (((days % n) + n) % n);
+            String pickedId = order.get(pos);
+
             for (int i = 0; i < n; i++) {
-                order[i] = i;
-                hashes[i] = simpleHash(arr.getJSONObject(i).getString("id"));
+                JSONObject obj = arr.getJSONObject(i);
+                if (pickedId.equals(obj.getString("id"))) {
+                    return new String[]{obj.getString("text"), obj.optString("author", "")};
+                }
             }
-            java.util.Arrays.sort(order, (a, b) -> Long.compare(hashes[a], hashes[b]));
-
-            Calendar cal = Calendar.getInstance();
-            int year = cal.get(Calendar.YEAR);
-            int month = cal.get(Calendar.MONTH) + 1;
-            int day = cal.get(Calendar.DAY_OF_MONTH);
-            int seed = year * 10000 + month * 100 + day;
-            int posInShuffled = ((seed % n) + n) % n;
-            int idx = order[posInShuffled];
-
-            JSONObject obj = arr.getJSONObject(idx);
-            String fullText = obj.getString("text");
-            String author = obj.optString("author", "");
-            return new String[]{fullText, author};
+            return null;
         } catch (Exception e) {
             return null;
         }

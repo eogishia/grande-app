@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "407909295427",
+    "project_id": "grande-3e551",
+    "storage_bucket": "grande-3e551.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407909295427:android:6b1b38b1256d7e21113bf6",
+        "android_client_info": {
+          "package_name": "com.eogishia.grande"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkssT8zRazOxIk7mpL_hhwGWlujCxVDJg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

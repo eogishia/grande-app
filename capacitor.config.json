@@ -1,0 +1,20 @@
+{
+  "appId": "com.eogishia.grande",
+  "appName": "Grande",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "StatusBar": {
+      "backgroundColor": "#F8F6F1",
+      "style": "LIGHT"
+    },
+    "SplashScreen": {
+      "launchAutoHide": true,
+      "autoHideDelay": 1500,
+      "backgroundColor": "#F8F6F1",
+      "showSpinner": false
+    }
+  }
+}

@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Grande</title>
+<!-- 서체는 www/fonts/에 번들한다. 원격 @import는 네트워크가 없으면 본문을 시스템
+     명조로 떨어뜨리고 공유 이미지까지 무너뜨렸다. 생성: scripts/build_fonts.js -->
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--paper:#F8F6F1;--ink:#2C2A28;--accent:#A98053;--muted:#8A8580;--faint:#B0AAA0;--line:#E5E0D8;--serif:'Noto Serif KR',serif;--sans:'Pretendard',sans-serif}
+html{background:var(--paper)}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);max-width:520px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.splash{position:fixed;inset:0;background:var(--paper);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:1;transition:opacity .7s ease;pointer-events:none;text-align:center}
+.splash.done{opacity:0}
+.splash-canvas{width:220px;height:220px;margin-bottom:28px}
+.splash-text{
+  font-family:var(--sans);font-size:22px;font-weight:300;
+  letter-spacing:8px;color:var(--accent);
+  opacity:0;transform:translateY(8px);
+}
+.onboarding{position:fixed;inset:0;background:var(--paper);z-index:900;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s ease;padding:calc(28px + env(safe-area-inset-top, 0px)) 28px calc(28px + env(safe-area-inset-bottom, 0px))}
+.onboarding.show{opacity:1;pointer-events:auto}
+.onboarding-inner{max-width:400px;width:100%;text-align:center}
+.onboarding-slogan{font-family:var(--serif);font-size:17px;font-weight:300;line-height:1.9;color:var(--ink);word-break:keep-all}
+.onboarding-tabs{margin-top:48px;text-align:left;display:flex;flex-direction:column;gap:22px}
+.onboarding-tab{display:flex;flex-direction:column;gap:3px;border-left:1px solid var(--line);padding-left:14px}
+.onboarding-tab-name{font-family:var(--sans);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:1px}
+.onboarding-tab-desc{font-family:var(--sans);font-size:11px;font-weight:300;color:var(--muted);line-height:1.6;word-break:keep-all}
+.onboarding-start{margin-top:52px;background:none;border:1px solid var(--accent);border-radius:24px;padding:12px 40px;font-family:var(--sans);font-size:12px;font-weight:400;color:var(--accent);letter-spacing:1px;cursor:pointer;transition:opacity .2s}
+.onboarding-start:hover{opacity:.7}
+.main{flex:1;display:flex;flex-direction:column}
+.view{display:none;flex:1;flex-direction:column}
+.view.active{display:flex;animation:viewIn .3s ease both}
+.view.leaving{display:flex;animation:viewOut .2s ease both}
+@keyframes viewIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes viewOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-6px)}}
+.today{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:100px 28px calc(120px + env(safe-area-inset-bottom, 0px));min-height:80vh}
+.today-content{max-width:440px;width:100%;opacity:1}
+.today-content.fade-in{opacity:0;animation:fadeUp .6s ease .3s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.today-text{font-family:var(--serif);font-size:14px;font-weight:300;line-height:2.1;color:var(--ink);white-space:pre-line;word-break:keep-all;text-align:justify}
+.today-day{font-family:var(--sans);font-size:10px;font-weight:300;color:var(--faint);letter-spacing:2px;text-align:center;margin-bottom:60px}
+.today-memo{margin-top:32px;max-height:0;opacity:0;overflow:hidden;transform:translateY(16px);transition:max-height .35s ease,opacity .3s ease,transform .3s ease}
+.today-memo.open{max-height:200px;opacity:1;transform:translateY(0)}
+.today-meta{margin-top:48px}
+.note-wrap{position:relative;display:inline-block}
+.sheet-source{position:relative}
+.sheet-source .note-wrap{position:static}
+.sheet-source .note-tooltip{left:0;right:auto;width:auto;max-width:280px}
+.note-btn{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;border:1px solid var(--faint);background:none;color:var(--muted);font-size:8px;font-family:var(--sans);cursor:pointer;margin-left:5px;vertical-align:middle;padding:0;line-height:1;position:relative;top:-1px}
+.note-tooltip{display:none;position:absolute;top:100%;left:0;z-index:60;width:260px;background:var(--ink);color:var(--paper);font-family:var(--sans);font-size:11px;font-weight:300;line-height:1.7;padding:12px 14px;border-radius:8px;margin-top:6px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.note-tooltip.show{display:block}
+.sheet-source .note-tooltip{left:auto;right:0}
+.today-author{font-family:var(--sans);font-size:13px;font-weight:400;color:var(--accent);letter-spacing:.5px}
+.today-source{font-family:var(--sans);font-size:11px;font-weight:300;color:var(--muted);margin-top:8px}
+.today-galpi{margin-top:60px;display:flex;gap:36px;justify-content:center}
+.today-galpi.fade-in{opacity:0;animation:fadeUp .6s ease .6s both}
+.today-galpi button{background:none;border:none;font-family:var(--sans);font-size:12px;font-weight:300;color:var(--faint);cursor:pointer;letter-spacing:1px;transition:color .2s;padding:8px 0}
+.today-galpi button:hover{color:var(--accent)}
+.today-galpi button.saved{color:var(--accent);font-weight:400}
+.page-header{padding:calc(28px + env(safe-area-inset-top, 0px)) 28px 0;position:relative;display:flex;align-items:baseline;gap:10px}
+.page-title{font-family:var(--serif);font-size:26px;font-weight:300;color:var(--ink);letter-spacing:1px}
+.page-subtitle{font-family:var(--sans);font-size:11px;font-weight:300;color:var(--muted);margin-top:0}
+.search-wrap{padding:24px 28px 0}
+.search-input{width:100%;background:none;border:none;border-bottom:1px solid var(--line);font-family:var(--sans);font-size:11px;font-weight:300;color:var(--ink);padding:8px 0;outline:none;transition:border-color .2s}
+.search-input:focus{border-color:var(--accent)}
+.search-input::placeholder{color:var(--faint)}
+.filter-wrap{padding:16px 28px 0;display:flex;gap:16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.filter-wrap::-webkit-scrollbar{display:none}
+.filter-btn{background:none;border:none;font-family:var(--sans);font-size:12px;font-weight:300;color:var(--muted);cursor:pointer;white-space:nowrap;padding:4px 0;transition:color .2s;letter-spacing:.3px;border-bottom:1px solid transparent}
+.filter-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:400}
+.list-wrap{padding:24px 28px calc(120px + env(safe-area-inset-bottom, 0px));flex:1;transition:opacity .2s ease,transform .2s ease}
+.list-wrap.leaving{opacity:0;transform:translateY(-6px)}
+.list-wrap.entering{animation:viewIn .25s ease both}
+.list-count{font-family:var(--sans);font-size:9px;font-weight:300;color:var(--faint);margin-bottom:20px;letter-spacing:.5px;display:flex;align-items:center;justify-content:space-between}
+.memo-filter-btn{background:none;border:1px solid var(--line);border-radius:14px;padding:4px 10px;cursor:pointer;display:flex;align-items:center;gap:4px;font-family:var(--sans);font-size:9px;color:var(--muted);transition:all .2s}
+.memo-filter-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(169,128,83,.08)}
+.list-item{padding:24px 0;border-bottom:1px solid var(--line);cursor:pointer;transition:opacity .2s}
+.list-item:first-child{border-top:1px solid var(--line)}
+.list-item:hover{opacity:.7}
+.list-item-text{font-family:var(--serif);font-size:13px;font-weight:300;line-height:1.9;color:var(--ink);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-line}
+.list-item-meta{font-family:var(--sans);font-size:11px;font-weight:300;color:var(--muted);margin-top:10px}
+.list-item-memo{margin-top:6px;font-family:var(--sans);font-size:10px;font-weight:300;color:var(--faint);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.list-item-note{margin-top:6px;font-family:var(--sans);font-size:10px;font-weight:300;color:var(--faint);line-height:1.6;word-break:keep-all}
+.list-item-meta .cat{color:var(--faint);margin-left:8px}
+.empty{text-align:center;padding:80px 28px;font-family:var(--sans);font-size:11px;font-weight:300;color:var(--faint);line-height:1.8}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;display:flex;justify-content:center;gap:32px;padding:36px 28px calc(24px + env(safe-area-inset-bottom, 0px));background:linear-gradient(transparent,var(--paper) 28%);z-index:50}
+.nav button{background:none;border:none;font-family:var(--sans);font-size:12px;font-weight:300;color:var(--faint);cursor:pointer;letter-spacing:1.5px;transition:color .2s;padding:4px}
+.nav button.active{color:var(--accent);font-weight:400}
+.sheet-overlay{position:fixed;inset:0;background:rgba(44,42,40,.15);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s ease}
+.sheet-overlay.open{opacity:1;pointer-events:auto}
+.sheet{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:520px;background:var(--paper);border-radius:16px 16px 0 0;padding:20px 28px calc(40px + env(safe-area-inset-bottom, 0px));z-index:201;transition:transform .3s ease}
+.sheet-overlay.open .sheet{transform:translateX(-50%) translateY(0)}.sheet-overlay.modal{background:rgba(44,42,40,.28)}.sheet.centered{top:50%;bottom:auto;width:calc(100% - 56px);max-width:340px;border-radius:16px;padding:30px 26px 26px;opacity:0;transform:translate(-50%,-50%) scale(.94);transition:transform .26s ease,opacity .26s ease}.sheet-overlay.open .sheet.centered{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.sheet-handle{width:32px;height:3px;background:var(--line);border-radius:2px;margin:0 auto 24px}
+.sheet-text{font-family:var(--serif);font-size:13px;font-weight:300;line-height:2;color:var(--ink);white-space:pre-line;word-break:keep-all;max-height:40vh;overflow-y:auto}
+.sheet-meta{margin-top:20px}
+.sheet-author{font-family:var(--sans);font-size:13px;color:var(--accent);font-weight:400}
+.sheet-source{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:6px;font-weight:300}
+.sheet-cat{display:flex;align-items:center;justify-content:space-between;margin-top:12px}.sheet-cat-label{font-family:var(--sans);font-size:8px;color:var(--faint);letter-spacing:1px;font-weight:300}.open-book-btn{font-family:var(--sans);font-size:11px;font-weight:400;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:14px;padding:5px 13px;cursor:pointer;letter-spacing:.3px;transition:background .2s,color .2s}.open-book-btn:hover{background:var(--accent);color:var(--paper)}
+.sheet-memo{margin-top:20px;padding:16px;background:rgba(169,128,83,.06);border-radius:8px}
+.sheet-memo-label{font-family:var(--sans);font-size:9px;font-weight:300;color:var(--accent);letter-spacing:1px;margin-bottom:8px}
+.sheet-memo-text{font-family:var(--serif);font-size:12px;font-weight:300;line-height:1.8;color:var(--ink);white-space:pre-line}
+.sheet-actions{display:flex;gap:0;margin-top:28px;border-top:1px solid var(--line);padding-top:20px}
+.sheet-btn{flex:1;background:none;border:none;font-family:var(--sans);font-size:12px;font-weight:300;color:var(--muted);cursor:pointer;padding:12px 0;transition:color .2s;letter-spacing:.5px}
+.sheet-btn:hover{color:var(--accent)}
+.sheet-btn.saved{color:var(--accent);font-weight:400}
+.memo-area{margin-top:16px;max-height:0;opacity:0;overflow:hidden;transform:translateY(12px);transition:max-height .35s ease,opacity .3s ease,transform .3s ease}
+.memo-area.open{max-height:200px;opacity:1;transform:translateY(0)}
+.memo-input{width:100%;background:none;border:none;border-bottom:1px solid var(--line);font-family:var(--sans);font-size:11px;font-weight:300;color:var(--ink);padding:8px 0;outline:none;resize:none;min-height:60px;line-height:1.7}
+.memo-save{background:none;border:none;font-family:var(--sans);font-size:11px;font-weight:400;color:var(--accent);cursor:pointer;margin-top:8px;padding:4px 0;letter-spacing:.5px;display:block;margin-left:auto}
+.add-wrap{padding:24px 28px calc(120px + env(safe-area-inset-bottom, 0px))}
+.add-form-area{max-height:0;opacity:0;overflow:hidden;transform:translateY(12px);transition:max-height .35s ease,opacity .3s ease,transform .3s ease}
+.add-form-area.open{max-height:600px;opacity:1;transform:translateY(0);transition:max-height .7s ease,opacity .6s ease,transform .6s ease}
+.add-group{margin-bottom:24px}
+.add-label{font-family:var(--sans);font-size:10px;font-weight:400;color:var(--muted);margin-bottom:8px;letter-spacing:.5px}
+.add-textarea{width:100%;background:none;border:none;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:14px;font-weight:300;color:var(--ink);padding:8px 0;outline:none;resize:none;min-height:140px;line-height:1.9}
+.add-input,.add-select{width:100%;background:none;border:none;border-bottom:1px solid var(--line);font-family:var(--sans);font-size:13px;font-weight:300;color:var(--ink);padding:8px 0;outline:none}
+.add-select{-webkit-appearance:none}
+.add-submit{display:block;margin-left:auto;background:none;border:none;font-family:var(--sans);font-size:12px;font-weight:400;color:var(--accent);cursor:pointer;padding:12px 0;letter-spacing:1px;transition:opacity .2s}
+.add-submit:hover{opacity:.7}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(30px);font-family:var(--sans);font-size:10px;font-weight:300;color:var(--ink);background:rgba(169,128,83,.15);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:10px 24px;border-radius:20px;opacity:0;transition:all .3s ease;z-index:300;letter-spacing:.5px;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.hint-block{position:fixed;inset:0;z-index:402;display:none;background:transparent}
+.hint-spot{position:fixed;z-index:400;border-radius:10px;box-shadow:0 0 0 9999px rgba(30,28,26,.72);opacity:0;transition:opacity .35s ease,left .4s ease,top .4s ease,width .4s ease,height .4s ease;pointer-events:none}
+.hint-spot.show{opacity:1}
+.hint-pop{position:fixed;z-index:401;font-family:var(--sans);font-size:12px;font-weight:300;color:var(--paper);line-height:1.7;opacity:0;transition:opacity .35s ease;pointer-events:none;word-break:keep-all;text-align:center}
+.hint-pop.show{opacity:1}
+#today-area{position:relative}
+.today-content{transform-style:preserve-3d}
+.tc-exit-newer,.tc-exit-older{opacity:0;transition:opacity .3s ease}
+.settings-btn{position:absolute;top:calc(16px + env(safe-area-inset-top, 0px));right:16px;width:36px;height:36px;border-radius:50%;background:none;border:none;display:flex;align-items:center;justify-content:center;z-index:40;cursor:pointer;color:var(--muted);transition:opacity .2s}
+.settings-btn.hidden{display:none}
+.font-size-btns{display:flex;gap:16px;margin-top:8px}
+.reset-btns{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.reset-btn{font-family:var(--sans);font-size:12px;font-weight:300;color:var(--muted);background:none;border:1px solid var(--line);border-radius:10px;padding:12px 16px;text-align:left;cursor:pointer;transition:opacity .2s}
+.reset-btn:hover{opacity:.7}
+.reset-confirm{padding:8px 4px 4px}
+.reset-confirm-title{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--ink)}
+.reset-confirm-desc{font-family:var(--sans);font-size:12px;font-weight:300;color:var(--muted);line-height:1.6;margin-top:10px;word-break:keep-all}
+.reset-confirm-btns{display:flex;gap:10px;margin-top:24px}
+.reset-cancel{flex:1;font-family:var(--sans);font-size:13px;font-weight:400;color:var(--muted);background:none;border:1px solid var(--line);border-radius:12px;padding:13px 0;cursor:pointer}
+.reset-go{flex:1;font-family:var(--sans);font-size:13px;font-weight:400;color:#fff;background:#B5463C;border:none;border-radius:12px;padding:13px 0;cursor:pointer}.confirm-go{flex:1;font-family:var(--sans);font-size:13px;font-weight:400;color:#fff;background:var(--accent);border:none;border-radius:12px;padding:13px 0;cursor:pointer}.store-choose{padding:8px 4px 4px}.store-choose-title{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--ink);text-align:center}.store-choose-sub{font-family:var(--sans);font-size:12px;font-weight:300;color:var(--muted);text-align:center;margin-top:8px}.store-disclosure{font-family:var(--sans);font-size:10px;font-weight:300;color:var(--faint);text-align:center;margin-top:14px;letter-spacing:.2px;word-break:keep-all}.legal-links{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);display:flex;gap:18px;justify-content:center}.legal-link{font-family:var(--sans);font-size:11.5px;font-weight:300;color:var(--faint);background:none;border:none;padding:4px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}.legal-link:hover{color:var(--accent)}.store-choose-btns{display:flex;gap:10px;margin-top:24px}.store-btn{flex:1;font-family:var(--sans);font-size:13px;font-weight:400;color:var(--ink);background:none;border:1px solid var(--line);border-radius:12px;padding:15px 0;cursor:pointer;transition:border-color .2s,color .2s}.store-btn:hover{border-color:var(--accent);color:var(--accent)}
+body[data-fontsize="small"] .today-text{font-size:12px}
+body[data-fontsize="small2"] .today-text{font-size:13px}
+body[data-fontsize="large2"] .today-text{font-size:15px}
+body[data-fontsize="large"] .today-text{font-size:16px}
+body[data-fontsize="small"] .sheet-text,body[data-fontsize="small"] .list-item-text{font-size:11px}
+body[data-fontsize="small2"] .sheet-text,body[data-fontsize="small2"] .list-item-text{font-size:12px}
+body[data-fontsize="large2"] .sheet-text,body[data-fontsize="large2"] .list-item-text{font-size:14px}
+body[data-fontsize="large"] .sheet-text,body[data-fontsize="large"] .list-item-text{font-size:15px}
+body[data-fontsize="small"] .note-tooltip{font-size:9px}
+body[data-fontsize="small2"] .note-tooltip{font-size:10px}
+body[data-fontsize="large2"] .note-tooltip{font-size:12px}
+body[data-fontsize="large"] .note-tooltip{font-size:13px}
+</style>
+</head>
+<body>
+<div class="splash" id="splash">
+  <canvas class="splash-canvas" id="splash-canvas" width="440" height="440"></canvas>
+  <img id="circle-src" src="circle.png" style="display:none">
+  <div class="splash-text">Grande</div>
+</div>
+<div class="onboarding" id="onboarding">
+  <div class="onboarding-inner">
+    <div class="onboarding-slogan">아쉽지도 부담스럽지도 않은<br>분량의 글, 한데 모았습니다.<br>글 한 대 하고 가시죠.</div>
+    <div class="onboarding-tabs">
+      <div class="onboarding-tab"><span class="onboarding-tab-name">오늘</span><span class="onboarding-tab-desc">왼쪽으로 넘겨 지난 글들을 볼 수 있어요</span></div>
+      <div class="onboarding-tab"><span class="onboarding-tab-name">서가</span><span class="onboarding-tab-desc">카테고리 별로 구분해서 볼 수 있어요</span></div>
+      <div class="onboarding-tab"><span class="onboarding-tab-name">갈피</span><span class="onboarding-tab-desc">마음에 드는 문장에 갈피를 끼워보세요</span></div>
+      <div class="onboarding-tab"><span class="onboarding-tab-name">서랍</span><span class="onboarding-tab-desc">책을 읽다가 직접 찾은 문장을 기록할 수 있어요</span></div>
+    </div>
+    <button class="onboarding-start" onclick="dismissOnboarding()">시작하기</button>
+  </div>
+</div>
+<div class="main">
+<div class="view active" id="v-today"><div class="today" id="today-area"></div></div>
+<div class="view" id="v-shelf"><div class="page-header"><div class="page-title">서가</div><div class="page-subtitle">모아 둔 모든 글</div></div><div class="search-wrap"><input class="search-input" placeholder="검색" oninput="onSearch(this.value)"></div><div class="filter-wrap" id="filter-wrap"></div><div class="list-wrap" id="shelf-list"></div></div>
+<div class="view" id="v-galpi"><div class="page-header"><div class="page-title">갈피</div><div class="page-subtitle">마음에 남은 글</div></div><div class="search-wrap"><input class="search-input" placeholder="검색" oninput="onGalpiSearch(this.value)"></div><div class="list-wrap" id="galpi-list"></div></div>
+<div class="view" id="v-drawer"><div class="page-header"><div class="page-title">서랍</div><div class="page-subtitle">내가 기록한 글</div></div><div class="list-wrap" id="drawer-list"></div><div class="add-wrap"><button class="add-submit" id="add-toggle-btn" onclick="toggleAddForm()" style="margin-bottom:20px">새 글 추가</button><div id="add-form" class="add-form-area"><input type="hidden" id="edit-id" value=""><div class="add-group"><div class="add-label">글</div><textarea class="add-textarea" id="add-text" placeholder="기억하고 싶은 문단"></textarea></div><div class="add-group"><div class="add-label">저자</div><input class="add-input" id="add-author" placeholder="누구의 글인가요"></div><div class="add-group"><div class="add-label">출처</div><input class="add-input" id="add-source" placeholder="어디서 만난 글인가요"></div><div class="add-group"><div class="add-label">분류</div><select class="add-select" id="add-cat"><option value="철학">철학</option><option value="문학">문학</option><option value="신학">신학</option><option value="동양고전">동양고전</option><option value="과학">과학</option></select></div><button class="add-submit" onclick="addQuote()">저장</button> <button class="add-submit" onclick="cancelEdit()" style="color:var(--muted)">취소</button></div></div></div>
+</div>
+<div class="nav"><button class="active" onclick="go('today',this)">오늘</button><button onclick="go('shelf',this)">서가</button><button onclick="go('galpi',this)">갈피</button><button onclick="go('drawer',this)">서랍</button></div>
+<div class="sheet-overlay" id="sheet-overlay" onclick="closeSheet(event)"><div class="sheet" onclick="event.stopPropagation();closeAllNotes()"><div class="sheet-handle"></div><div id="sheet-body"></div></div></div>
+<div class="toast" id="toast"></div>
+<div class="hint-spot" id="hint-spot"></div>
+<div class="hint-pop" id="hint-pop"></div>
+<div class="hint-block" id="hint-block"></div>
+<button class="settings-btn hidden" id="settings-btn" onclick="openSettings()"><svg width="18" height="18" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="4" y1="18" x2="20" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+<div class="sheet-overlay" id="settings-overlay" onclick="closeSettings(event)"><div class="sheet" onclick="event.stopPropagation();closeAllNotes()"><div class="sheet-handle"></div><div class="sheet-meta"><div class="sheet-author">설정</div></div><div style="margin-top:28px"><div class="add-label">글자 크기</div><div class="font-size-btns" style="flex-wrap:wrap;gap:10px"><button class="filter-btn" id="fs-small" onclick="setFontSize('small')">작게</button><button class="filter-btn" id="fs-small2" onclick="setFontSize('small2')">약간 작게</button><button class="filter-btn" id="fs-medium" onclick="setFontSize('medium')">보통</button><button class="filter-btn" id="fs-large2" onclick="setFontSize('large2')">약간 크게</button><button class="filter-btn" id="fs-large" onclick="setFontSize('large')">크게</button></div></div><div style="margin-top:28px"><div class="add-label">메모 미리보기</div><div class="font-size-btns"><button class="filter-btn" id="mp-on" onclick="setMemoPreview(true)">켜기</button><button class="filter-btn" id="mp-off" onclick="setMemoPreview(false)">끄기</button></div></div><div style="margin-top:28px" id="nt-section"><div class="add-label">오늘의 글 알림</div><div class="font-size-btns"><button class="filter-btn" id="nt-on" onclick="setNotify(true)">켜기</button><button class="filter-btn" id="nt-off" onclick="setNotify(false)">끄기</button></div><div id="nt-time-wrap" style="margin-top:14px;display:none"><input type="time" id="nt-time" onchange="setNotifyTime(this.value)" style="font-family:var(--sans);font-size:13px;font-weight:300;color:var(--muted);background:none;border:1px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer"></div></div><div style="margin-top:28px"><div class="add-label">초기화</div><div class="reset-btns"><button class="reset-btn" onclick="askReset('memo')">메모·갈피 초기화</button><button class="reset-btn" onclick="askReset('custom')">서랍 글 초기화</button></div></div><div style="margin-top:28px"><div class="add-label">온보딩</div><div class="reset-btns"><button class="reset-btn" onclick="replayOnboarding()">온보딩 화면 다시 보기</button></div></div><div class="legal-links"><button class="legal-link" onclick="openLegal('privacy')">개인정보처리방침</button><button class="legal-link" onclick="openLegal('terms')">이용약관</button></div></div></div>
+<div class="sheet-overlay" id="notify-ask-overlay" onclick="if(event.target.id==='notify-ask-overlay')closeNotifyAsk(false)"><div class="sheet centered" onclick="event.stopPropagation()"><div class="reset-confirm"><div class="reset-confirm-title">매일 한 편, 잊지 않도록</div><div class="reset-confirm-desc">커피 한 잔의 시간에 맞춰 오늘의 글을 알려드릴게요. 언제든 설정에서 끌 수 있어요.</div><div class="reset-confirm-btns"><button class="reset-cancel" onclick="closeNotifyAsk(false)">나중에</button><button class="confirm-go" onclick="closeNotifyAsk(true)">알림 받기</button></div></div></div></div><div class="sheet-overlay" id="reset-overlay" onclick="closeReset(event)"><div class="sheet" onclick="event.stopPropagation();closeAllNotes()"><div class="sheet-handle"></div><div class="reset-confirm"><div class="reset-confirm-title" id="reset-title">초기화할까요?</div><div class="reset-confirm-desc" id="reset-desc"></div><div class="reset-confirm-btns"><button class="reset-cancel" onclick="closeResetBtn()">취소</button><button class="reset-go" id="reset-go">초기화</button></div></div></div></div><div class="sheet-overlay" id="store-overlay" onclick="closeStore(event)"><div class="sheet" onclick="event.stopPropagation()"><div class="sheet-handle"></div><div class="store-choose"><div class="store-choose-title">어디에서 만나볼까요?</div><div class="store-choose-sub" id="store-sub"></div><div class="store-choose-btns"><button class="store-btn" onclick="pickStore('kyobo')">교보문고</button><button class="store-btn" onclick="pickStore('yes24')">YES24</button></div><div class="store-disclosure">제휴 링크 · 구매 가격에는 영향이 없습니다</div></div></div></div><div class="sheet-overlay" id="share-overlay" onclick="closeShareChoose(event)"><div class="sheet" onclick="event.stopPropagation()"><div class="sheet-handle"></div><div class="store-choose"><div class="store-choose-title">어떻게 공유할까요?</div><div class="store-choose-btns"><button class="store-btn" onclick="pickShare('text')">텍스트</button><button class="store-btn" onclick="pickShare('image')">이미지</button></div></div></div></div>
+<script src="quotes.js"></script>
+<script>
+var CATS=['전체','철학','문학','신학','동양고전','과학'];
+var activeView='today',activeFilter='전체',searchQuery='',todayId=null;
+// 지난 글은 30일까지만 거슬러 올라간다. 그 이전은 설치도 하기 전 날짜라
+// "N일 전의 오늘의 글"이라고 부를 근거가 없다.
+var MAX_BACK_DAYS=30;
+// ── 저장소 ──
+// 저장하는 건 사용자가 만든 것(갈피·서랍 글·메모)뿐이다. 344편의 본문·주석은
+// quotes.js에 있으니 저장할 이유가 없다.
+//
+// 예전 구조(grande_q_v3)는 344편 전체를 통째로 넣어 두고 읽을 때마다 188KB를
+// 파싱하고 끝에서 무조건 다시 기록했다. 그 읽기가 검색어 한 글자마다 돌았고,
+// 예외가 한 번 나면 catch가 저장소를 초기화해 갈피를 전부 날렸다.
+var BM_KEY='grande_bm_v1',CUSTOM_KEY='grande_custom_v1',MEMO_KEY='grande_memos';
+var _loadError=false;
+// 깨진 값을 만나도 지우지 않는다. 원본을 _broken에 옮겨 두면 나중에 계정·동기화가
+// 붙었을 때 되살릴 여지가 남는다.
+function readJSON(key,fallback){
+  var raw=null;
+  try{raw=localStorage.getItem(key)}catch(e){_loadError=true;return fallback}
+  if(raw===null)return fallback;
+  try{
+    var v=JSON.parse(raw);
+    if(v&&typeof v==='object')return v;
+  }catch(e){}
+  _loadError=true;
+  try{if(localStorage.getItem(key+'_broken')===null)localStorage.setItem(key+'_broken',raw)}catch(e){}
+  return fallback;
+}
+// 쓰기 실패를 조용히 넘기지 않는다. 어떤 경우에도 다른 키는 건드리지 않는다.
+function writeJSON(key,val){
+  try{localStorage.setItem(key,JSON.stringify(val));return true}
+  catch(e){toast('저장에 실패했어요. 기기 저장 공간을 확인해 주세요');return false}
+}
+function reportLoadError(){
+  if(!_loadError)return;
+  _loadError=false;
+  setTimeout(function(){toast('저장된 기록 일부를 불러오지 못했어요')},3600);
+}
+var _q=null;
+function invalidateQ(){_q=null}
+function getBM(){return readJSON(BM_KEY,{})}
+function getCustom(){var c=readJSON(CUSTOM_KEY,[]);return Array.isArray(c)?c:[]}
+// 읽기 경로는 절대 쓰지 않는다. 조립 결과를 메모리에 캐시하고, 뮤테이터가 무효화한다.
+function getQ(){
+  if(_q)return _q;
+  var bm=getBM(),out=[],i,k,d,c;
+  for(i=0;i<DEFAULT_QUOTES.length;i++){
+    d=DEFAULT_QUOTES[i];c={};
+    for(k in d)c[k]=d[k]; // 얕은 복사 — 전 필드가 원시값이라 충분하다
+    if(bm[d.id]){c.bm=true;c.bmAt=bm[d.id]}else{c.bm=false}
+    out.push(c);
+  }
+  var cus=getCustom();
+  for(i=0;i<cus.length;i++){
+    c={};for(k in cus[i])c[k]=cus[i][k];
+    c.bm=false;c.custom=true; // 서랍 글은 갈피 대상이 아니다
+    out.push(c);
+  }
+  _q=out;return _q;
+}
+// ── 동기화 메타 ──
+// 나중에 계정/클라우드 백업을 붙일 때 "어느 쪽이 최신인지"와 "지웠는지 없던 건지"를
+// 판단하려면 변경 시각과 삭제 기록이 필요하다. 기존 저장 구조를 바꾸지 않고,
+// 모든 쓰기가 지나가는 saveQ/saveMemos에서 변경분을 감지해 여기에만 기록한다.
+var SYNC_META_KEY='grande_sync_meta';
+function getSyncMeta(){
+  var d={memoAt:{},memoDel:{},itemDel:{},bmDel:{}};
+  try{
+    var m=JSON.parse(localStorage.getItem(SYNC_META_KEY)||'{}');
+    for(var k in d)if(m[k]&&typeof m[k]==='object')d[k]=m[k];
+  }catch(e){}
+  return d;
+}
+function saveSyncMeta(m){try{localStorage.setItem(SYNC_META_KEY,JSON.stringify(m))}catch(e){}}
+// 서랍 글 id는 'u'+Date.now()+4자리 난수 형태라 생성 시각을 되살릴 수 있다.
+function createdAtFromId(id){
+  var m=/^u(\d{13})\d{4}$/.exec(id||'');
+  return m?parseInt(m[1],10):0;
+}
+// 배열 전체를 받아 무엇이 바뀌었는지 되짚던 saveQ 대신, 바뀐 것만 아는 좁은 뮤테이터.
+function setBookmark(id,on){
+  var bm=getBM(),meta=getSyncMeta(),now=Date.now();
+  if(on){bm[id]=now;delete meta.bmDel[id]}
+  else{delete bm[id];meta.bmDel[id]=now}
+  saveSyncMeta(meta);writeJSON(BM_KEY,bm);invalidateQ();
+}
+function clearBookmarks(){writeJSON(BM_KEY,{});invalidateQ()}
+function upsertCustom(item){
+  var cus=getCustom(),meta=getSyncMeta(),now=Date.now(),i,found=-1;
+  for(i=0;i<cus.length;i++)if(cus[i].id===item.id){found=i;break}
+  if(found>-1){
+    var p=cus[found];
+    item.createdAt=p.createdAt||createdAtFromId(item.id)||now;
+    item.updatedAt=(p.text!==item.text||p.author!==item.author||p.source!==item.source||p.cat!==item.cat)
+      ?now:(p.updatedAt||item.createdAt);
+    cus[found]=item;
+  }else{
+    item.createdAt=createdAtFromId(item.id)||now;
+    item.updatedAt=now;
+    cus.push(item);
+  }
+  delete meta.itemDel[item.id];saveSyncMeta(meta);
+  writeJSON(CUSTOM_KEY,cus);invalidateQ();
+}
+function removeCustom(id){
+  var cus=getCustom(),meta=getSyncMeta(),out=[],i;
+  for(i=0;i<cus.length;i++)if(cus[i].id!==id)out.push(cus[i]);
+  meta.itemDel[id]=Date.now();saveSyncMeta(meta);
+  writeJSON(CUSTOM_KEY,out);invalidateQ();
+}
+function clearCustom(){writeJSON(CUSTOM_KEY,[]);invalidateQ()}
+function getMemos(){return readJSON(MEMO_KEY,{})}
+function saveMemos(m){
+  var prev=readJSON(MEMO_KEY,{});
+  var meta=getSyncMeta(),now=Date.now(),k;
+  for(k in m)if(m[k]!==prev[k]){meta.memoAt[k]=now;delete meta.memoDel[k]}
+  for(k in prev)if(!(k in m)){meta.memoDel[k]=now;delete meta.memoAt[k]}
+  saveSyncMeta(meta);
+  writeJSON(MEMO_KEY,m);
+}
+// TODO: 애드픽(교보문고)·텐핑(예스24) 제휴 링크 발급받으면 이 값들을 실제 트래킹 링크로 교체
+var BOOK_LINK_CONFIG={kyobo:'https://search.kyobobook.co.kr/search?keyword=',yes24:'https://www.yes24.com/product/search?domain=BOOK&query='};
+function openStoreLink(id,store){var q=getQ().find(function(x){return x.id===id});if(!q||!q.bookTitle)return;var field=store==='kyobo'?'kyoboLink':'yes24Link';track('book_link_click',{book:q.bookTitle,store:store});if(q[field]){window.open(q[field],'_blank');return}var raw=q.bookTitle+' '+(q.author||'');var query=encodeURIComponent(raw);if(store==='yes24')query=encodeURIComponent(query);window.open(BOOK_LINK_CONFIG[store]+query,'_blank')}
+var LEGAL_URLS={privacy:'https://eogishia.github.io/Grande/privacy.html',terms:'https://eogishia.github.io/Grande/terms.html'};
+function openLegal(kind){
+  var url=LEGAL_URLS[kind];
+  if(!url)return;
+  track('legal_open',{doc:kind});
+  window.open(url,'_blank');
+}
+function track(name,params){try{if(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAnalytics){window.Capacitor.Plugins.FirebaseAnalytics.logEvent({name:name,params:params||{}})}}catch(e){}}
+var dayOffset=0,swipeInProgress=false,galpiMemoFilter=false,galpiSearchQuery='';
+function simpleHash(str){var hash=0;for(var i=0;i<str.length;i++){hash=(hash*31+str.charCodeAt(i))%1000000007}return hash}
+var _dailyOrder=null;function buildDailyOrder(defaults){var groups={},items=[],a,i;for(i=0;i<defaults.length;i++){a=defaults[i].author||'';if(!groups[a])groups[a]=[];groups[a].push(defaults[i].id)}for(a in groups){var ids=groups[a].slice().sort(function(x,y){return simpleHash(x)-simpleHash(y)});var c=ids.length,phase=simpleHash(a)/1000000007;for(i=0;i<c;i++)items.push({id:ids[i],key:(i+phase)/c,tb:simpleHash(ids[i])})}items.sort(function(x,y){return x.key-y.key||x.tb-y.tb});return items.map(function(x){return x.id})}
+// 순서는 quotes.js에만 의존한다. 서랍 글을 추가·삭제해도 오늘의 글이 흔들리지 않는다.
+function dailyOrder(){if(!_dailyOrder)_dailyOrder=buildDailyOrder(DEFAULT_QUOTES);return _dailyOrder}
+// 예전에는 YYYYMMDD를 그대로 나머지 연산해서, 월 경계마다 인덱스가 70칸씩(연 경계엔
+// 8870칸) 건너뛰었다. 그 탓에 1년간 78편이 한 번도 안 나오고 99일이 중복됐고,
+// buildDailyOrder가 공들여 만든 저자 분산 배치도 무의미해졌다.
+// 날짜 부분만 UTC로 정규화해 일수 차이를 쓰면 서머타임·시간대와 무관하게
+// 하루에 정확히 한 칸씩 움직인다.
+function daysSinceEpoch(d){return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000)}
+function getIdForOffset(offset){
+  var order=dailyOrder();
+  if(!order.length)return null;
+  var n=daysSinceEpoch(new Date())-offset;
+  return order[((n%order.length)+order.length)%order.length];
+}
+function renderToday(){var q=getQ(),el=document.getElementById('today-area');if(!q.length){el.innerHTML='<div class="empty">아직 글이 없습니다.</div>';return;}dayOffset=0;todayId=getIdForOffset(0);showAt(todayId)}
+function showAt(id,noFade){var quotes=getQ();if(!quotes.length)return;var q=null;for(var qi=0;qi<quotes.length;qi++)if(quotes[qi].id===id){q=quotes[qi];break}if(!q)return;todayId=id;if(dayOffset===0)addHistory(q.id);var memos=getMemos();var hasMemo=memos[q.id]?true:false;var memo=memos[q.id]||'';var dayLabel=(dayOffset===0?'오늘':(dayOffset===1?'어제':dayOffset+'일 전'));var fc=noFade?'today-content':'today-content fade-in';var fg=noFade?'today-galpi':'today-galpi fade-in';var h='<div class="'+fc+'"><div class="today-day">'+dayLabel+'</div><div class="today-text">'+esc(q.text)+'</div><div class="today-meta"><div class="today-author">'+esc(q.author||'')+'</div>'+(q.source?'<div class="today-source">'+esc(q.source)+(q.note?'<span class="note-wrap"><button class="note-btn" onclick="toggleNote(event)">?</button><div class="note-tooltip">'+esc(q.note)+'</div></span>':'')+'</div>':'')+'</div><div class="'+fg+'"><button class="'+(q.bm?'saved':'')+'" onclick="toggleGT(this,\''+q.id+'\')">'+(q.bm?'갈피 해제':'갈피 끼우기')+'</button><button class="'+(hasMemo?'saved':'')+'" onclick="toggleTodayMemo()">메모</button><button class="btn-share" onclick="shareChoose(\''+q.id+'\')">'+'공유</button></div><div class="today-memo" id="today-memo"><textarea class="memo-input" id="today-memo-input" placeholder="이 글에 대한 생각">'+esc(memo)+'</textarea><button class="memo-save" onclick="saveTodayMemo(\''+q.id+'\')">'+'저장</button></div></div>';document.getElementById('today-area').innerHTML=h;maybeQueueTodayHints(q)}
+function maybeQueueTodayHints(q,delay){
+  if(!localStorage.getItem('grande_onboarded'))return;
+  var ob=document.getElementById('onboarding');
+  if(ob&&ob.className.indexOf('show')>-1)return;
+  if(activeView!=='today')return;
+  setTimeout(function(){
+    if(activeView!=='today')return;
+    queueHint('swipe','왼쪽으로 넘기면 지난 글들을 볼 수 있어요','.today-day',true);
+    queueHint('galpi','마음에 드는 글엔 갈피를 끼워보세요','.today-galpi button',true);
+    if(q&&q.note&&q.source)queueHint('note','?를 누르면 글에 대한 설명을 볼 수 있어요','.today-source .note-btn');
+    queueHint('share','텍스트나 인스타 스토리용 이미지로 공유할 수 있어요','.btn-share',true);
+  },delay==null?4200:delay)
+}
+function getHistory(){try{return JSON.parse(localStorage.getItem('grande_history')||'[]')}catch(e){return []}}
+function addHistory(id){var h=getHistory();h=h.filter(function(x){return x.id!==id});h.unshift({id:id,date:new Date().toISOString().slice(0,10)});if(h.length>200)h=h.slice(0,200);localStorage.setItem('grande_history',JSON.stringify(h))}
+function go(v,btn){if(activeView===v)return;if(hintQueue.length){hintQueue.length=0;clearHintTimers();hideHintUI()}var oldV=document.getElementById('v-'+activeView);oldV.className='view leaving';document.querySelectorAll('.nav button').forEach(function(b){b.className=''});if(btn)btn.className='active';track('tab_switch',{tab:v});setTimeout(function(){oldV.className='view';activeView=v;var newV=document.getElementById('v-'+v);newV.className='view active';if(v==='today')renderToday();if(v==='shelf')renderShelf();if(v==='galpi')renderGalpi();if(v==='drawer')renderDrawer();window.scrollTo(0,0);var sb=document.getElementById('settings-btn');if(v==='today'){sb.className='settings-btn hidden'}else{
+  var ph=newV.querySelector('.page-header');if(ph)ph.appendChild(sb);sb.className='settings-btn';
+  // 추측 시간 대신 뷰 진입 애니메이션(viewIn)이 실제로 끝나는 시점을 감지해서,
+  // 레이아웃이 완전히 자리 잡은 뒤에만 힌트 위치를 계산한다.
+  var fired=false;
+  function proceed(){if(fired)return;fired=true;newV.removeEventListener('animationend',onEnd);queueHint('settings','여기서 글자 크기 등을 설정할 수 있어요','#settings-btn')}
+  function onEnd(e){if(e.target===newV&&e.animationName==='viewIn')proceed()}
+  newV.addEventListener('animationend',onEnd);
+  setTimeout(proceed,400); // 폴백
+}},200)}
+function toggleGT(btn,id){var q=getQ(),memos=getMemos();var item=null;for(var i=0;i<q.length;i++){if(q[i].id===id){item=q[i];break}}if(!item||item.custom)return;if(item.bm&&memos[id]){var now=Date.now();if(!window._confirmUnbm||window._confirmUnbm.id!==id||now-window._confirmUnbm.time>3000){window._confirmUnbm={id:id,time:now};toast('적어둔 메모가 함께 사라져요. 한번 더 누르면 해제할게요');return}delete memos[id];saveMemos(memos);window._confirmUnbm=null}var on=!item.bm;setBookmark(id,on);btn.className=on?'saved':'';btn.textContent=on?'갈피 해제':'갈피 끼우기';track('bookmark_toggle',{action:on?'add':'remove',category:item.cat});toast(on?'갈피를 끼웠습니다':'갈피를 해제했습니다')}
+var ICON_QUILL='<svg width=\'12\' height=\'12\' viewBox=\'0 0 24 24\' style=\'vertical-align:middle;margin-right:4px\'><path d=\'M20 2C15 7 13 11 12 14l-2 4 4-2c3-1 7-3 12-8\' fill=\'none\' stroke=\'#A98053\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'></path><path d=\'M10 18l-4 4\' fill=\'none\' stroke=\'#A98053\' stroke-width=\'1.5\' stroke-linecap=\'round\'></path></svg>';
+var ICON_BM='<svg width=\'12\' height=\'12\' viewBox=\'0 0 24 24\' style=\'vertical-align:middle;margin-left:6px\'><path d=\'M6 2h12v20l-6-4-6 4V2z\' fill=\'none\' stroke=\'#A98053\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'></path></svg>';
+var ICON_NOTE='<svg width=\'12\' height=\'12\' viewBox=\'0 0 24 24\' style=\'vertical-align:middle;margin-left:6px;position:relative;top:-1px\'><circle cx=\'12\' cy=\'12\' r=\'10\' fill=\'none\' stroke=\'#A98053\' stroke-width=\'1.5\'></circle><text x=\'12\' y=\'12\' text-anchor=\'middle\' dominant-baseline=\'central\' font-size=\'11\' fill=\'#A98053\' font-family=\'sans-serif\'>?</text></svg>';
+// 주석에는 시대·배경·개념어가 들어 있어 가장 찾고 싶은 텍스트인데 검색 대상이 아니었다.
+// "스토아"나 "실존"으로 찾으면 344편 중 한 건도 걸리지 않았다.
+function matchQuote(q,sq){
+  return q.text.toLowerCase().indexOf(sq)>-1
+    ||(q.author&&q.author.toLowerCase().indexOf(sq)>-1)
+    ||(q.source&&q.source.toLowerCase().indexOf(sq)>-1)
+    ||(q.note&&q.note.toLowerCase().indexOf(sq)>-1);
+}
+// 주석에서만 걸린 항목은 화면 어디에도 근거가 안 보여 오작동처럼 읽힌다. 그때만 주석을 보여준다.
+function noteOnlyMatch(q,sq){
+  if(!sq||!q.note||q.note.toLowerCase().indexOf(sq)===-1)return false;
+  return !(q.text.toLowerCase().indexOf(sq)>-1
+    ||(q.author&&q.author.toLowerCase().indexOf(sq)>-1)
+    ||(q.source&&q.source.toLowerCase().indexOf(sq)>-1));
+}
+function noteSnippet(note,sq){
+  var i=note.toLowerCase().indexOf(sq),start=Math.max(0,i-16),end=start+60;
+  return (start>0?'…':'')+note.slice(start,end)+(end<note.length?'…':'');
+}
+function renderShelf(){var quotes=getQ().filter(function(q){return !q.custom}),memos=getMemos(),mpOn=localStorage.getItem('grande_memo_preview')!=='false';var fw=document.getElementById('filter-wrap');var fh='';CATS.forEach(function(c){fh+='<button class="filter-btn'+(activeFilter===c?' active':'')+'" onclick="setFilter(\''+c+'\')">'+c+'</button>'});fw.innerHTML=fh;var filtered=quotes;if(activeFilter!=='전체'){filtered=quotes.filter(function(q){return q.cat===activeFilter})}if(searchQuery){var sq=searchQuery.toLowerCase();filtered=filtered.filter(function(q){return matchQuote(q,sq)})}filtered=filtered.slice().sort(function(a,b){return a.text.localeCompare(b.text,'ko')});var el=document.getElementById('shelf-list');if(!filtered.length){el.innerHTML='<div class="empty">검색 결과가 없습니다.</div>';return}var h='<div class="list-count">'+filtered.length+'</div>';var sq2=searchQuery?searchQuery.toLowerCase():'';filtered.forEach(function(q){h+='<div class="list-item" onclick="openSheet(\''+q.id+'\')"><div class="list-item-text">'+esc(q.text)+'</div><div class="list-item-meta">'+esc(q.author||'')+(q.source?' · '+esc(q.source):'')+'<span class="cat">'+esc(q.cat)+'</span>'+(q.note?ICON_NOTE:'')+(q.bm?ICON_BM:'')+'</div>'+(mpOn&&memos[q.id]?'<div class="list-item-memo">'+ICON_QUILL+esc(memos[q.id])+'</div>':'')+(noteOnlyMatch(q,sq2)?'<div class="list-item-note">'+ICON_NOTE+esc(noteSnippet(q.note,sq2))+'</div>':'')+'</div>'});el.innerHTML=h}
+function setFilter(f){if(activeFilter===f)return;activeFilter=f;track('category_filter',{category:f});var el=document.getElementById('shelf-list');el.className='list-wrap leaving';setTimeout(function(){renderShelf();el.className='list-wrap entering'},180)}
+function onSearch(v){searchQuery=v;if(v&&v.length>=2)track('search',{view:'shelf'});renderShelf()}
+function onGalpiSearch(v){galpiSearchQuery=v;if(v&&v.length>=2)track('search',{view:'galpi'});renderGalpi()}
+function toggleMemoFilter(){galpiMemoFilter=!galpiMemoFilter;renderGalpi()}
+function renderGalpi(){var memos=getMemos(),mpOn=localStorage.getItem('grande_memo_preview')!=='false';var allBm=getQ().filter(function(q){return q.bm&&!q.custom});var quotes=galpiMemoFilter?allBm.filter(function(q){return memos[q.id]}):allBm;if(galpiSearchQuery){var sq=galpiSearchQuery.toLowerCase();quotes=quotes.filter(function(q){return matchQuote(q,sq)})}var el=document.getElementById('galpi-list');if(!allBm.length){el.innerHTML='<div class="empty">아직 갈피를 끼운 글이 없습니다.<br>마음에 남는 글에 갈피를 끼워 보세요.</div>';return}var memoCount=allBm.filter(function(q){return memos[q.id]}).length;var h='<div class="list-count"><span>'+quotes.length+'</span>';if(memoCount>0){h+='<button class="memo-filter-btn'+(galpiMemoFilter?' active':'')+'" onclick="toggleMemoFilter()">'+ICON_QUILL+' 메모 '+memoCount+'</button>'}h+='</div>';if(!quotes.length){h+='<div class="empty">'+(galpiSearchQuery?'검색 결과가 없습니다.':'메모가 있는 글이 없습니다.')+'</div>';el.innerHTML=h;return}var sq3=galpiSearchQuery?galpiSearchQuery.toLowerCase():'';quotes.forEach(function(q){h+='<div class="list-item" onclick="openSheet(\''+q.id+'\')"><div class="list-item-text">'+esc(q.text)+'</div><div class="list-item-meta">'+esc(q.author||'')+(q.source?' · '+esc(q.source):'')+(q.note?ICON_NOTE:'')+(memos[q.id]&&!mpOn?' · '+ICON_QUILL:'')+'</div>'+(mpOn&&memos[q.id]?'<div class="list-item-memo">'+ICON_QUILL+esc(memos[q.id])+'</div>':'')+(noteOnlyMatch(q,sq3)?'<div class="list-item-note">'+ICON_NOTE+esc(noteSnippet(q.note,sq3))+'</div>':'')+'</div>'});el.innerHTML=h}
+function openSheet(id){var quotes=getQ(),q=quotes.find(function(x){return x.id===id});if(!q)return;var memos=getMemos(),memo=memos[id]||'';var h='<div class="sheet-text">'+esc(q.text)+'</div><div class="sheet-meta"><div class="sheet-author">'+esc(q.author||'')+'</div>'+(q.source?'<div class="sheet-source">'+esc(q.source)+(q.note?'<span class="note-wrap"><button class="note-btn" onclick="toggleNote(event)">?</button><div class="note-tooltip">'+esc(q.note)+'</div></span>':'')+'</div>':'')+'<div class="sheet-cat"><span class="sheet-cat-label">'+esc(q.cat)+'</span>'+(q.bookTitle&&!q.custom?'<button class="open-book-btn" onclick="openBookChooser(\''+q.id+'\')">이 책 펼치기</button>':'')+'</div></div>'+(memo?'<div class="sheet-memo"><div class="sheet-memo-label">내 메모</div><div class="sheet-memo-text">'+esc(memo)+'</div></div>':'')+'<div class="sheet-actions">'+(q.custom?'':'<button class="sheet-btn'+(q.bm?' saved':'')+'" onclick="toggleGS(\''+q.id+'\')">'+(q.bm?'갈피 해제':'갈피')+'</button>')+'<button class="sheet-btn" onclick="shareChoose(\''+q.id+'\')">공유</button><button class="sheet-btn" onclick="toggleMemo()">메모</button>'+''+''+(q.custom?'<button class="sheet-btn" onclick="editQuote(\''+q.id+'\')">수정</button><button class="sheet-btn" onclick="deleteQ(\''+q.id+'\')">삭제</button>':'')+'</div><div class="memo-area" id="memo-area"><textarea class="memo-input" id="memo-input" placeholder="이 글에 대한 생각">'+esc(memo)+'</textarea><button class="memo-save" onclick="saveMemo(\''+q.id+'\')">메모 저장</button></div>';document.getElementById('sheet-body').innerHTML=h;document.getElementById('sheet-overlay').className='sheet-overlay open';document.body.style.overflow='hidden';if(q.bookTitle&&!q.custom)setTimeout(function(){queueHint('buy','이 책을 교보문고·YES24에서 만나볼 수 있어요','.open-book-btn')},450)}
+function closeSheet(e){if(e.target.id==='sheet-overlay'){document.getElementById('sheet-overlay').className='sheet-overlay';document.body.style.overflow=''}}
+(function(){
+  var SWIPE_CLOSE_PX=70;
+  document.querySelectorAll('.sheet').forEach(function(sheet){
+    var startY=null,startedAtTop=false,dragging=false;
+    var overlay=sheet.parentElement;
+    function scrollables(){return sheet.querySelectorAll('.sheet-text')}
+    function atScrollTop(target){
+      var els=scrollables();
+      for(var i=0;i<els.length;i++){if(els[i].contains(target))return els[i].scrollTop<=0}
+      return true;
+    }
+    sheet.addEventListener('touchstart',function(e){
+      if(overlay.className.indexOf('open')===-1)return;
+      startY=e.touches[0].clientY;
+      startedAtTop=atScrollTop(e.target);
+      dragging=false;
+      sheet.style.transition='none';
+    },{passive:true});
+    sheet.addEventListener('touchmove',function(e){
+      if(startY===null||!startedAtTop)return;
+      var dy=e.touches[0].clientY-startY;
+      if(dy<=0)return;
+      dragging=true;
+      var centered=sheet.className.indexOf('centered')>-1;
+      sheet.style.transform=centered
+        ? 'translate(-50%,calc(-50% + '+dy+'px))'
+        : 'translateX(-50%) translateY('+dy+'px)';
+    },{passive:true});
+    sheet.addEventListener('touchend',function(e){
+      if(startY===null)return;
+      var dy=(e.changedTouches?e.changedTouches[0].clientY:0)-startY;
+      sheet.style.transition='';sheet.style.transform='';
+      if(dragging&&startedAtTop&&dy>SWIPE_CLOSE_PX){
+        overlay.className=overlay.className.replace(/\bopen\b/,'').trim();
+        document.body.style.overflow='';
+      }
+      startY=null;dragging=false;
+    },{passive:true});
+  });
+})();
+function toggleGS(id){var q=getQ(),memos=getMemos();var item=null;for(var i=0;i<q.length;i++){if(q[i].id===id){item=q[i];break}}if(!item||item.custom)return;if(item.bm&&memos[id]){var now=Date.now();if(!window._confirmUnbm||window._confirmUnbm.id!==id||now-window._confirmUnbm.time>3000){window._confirmUnbm={id:id,time:now};toast('적어둔 메모가 함께 사라져요. 한번 더 누르면 해제할게요');return}delete memos[id];saveMemos(memos);window._confirmUnbm=null}var on=!item.bm;setBookmark(id,on);openSheet(id);if(activeView==='today')showAt(todayId);if(activeView==='galpi')renderGalpi();toast(on?'갈피를 끼웠습니다':'갈피를 해제했습니다')}
+function toggleMemo(){var m=document.getElementById('memo-area');if(!m)return;if(m.className.indexOf('open')===-1){m.className='memo-area open';var ta=document.getElementById('memo-input');if(ta)setTimeout(function(){ta.focus()},350)}else{m.className='memo-area'}}
+function saveMemo(id){var m=getMemos();var val=document.getElementById('memo-input').value;var hadMemo=!!m[id];if(val.trim()){m[id]=val;saveMemos(m);var q=getQ(),wasBookmarked=true;for(var i=0;i<q.length;i++){if(q[i].id===id&&!q[i].bm&&!q[i].custom){setBookmark(id,true);wasBookmarked=false;break}}track('memo_save',{source:'sheet'});document.getElementById('sheet-overlay').className='sheet-overlay';document.body.style.overflow='';if(activeView==='today')showAt(todayId);toast(wasBookmarked?'메모를 저장했습니다':'메모를 적어서 갈피와 함께 끼워놓았어요')}else{if(hadMemo){delete m[id];saveMemos(m)}document.getElementById('sheet-overlay').className='sheet-overlay';document.body.style.overflow='';if(activeView==='today')showAt(todayId);toast(hadMemo?'메모를 저장했어요':'작성된 메모가 없어서 기록하지 않았어요')}}
+// \ub418\ub3cc\ub9b4 \uc218 \uc5c6\ub294 \uc0ad\uc81c\ub77c \ud655\uc778\uc744 \ubc1b\ub294\ub2e4. \uac08\ud53c '\ud574\uc81c'\uc870\ucc28 \ub450 \ubc88 \ub20c\ub7ec\uc57c \ud558\ub294\ub370
+// \uc601\uad6c \uc0ad\uc81c\uac00 \ud55c \ubc88 \ud0ed\uc774\uc5c8\ub358 \uac74 \uc6b0\uc120\uc21c\uc704\uac00 \ub4a4\uc9d1\ud78c \uac83\uc774\uc5c8\ub2e4.
+function deleteQ(id){
+  var q=getQ(),item=null,i;
+  for(i=0;i<q.length;i++)if(q[i].id===id){item=q[i];break}
+  if(!item)return;
+  var preview=(item.text||'').slice(0,40);
+  document.getElementById('reset-title').textContent='\uc774 \uae00\uc744 \uc0ad\uc81c\ud560\uae4c\uc694?';
+  document.getElementById('reset-desc').textContent='"'+preview+(item.text.length>40?'\u2026':'')+'" \uc774 \uae00\uc774 \uc11c\ub78d\uc5d0\uc11c \uc0ac\ub77c\uc9d1\ub2c8\ub2e4. \uc774 \uc791\uc5c5\uc740 \ub418\ub3cc\ub9b4 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.';
+  document.getElementById('reset-go').onclick=function(){doDeleteQ(id)};
+  document.getElementById('reset-overlay').className='sheet-overlay open';
+}
+function doDeleteQ(id){
+  removeCustom(id);
+  var m=getMemos();
+  if(m[id]){delete m[id];saveMemos(m)}
+  document.getElementById('reset-overlay').className='sheet-overlay';
+  document.getElementById('sheet-overlay').className='sheet-overlay';
+  document.body.style.overflow='';
+  toast('\uc0ad\uc81c\ud588\uc2b5\ub2c8\ub2e4');
+  if(activeView==='today')renderToday();
+  if(activeView==='shelf')renderShelf();
+  if(activeView==='galpi')renderGalpi();
+  if(activeView==='drawer')renderDrawer();
+}
+function addQuote(){var text=document.getElementById('add-text').value.trim();var author=document.getElementById('add-author').value.trim();var source=document.getElementById('add-source').value.trim();var cat=document.getElementById('add-cat').value;var editId=document.getElementById('edit-id').value;if(!text){toast('\uae00\uc744 \uc785\ub825\ud574 \uc8fc\uc138\uc694');return}if(!author){toast('\uc800\uc790\ub97c \uc785\ub825\ud574 \uc8fc\uc138\uc694');return}if(!source){toast('\ucd9c\ucc98\ub97c \uc785\ub825\ud574 \uc8fc\uc138\uc694');return}if(editId){upsertCustom({id:editId,text:text,author:author,source:source,cat:cat,custom:true});toast('\uc218\uc815\ud588\uc2b5\ub2c8\ub2e4')}else{upsertCustom({id:'u'+Date.now()+''+Math.floor(Math.random()*9000+1000),text:text,author:author,source:source,cat:cat,custom:true});track('custom_quote_add',{});toast('\uae00\uc744 \ucd94\uac00\ud588\uc2b5\ub2c8\ub2e4')}cancelEdit();renderDrawer()}
+function renderDrawer(){var memos=getMemos(),mpOn=localStorage.getItem('grande_memo_preview')!=='false';var quotes=getQ().filter(function(q){return q.custom}).sort(function(a,b){return b.id>a.id?1:(b.id<a.id?-1:0)});var el=document.getElementById('drawer-list');if(!quotes.length){el.innerHTML='<div class="empty">\uc544\uc9c1 \ub2f4\uc740 \uae00\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.<br>\uc88b\uc740 \ubb38\ub2e8\uc744 \ubc1c\uacac\ud558\uba74 \uc5ec\uae30\uc5d0 \ub2f4\uc544 \ubcf4\uc138\uc694.</div>';return}var h='<div class="list-count">'+quotes.length+'</div>';quotes.forEach(function(q){h+='<div class="list-item" onclick="openSheet(\''+q.id+'\')"><div class="list-item-text">'+esc(q.text)+'</div><div class="list-item-meta">'+esc(q.author||'')+(q.source?' \u00B7 '+esc(q.source):'')+'<span class="cat">'+esc(q.cat)+'</span>'+(memos[q.id]&&!mpOn?' \u00B7 '+ICON_QUILL:'')+'</div>'+(mpOn&&memos[q.id]?'<div class="list-item-memo">'+ICON_QUILL+esc(memos[q.id])+'</div>':'')+'</div>'});el.innerHTML=h}
+function toggleAddForm(){var f=document.getElementById('add-form');if(!f)return;if(f.className.indexOf('open')===-1){f.className='add-form-area open';document.getElementById('add-toggle-btn').textContent='접기'}else{cancelEdit()}}
+function cancelEdit(){document.getElementById('edit-id').value='';document.getElementById('add-text').value='';document.getElementById('add-author').value='';document.getElementById('add-source').value='';document.getElementById('add-form').className='add-form-area';document.getElementById('add-toggle-btn').textContent='새 글 추가'}
+function editQuote(id){var q=getQ(),found=null;for(var i=0;i<q.length;i++){if(q[i].id===id){found=q[i];break}}if(!found)return;document.getElementById('sheet-overlay').className='sheet-overlay';document.body.style.overflow='';if(activeView!=='drawer'){go('drawer',document.querySelectorAll('.nav button')[3])}setTimeout(function(){document.getElementById('edit-id').value=id;document.getElementById('add-text').value=found.text;document.getElementById('add-author').value=found.author||'';document.getElementById('add-source').value=found.source||'';document.getElementById('add-cat').value=found.cat||'철학';document.getElementById('add-form').className='add-form-area open';document.getElementById('add-toggle-btn').textContent='수정 중'},300)}
+function openSettings(){document.getElementById('settings-overlay').className='sheet-overlay open';document.body.style.overflow='hidden';var fs=localStorage.getItem('grande_fontsize')||'medium';['small','small2','medium','large2','large'].forEach(function(k){document.getElementById('fs-'+k).className='filter-btn'+(fs===k?' active':'')});var mp=localStorage.getItem('grande_memo_preview')!=='false';document.getElementById('mp-on').className='filter-btn'+(mp?' active':'');document.getElementById('mp-off').className='filter-btn'+(mp?'':' active');paintNotifyUI()}
+function closeSettings(e){if(e.target.id==='settings-overlay'){document.getElementById('settings-overlay').className='sheet-overlay';document.body.style.overflow=''}}
+function replayOnboarding(){document.getElementById('settings-overlay').className='sheet-overlay';document.getElementById('onboarding').className='onboarding show';document.body.style.overflow='hidden'}
+function askReset(type){var title=document.getElementById('reset-title');var desc=document.getElementById('reset-desc');var go=document.getElementById('reset-go');if(type==='memo'){title.textContent='메모·갈피를 초기화할까요?';desc.textContent='작성한 모든 메모와 끼워둔 모든 갈피가 사라집니다. 이 작업은 되돌릴 수 없습니다.'}else{title.textContent='서랍 글을 초기화할까요?';desc.textContent='직접 기록한 모든 글이 사라집니다. 이 작업은 되돌릴 수 없습니다.'}go.onclick=function(){doReset(type)};document.getElementById('reset-overlay').className='sheet-overlay open'}
+function closeReset(e){if(e.target.id==='reset-overlay'){document.getElementById('reset-overlay').className='sheet-overlay'}}var curBookId='';function openBookChooser(id){var q=getQ().find(function(x){return x.id===id});if(!q||!q.bookTitle)return;curBookId=id;var sub=document.getElementById('store-sub');if(sub){sub.textContent=q.bookTitle+(q.author?' · '+q.author:'')}document.getElementById('store-overlay').className='sheet-overlay open'}function pickStore(store){if(curBookId){openStoreLink(curBookId,store)}closeStoreOverlay()}function closeStoreOverlay(){document.getElementById('store-overlay').className='sheet-overlay'}function closeStore(e){if(e.target.id==='store-overlay'){closeStoreOverlay()}}
+var curShareId='';
+function shareChoose(id){curShareId=id;document.getElementById('share-overlay').className='sheet-overlay open'}
+function pickShare(kind){var id=curShareId;closeShareOverlay();if(kind==='text')shareQuote(id);else shareStoryImage(id)}
+function closeShareOverlay(){document.getElementById('share-overlay').className='sheet-overlay'}
+function closeShareChoose(e){if(e.target.id==='share-overlay'){closeShareOverlay()}}
+function closeResetBtn(){document.getElementById('reset-overlay').className='sheet-overlay'}
+function doReset(type){if(type==='memo'){saveMemos({});clearBookmarks();var _m=getSyncMeta();_m.memoAt={};_m.memoDel={};saveSyncMeta(_m);toast('메모와 갈피를 초기화했습니다')}else{clearCustom();toast('서랍 글을 초기화했습니다')}document.getElementById('reset-overlay').className='sheet-overlay';document.getElementById('settings-overlay').className='sheet-overlay';document.body.style.overflow='';if(activeView==='today')showAt(todayId);if(activeView==='shelf')renderShelf();if(activeView==='galpi')renderGalpi();if(activeView==='drawer')renderDrawer()}
+function dismissOnboarding(){
+  localStorage.setItem('grande_onboarded','true');
+  track('onboarding_complete',{});
+  var ob=document.getElementById('onboarding');
+  ob.className='onboarding';
+  document.body.style.overflow='';
+  var fired=false;
+  function proceed(){
+    if(fired)return;fired=true;
+    ob.removeEventListener('transitionend',onEnd);
+    var quotes=getQ(),cur=null;
+    for(var i=0;i<quotes.length;i++)if(quotes[i].id===todayId){cur=quotes[i];break}
+    maybeQueueTodayHints(cur,0);
+  }
+  function onEnd(e){if(e.target===ob&&e.propertyName==='opacity')proceed()}
+  ob.addEventListener('transitionend',onEnd);
+  setTimeout(proceed,600); // transitionend 미발생 대비 폴백
+}
+function closeAllNotes(){var all=document.querySelectorAll('.note-tooltip.show');for(var i=0;i<all.length;i++){all[i].className='note-tooltip'}}
+function toggleNote(e){e.stopPropagation();var btn=e.currentTarget;var tip=btn.nextElementSibling;var wasOpen=tip.className.indexOf('show')>-1;closeAllNotes();if(!wasOpen){tip.className='note-tooltip show';tip.style.left='';tip.style.right='';var r=tip.getBoundingClientRect();var margin=12;if(r.right>window.innerWidth-margin){var overflow=r.right-(window.innerWidth-margin);tip.style.left=(-overflow)+'px'}if(r.left<margin){tip.style.left=(margin-r.left)+'px'}track('note_open',{})}}
+document.addEventListener('click',closeAllNotes);
+document.addEventListener('click',function(e){var inside=e.target.closest?e.target.closest('.note-wrap'):null;if(!inside){var all=document.querySelectorAll('.note-tooltip');for(var i=0;i<all.length;i++){all[i].className='note-tooltip'}}});
+function setFontSize(size){localStorage.setItem('grande_fontsize',size);document.body.setAttribute('data-fontsize',size);['small','small2','medium','large2','large'].forEach(function(k){document.getElementById('fs-'+k).className='filter-btn'+(size===k?' active':'')})}
+function setMemoPreview(on){localStorage.setItem('grande_memo_preview',on?'true':'false');document.getElementById('mp-on').className='filter-btn'+(on?' active':'');document.getElementById('mp-off').className='filter-btn'+(on?'':' active');if(activeView==='shelf')renderShelf();if(activeView==='galpi')renderGalpi()}
+var NOTIF_ID=1101;
+function getLN(){return (window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.LocalNotifications)||null}
+function notifyOn(){return localStorage.getItem('grande_notify')==='true'}
+function notifyTime(){return localStorage.getItem('grande_notify_time')||'09:00'}
+function paintNotifyUI(){
+  var on=notifyOn();
+  var a=document.getElementById('nt-on'),b=document.getElementById('nt-off'),w=document.getElementById('nt-time-wrap'),t=document.getElementById('nt-time');
+  if(a)a.className='filter-btn'+(on?' active':'');
+  if(b)b.className='filter-btn'+(on?'':' active');
+  if(w)w.style.display=on?'block':'none';
+  if(t)t.value=notifyTime();
+}
+// 매일 같은 문구 대신 그날 글의 저자와 첫 구절을 담는다. 네이티브 예약이라 본문을
+// 미리 확정해야 하므로, 반복 1건이 아니라 날짜가 박힌 NOTIFY_DAYS건을 걸고
+// 앱을 열 때마다 다시 채운다.
+// 트레이드오프: NOTIFY_DAYS일 넘게 앱을 안 열면 알림이 끊긴다. 그 시점이면 이미
+// 이탈로 보는 게 타당하고, 같은 문구로 계속 울리는 것보다 낫다.
+var NOTIFY_DAYS=14;
+function notifyBodyFor(offset){
+  var id=getIdForOffset(offset);
+  if(!id)return '커피 한 잔과 함께 글 한 편 어떠세요?';
+  var q=null,i;
+  for(i=0;i<DEFAULT_QUOTES.length;i++)if(DEFAULT_QUOTES[i].id===id){q=DEFAULT_QUOTES[i];break}
+  if(!q)return '커피 한 잔과 함께 글 한 편 어떠세요?';
+  var first=(q.text||'').split('\n')[0].trim();
+  if(first.length>40)first=first.slice(0,40)+'…';
+  return (q.author?q.author+' — ':'')+first;
+}
+function scheduleDaily(){
+  var LN=getLN();
+  if(!LN)return Promise.resolve(false);
+  var ids=[],i;
+  for(i=0;i<NOTIFY_DAYS;i++)ids.push({id:NOTIF_ID+i});
+  return LN.cancel({notifications:ids}).catch(function(){}).then(function(){
+    if(!notifyOn())return false;
+    var p=notifyTime().split(':'),hh=parseInt(p[0],10),mm=parseInt(p[1],10);
+    var now=new Date(),list=[];
+    for(i=0;i<NOTIFY_DAYS;i++){
+      var at=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i,hh,mm,0,0);
+      if(at.getTime()<=now.getTime())continue; // 오늘 시각이 지났으면 건너뛴다
+      list.push({
+        id:NOTIF_ID+i,
+        title:'오늘의 글이 도착했어요',
+        body:notifyBodyFor(-i), // 음수 오프셋 = 미래
+        schedule:{at:at,allowWhileIdle:true}
+      });
+    }
+    if(!list.length)return false;
+    return LN.schedule({notifications:list}).then(function(){return true})
+  }).catch(function(){return false})
+}
+function setNotify(on){
+  var LN=getLN();
+  if(on&&!LN){toast('이 기기에서는 알림을 사용할 수 없어요');return}
+  if(!on){
+    localStorage.setItem('grande_notify','false');paintNotifyUI();scheduleDaily();
+    track('notify_toggle',{on:false});toast('알림을 껐습니다');return
+  }
+  LN.checkPermissions().then(function(r){
+    if(r.display==='granted')return r;
+    return LN.requestPermissions()
+  }).then(function(r){
+    if(!r||r.display!=='granted'){toast('알림 권한이 없어 켤 수 없어요');paintNotifyUI();return}
+    localStorage.setItem('grande_notify','true');paintNotifyUI();
+    return scheduleDaily().then(function(ok){
+      track('notify_toggle',{on:true,time:notifyTime()});
+      toast(ok?notifyTime()+'에 매일 알려드릴게요':'알림 설정에 실패했어요')
+    })
+  }).catch(function(){toast('알림 권한을 확인할 수 없어요');paintNotifyUI()})
+}
+function setNotifyTime(v){
+  if(!v)return;
+  localStorage.setItem('grande_notify_time',v);
+  paintNotifyUI();
+  scheduleDaily().then(function(ok){if(ok)toast(v+'로 변경했습니다')})
+}
+function trackOpenDay(){
+  var d=new Date().toISOString().slice(0,10),arr=[];
+  try{arr=JSON.parse(localStorage.getItem('grande_open_days')||'[]')}catch(e){arr=[]}
+  if(arr.indexOf(d)===-1){arr.push(d);if(arr.length>30)arr=arr.slice(-30);localStorage.setItem('grande_open_days',JSON.stringify(arr))}
+  return arr.length;
+}
+function openNotifyAsk(){
+  document.getElementById('notify-ask-overlay').className='sheet-overlay modal open';
+  document.body.style.overflow='hidden';
+  track('notify_prompt_shown',{});
+}
+function closeNotifyAsk(accepted){
+  if(!NOTIFY_DEBUG_ALWAYS_ASK)localStorage.setItem('grande_notify_asked','true');
+  document.getElementById('notify-ask-overlay').className='sheet-overlay';
+  document.body.style.overflow='';
+  track('notify_prompt_result',{accepted:accepted?1:0});
+  if(accepted)setNotify(true);
+}
+function maybeAskNotify(days){
+  if(!getLN()&&!NOTIFY_DEBUG_ALWAYS_ASK)return;
+  if(!NOTIFY_DEBUG_ALWAYS_ASK){
+    if(notifyOn())return;
+    if(localStorage.getItem('grande_notify_asked')==='true')return;
+    if(!localStorage.getItem('grande_onboarded'))return;
+    if(days<3)return;
+  }
+  setTimeout(function(){
+    if(hintQueue.length)return;
+    var ob=document.getElementById('onboarding');
+    if(ob&&ob.className.indexOf('show')>-1)return;
+    var ids=['share-overlay','store-overlay','reset-overlay','settings-overlay','sheet-overlay','notify-ask-overlay'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.className.indexOf('open')>-1)return}
+    openNotifyAsk();
+  },NOTIFY_DEBUG_ALWAYS_ASK?1200:5200)
+}
+function initNotify(){
+  var days=trackOpenDay();
+  if(!getLN()){
+    var s=document.getElementById('nt-section');
+    if(s&&!NOTIFY_DEBUG_ALWAYS_ASK)s.style.display='none';
+    maybeAskNotify(days);
+    return
+  }
+  scheduleDaily();
+  maybeAskNotify(days);
+}
+function esc(s){if(!s)return '';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function toggleTodayMemo(){var m=document.getElementById('today-memo');if(!m)return;if(m.className.indexOf('open')===-1){m.className='today-memo open';var ta=document.getElementById('today-memo-input');if(ta)setTimeout(function(){ta.focus()},350)}else{m.className='today-memo'}}
+function saveTodayMemo(id){var m=getMemos();var val=document.getElementById('today-memo-input').value;var hadMemo=!!m[id];if(val.trim()){m[id]=val;saveMemos(m);var q=getQ(),wasBookmarked=true;for(var i=0;i<q.length;i++){if(q[i].id===id&&!q[i].bm&&!q[i].custom){setBookmark(id,true);wasBookmarked=false;break}}track('memo_save',{source:'today'});showAt(todayId);toast(wasBookmarked?'메모를 저장했습니다':'메모를 적어서 갈피와 함께 끼워놓았어요')}else{if(hadMemo){delete m[id];saveMemos(m);showAt(todayId)}toast(hadMemo?'메모를 저장했어요':'작성된 메모가 없어서 기록하지 않았어요')}}
+function splitLongWord(ctx,w,maxW){
+  if(ctx.measureText(w).width<=maxW)return[w];
+  var out=[],rest=w;
+  while(ctx.measureText(rest).width>maxW&&rest.length>1){
+    var cut=rest.length-1;
+    while(cut>1&&ctx.measureText(rest.slice(0,cut)).width>maxW)cut--;
+    out.push(rest.slice(0,cut));rest=rest.slice(cut);
+  }
+  if(rest)out.push(rest);
+  return out;
+}
+function balancedParagraphWrap(ctx,p,maxW){
+  var rawWords=p.split(' '),words=[],i,j;
+  for(i=0;i<rawWords.length;i++){
+    var parts=splitLongWord(ctx,rawWords[i],maxW);
+    for(j=0;j<parts.length;j++)words.push(parts[j]);
+  }
+  var n=words.length;
+  if(n===0)return[''];
+  var wordW=[];for(i=0;i<n;i++)wordW.push(ctx.measureText(words[i]).width);
+  var spaceW=ctx.measureText(' ').width;
+  var dp=new Array(n+1).fill(Infinity);dp[n]=0;
+  var brk=new Array(n+1).fill(n);
+  for(i=n-1;i>=0;i--){
+    var w=0;
+    for(j=i;j<n;j++){
+      w+=wordW[j]+(j>i?spaceW:0);
+      if(w>maxW)break;
+      var isLastLine=(j===n-1);
+      var slack=maxW-w;
+      var cost=isLastLine?0:slack*slack;
+      var total=cost+dp[j+1];
+      if(total<dp[i]){dp[i]=total;brk[i]=j}
+    }
+  }
+  var lines=[],idx=0;
+  while(idx<n){var e=brk[idx];if(e<idx)e=idx;lines.push(words.slice(idx,e+1).join(' '));idx=e+1}
+  return lines;
+}
+function wrapCanvasText(ctx,text,maxW){
+  var out=[],lastFlags=[],paras=text.split('\n'),p,i;
+  for(i=0;i<paras.length;i++){
+    p=paras[i];
+    if(p===''){out.push('');lastFlags.push(true);continue}
+    var lines=balancedParagraphWrap(ctx,p,maxW);
+    for(var k=0;k<lines.length;k++){out.push(lines[k]);lastFlags.push(k===lines.length-1)}
+  }
+  return{lines:out,lastFlags:lastFlags};
+}
+function buildStoryCanvas(q){
+  var W=1080,H=1920,M=130,maxW=W-M*2;
+  var c=document.createElement('canvas');c.width=W;c.height=H;
+  var ctx=c.getContext('2d');
+  ctx.fillStyle='#F8F6F1';ctx.fillRect(0,0,W,H);
+  var i,x,y;
+  for(i=0;i<9000;i++){
+    x=Math.random()*W;y=Math.random()*H;
+    ctx.fillStyle='rgba(169,128,83,'+(Math.random()*0.035)+')';
+    ctx.fillRect(x,y,1.5,1.5);
+  }
+  var fs=40;
+  var lines,lastFlags,lh,blockH,wr;
+  while(true){
+    ctx.font='300 '+fs+'px "Noto Serif KR", serif';
+    wr=wrapCanvasText(ctx,q.text||'',maxW);lines=wr.lines;lastFlags=wr.lastFlags;
+    lh=fs*1.95;blockH=lines.length*lh;
+    if(blockH<=1080||fs<=22)break;
+    fs-=2;
+  }
+  var startY=(H-blockH)/2-90;
+  if(startY<200)startY=200;
+  ctx.fillStyle='#2C2A28';ctx.textBaseline='top';ctx.textAlign='left';
+  for(i=0;i<lines.length;i++){
+    var ln=lines[i],ly=startY+i*lh;
+    var isLast=lastFlags[i];
+    if(isLast||ln===''){ctx.fillText(ln,M,ly);continue}
+    var words=ln.split(' ');
+    if(words.length<2){ctx.fillText(ln,M,ly);continue}
+    var wordsW=0,wi;
+    for(wi=0;wi<words.length;wi++)wordsW+=ctx.measureText(words[wi]).width;
+    var natSpace=ctx.measureText(' ').width;
+    var nGaps=words.length-1;
+    var extraGap=(maxW-wordsW-natSpace*nGaps)/nGaps;
+    if(extraGap>natSpace*1.5||extraGap<0){ctx.fillText(ln,M,ly);continue}
+    var cx=M;
+    for(wi=0;wi<words.length;wi++){
+      ctx.fillText(words[wi],cx,ly);
+      cx+=ctx.measureText(words[wi]).width+(wi<words.length-1?natSpace+extraGap:0);
+    }
+  }
+  var by=startY+blockH+80;
+  ctx.strokeStyle='rgba(169,128,83,.45)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(M,by);ctx.lineTo(M+90,by);ctx.stroke();
+  by+=44;
+  ctx.font='400 34px "Pretendard", sans-serif';ctx.fillStyle='#A98053';
+  ctx.fillText(q.author||'',M,by);
+  if(q.source){
+    by+=48;
+    ctx.font='300 27px "Pretendard", sans-serif';ctx.fillStyle='#8A8580';
+    ctx.fillText(q.source,M,by);
+  }
+  ctx.font='300 26px "Pretendard", sans-serif';ctx.fillStyle='#B0AAA0';
+  ctx.textAlign='center';
+  ctx.fillText('G R A N D E',W/2,H-120);
+  return c;
+}
+function shareStoryImage(id){
+  var quotes=getQ(),q=quotes.filter(function(x){return x.id===id})[0];
+  if(!q)return;
+  track('share_image',{});
+  toast('\uc774\ubbf8\uc9c0\ub97c \ub9cc\ub4dc\ub294 \uc911...');
+  var go=function(){
+    var canvas,data;
+    try{canvas=buildStoryCanvas(q);data=canvas.toDataURL('image/png').split(',')[1]}
+    catch(e){toast('\uc774\ubbf8\uc9c0\ub97c \ub9cc\ub4e4 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4');return}
+    var P=window.Capacitor&&window.Capacitor.Plugins;
+    if(!(P&&P.Filesystem&&P.Share)){
+      var a=document.createElement('a');
+      a.href='data:image/png;base64,'+data;a.download='grande.png';a.click();
+      return;
+    }
+    var name='grande_'+Date.now()+'.png';
+    P.Filesystem.writeFile({path:name,data:data,directory:'CACHE'})
+      .then(function(){return P.Filesystem.getUri({path:name,directory:'CACHE'})})
+      .then(function(r){return P.Share.share({files:[r.uri]})})
+      .catch(function(e){var m=(e&&(e.message||e))+'';if(m.toLowerCase().indexOf('cancel')===-1)toast('\uacf5\uc720\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4')});
+  };
+  if(document.fonts&&document.fonts.load){
+    var fontsReady=Promise.all([
+      document.fonts.load('300 58px "Noto Serif KR"'),
+      document.fonts.load('400 34px "Pretendard"')
+    ]).catch(function(){});
+    var timeout=new Promise(function(res){setTimeout(res,2500)});
+    Promise.race([fontsReady,timeout]).then(go);
+  }else go();
+}
+function shareQuote(id){track('share_click',{});
+  var quotes=getQ(),q=quotes.filter(function(x){return x.id===id})[0];
+  if(!q)return;
+  var text=q.text+'\n\n\u2014 '+(q.author||'')+(q.source?', '+q.source:'')+'\n\nGrande';
+  if(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.Share){
+    window.Capacitor.Plugins.Share.share({text:text}).catch(function(){});
+    return;
+  }
+  if(navigator.share){
+    navigator.share({text:text}).catch(function(){});
+    return;
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){toast('\uae00\uc744 \ubcf5\uc0ac\ud588\uc2b5\ub2c8\ub2e4')}).catch(function(){toast('\uacf5\uc720\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4')});
+    return;
+  }
+  toast('\uc774 \uae30\uae30\uc5d0\uc11c\ub294 \uacf5\uc720\ub97c \uc9c0\uc6d0\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4');
+}
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.className='toast show';setTimeout(function(){t.className='toast'},2000)}
+// ⚠️ 테스트용 임시 스위치: true면 모든 힌트가 앱 열 때마다 다시 뜸.
+// 실제 배포 전엔 반드시 false로 되돌릴 것.
+var HINT_DEBUG_ALWAYS_SHOW=false;
+// ⚠️ 테스트용 임시 스위치: true면 사용일수·중복표시 조건을 무시하고
+// 앱 열 때마다 알림 권유 시트가 다시 뜸. 실제 배포 전엔 반드시 false로 되돌릴 것.
+var NOTIFY_DEBUG_ALWAYS_ASK=false;
+var HINT_KEYS={settings:'grande_hint_settings',galpi:'grande_hint_galpi',swipe:'grande_hint_swipe',note:'grande_hint_note',buy:'grande_hint_buy',share:'grande_hint_share'};
+var hintQueue=[];
+var hintAutoTimer=null,hintArmTimer=null,hintArmed=false;
+function seenHint(key){if(HINT_DEBUG_ALWAYS_SHOW)return false;return localStorage.getItem(HINT_KEYS[key])==='true'}
+function markHintSeen(key){localStorage.setItem(HINT_KEYS[key],'true')}
+function queueHint(key,text,targetSelector,tight){
+  if(seenHint(key))return;
+  if(hintQueue.some(function(h){return h.key===key}))return;
+  hintQueue.push({key:key,text:text,targetSelector:targetSelector,tight:tight});
+  if(hintQueue.length===1)showNextHint();
+}
+function trimLetterSpacing(el,r){
+  // letter-spacing은 마지막 글자 뒤에도 여백을 붙이므로, 텍스트의 실제 시각적
+  // 오른쪽 끝보다 rect가 더 넓게 잡혀 하이라이트가 오른쪽으로 쏠려 보인다.
+  try{
+    var ls=parseFloat(getComputedStyle(el).letterSpacing);
+    if(ls>0.3){
+      return {left:r.left,top:r.top,width:Math.max(0,r.width-ls),height:r.height,right:r.left+Math.max(0,r.width-ls),bottom:r.bottom};
+    }
+  }catch(e){}
+  return r;
+}
+function hintRect(el,tight){
+  var r=el.getBoundingClientRect();
+  if(tight){
+    try{
+      var rg=document.createRange();
+      rg.selectNodeContents(el);
+      var tr=rg.getBoundingClientRect();
+      if(tr.width>0&&tr.height>0)r=tr;
+    }catch(e){}
+  }
+  return trimLetterSpacing(el,r);
+}
+function positionHintSpot(rect,target){
+  var PAD=7,spot=document.getElementById('hint-spot');
+  spot.style.left=(rect.left-PAD)+'px';
+  spot.style.top=(rect.top-PAD)+'px';
+  var w=rect.width+PAD*2,h=rect.height+PAD*2;
+  spot.style.width=w+'px';
+  spot.style.height=h+'px';
+  // 대상이 원형(아이콘 버튼 등)이면 하이라이트도 원형으로 맞춰 시각적으로 딱 맞게
+  var radius='10px';
+  if(target){
+    try{
+      var cs=getComputedStyle(target),br=parseFloat(cs.borderRadius);
+      var squarish=Math.min(rect.width,rect.height)/Math.max(rect.width,rect.height)>0.85;
+      var isPercent=cs.borderRadius.indexOf('%')>-1;
+      if((isPercent&&squarish)||(squarish&&br&&br>=Math.min(rect.width,rect.height)/2-1))radius='50%';
+    }catch(e){}
+  }
+  spot.style.borderRadius=radius;
+}
+function positionHintPop(text,rect){
+  var W=window.innerWidth,H=window.innerHeight,PAD=7;
+  var pop=document.getElementById('hint-pop');
+  pop.textContent=text;
+  pop.style.maxWidth=Math.min(260,W-56)+'px';
+  pop.style.left='-999px';pop.style.top='-999px';
+  var pw=pop.offsetWidth,ph=pop.offsetHeight;
+  var below=rect.bottom+PAD+16;
+  var top=(below+ph<=H-24)?below:Math.max(24,rect.top-PAD-16-ph);
+  var left=Math.max(16,Math.min(rect.left+rect.width/2-pw/2,W-pw-16));
+  pop.style.left=left+'px';pop.style.top=top+'px';
+}
+var hintFailsafe=null;
+function armHintTimers(){
+  if(hintFailsafe)clearTimeout(hintFailsafe);
+  hintFailsafe=setTimeout(function(){if(hintQueue.length){hintQueue.length=0}hideHintUI()},8000);
+  hintAutoTimer=setTimeout(dismissHint,3000);
+  hintArmTimer=setTimeout(function(){hintArmed=true},1000);
+}
+function hideHintUI(){
+  hintArmed=false;
+  var sp=document.getElementById('hint-spot'),pp=document.getElementById('hint-pop'),bl=document.getElementById('hint-block');
+  if(sp)sp.className='hint-spot';
+  if(pp)pp.className='hint-pop';
+  if(bl)bl.style.display='none';
+}
+function isHintTargetVisible(el){
+  if(!el)return false;
+  if(el.offsetParent===null&&getComputedStyle(el).position!=='fixed')return false;
+  var r=el.getBoundingClientRect();
+  if(r.width===0&&r.height===0)return false;
+  if(r.bottom<0||r.top>window.innerHeight)return false;
+  return true;
+}
+function showNextHint(){
+  clearHintTimers();
+  if(!hintQueue.length){hideHintUI();return}
+  // 레이아웃이 완전히 자리 잡은 다음 프레임에 위치를 재서, 애니메이션 도중 값이
+  // 섞여 하이라이트가 살짝 어긋나는 걸 방지한다.
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+  if(!hintQueue.length){hideHintUI();return}
+  var h=hintQueue[0];
+  var target=document.querySelector(h.targetSelector);
+  if(!isHintTargetVisible(target)){hintQueue.shift();showNextHint();return}
+  var rect=hintRect(target,h.tight);
+  if(!rect||(rect.width===0&&rect.height===0)){hintQueue.shift();showNextHint();return}
+  var spot=document.getElementById('hint-spot'),pop=document.getElementById('hint-pop');
+  var visible=spot.className.indexOf('show')>-1;
+  hintArmed=false;
+  document.getElementById('hint-block').style.display='block';
+  markHintSeen(h.key);
+  positionHintSpot(rect,target);
+  try{
+    if(visible){
+      pop.className='hint-pop';
+      setTimeout(function(){
+        try{
+          positionHintPop(h.text,rect);
+          pop.className='hint-pop show';
+        }catch(e){}
+        armHintTimers();
+      },220);
+    }else{
+      positionHintPop(h.text,rect);
+      requestAnimationFrame(function(){spot.className='hint-spot show';pop.className='hint-pop show'});
+      armHintTimers();
+    }
+  }catch(e){hintQueue.shift();hideHintUI()}
+  })});
+}
+function clearHintTimers(){
+  hintArmed=false;
+  if(hintAutoTimer){clearTimeout(hintAutoTimer);hintAutoTimer=null}
+  if(hintArmTimer){clearTimeout(hintArmTimer);hintArmTimer=null}
+}
+function dismissHint(){
+  clearHintTimers();
+  if(!hintQueue.length){hideHintUI();return}
+  hintQueue.shift();
+  if(hintQueue.length){showNextHint()}else{hideHintUI()}
+}
+(function(){
+  var b=document.getElementById('hint-block');
+  if(!b)return;
+  function tap(e){
+    e.preventDefault();e.stopPropagation();
+    if(hintArmed)dismissHint();
+  }
+  b.addEventListener('touchstart',tap,false);
+  b.addEventListener('mousedown',tap,false);
+  b.addEventListener('touchmove',function(e){e.preventDefault()},{passive:false});
+})();
+// ── Splash: The Circle 클리핑 reveal ──
+(function(){
+  var canvas = document.getElementById('splash-canvas');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W = 440, H = 440;
+
+  var maskCanvas = document.createElement('canvas');
+  maskCanvas.width = W; maskCanvas.height = H;
+  var mctx = maskCanvas.getContext('2d');
+
+  var img = new Image();
+  img.src = document.getElementById("circle-src").src;
+
+  img.onload = function(){
+    var DURATION = 1400;
+    var startTime = null;
+
+    // 6시 방향에서 시작, 시계방향 360도
+    var startAngle = Math.PI / 2 - Math.PI / 9; // 5시 20분 방향
+    var totalAngle = Math.PI * 2;
+    var rInner = 100;
+    var rOuter = 420;
+    var fadeSpan = 0.22;
+
+    function easeInOut(t){
+      return t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+    }
+
+    function buildMask(endAngle){
+      mctx.clearRect(0, 0, W, H);
+      mctx.fillStyle = '#fff';
+
+      var solidEnd = endAngle - fadeSpan;
+
+      // 확정(불투명) 구간
+      if(solidEnd > startAngle){
+        mctx.beginPath();
+        mctx.arc(W/2, H/2, rOuter, startAngle, solidEnd, false);
+        mctx.arc(W/2, H/2, rInner, solidEnd, startAngle, true);
+        mctx.closePath();
+        mctx.fill();
+      }
+
+      // 페이드 구간 — 얇은 조각들로 알파 그라데이션
+      var fadeSteps = 24;
+      var fs = Math.max(startAngle, solidEnd);
+      for(var fi = 0; fi < fadeSteps; fi++){
+        var frac = fi / fadeSteps;
+        var a0 = fs + fadeSpan * frac;
+        var a1 = fs + fadeSpan * (frac + 1.0/fadeSteps);
+        if(a0 >= endAngle) break;
+        if(a1 > endAngle) a1 = endAngle;
+        mctx.save();
+        mctx.globalAlpha = 1.0 - frac;
+        mctx.beginPath();
+        mctx.arc(W/2, H/2, rOuter, a0, a1, false);
+        mctx.arc(W/2, H/2, rInner, a1, a0, true);
+        mctx.closePath();
+        mctx.fill();
+        mctx.restore();
+      }
+    }
+
+    function draw(ts){
+      if(!startTime) startTime = ts;
+      var t = Math.min((ts - startTime) / DURATION, 1);
+      var progress = easeInOut(t);
+      var endAngle = startAngle + progress * totalAngle;
+
+      buildMask(endAngle);
+
+      ctx.clearRect(0, 0, W, H);
+      ctx.drawImage(img, 0, 0, W, H);
+      ctx.globalCompositeOperation = 'destination-in';
+      ctx.drawImage(maskCanvas, 0, 0);
+      ctx.globalCompositeOperation = 'source-over';
+
+      if(t < 1){
+        requestAnimationFrame(draw);
+      } else {
+        ctx.clearRect(0, 0, W, H);
+        ctx.drawImage(img, 0, 0, W, H);
+        var txt = document.querySelector('.splash-text');
+        if(txt){
+          txt.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          txt.style.opacity = '1';
+          txt.style.transform = 'translateY(0)';
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  };
+
+  // 텍스트 초기 숨김
+  var txt = document.querySelector('.splash-text');
+  if(txt){ txt.style.opacity='0'; txt.style.transform='translateY(8px)'; }
+})();
+setTimeout(function(){document.getElementById('splash').className='splash done';setTimeout(function(){document.getElementById('splash').style.display='none';if(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.StatusBar){window.Capacitor.Plugins.StatusBar.setStyle({style:'LIGHT'}).catch(function(){})}if(!localStorage.getItem('grande_onboarded')){document.getElementById('onboarding').className='onboarding show';document.body.style.overflow='hidden';return}},700)},2600);
+renderToday();
+getMemos(); // 메모까지 읽어 본 뒤에 유실 여부를 보고한다
+reportLoadError();
+var savedFontSize=localStorage.getItem('grande_fontsize');
+if(savedFontSize)document.body.setAttribute('data-fontsize',savedFontSize);
+initNotify();
+
+var lastBack=0;
+function handleBackButton(){
+  if(hintQueue.length){if(hintArmed)dismissHint();return}
+  var ob=document.getElementById('onboarding');
+  if(ob&&ob.className.indexOf('show')>-1)return;
+  var ids=['notify-ask-overlay','share-overlay','store-overlay','reset-overlay','settings-overlay','sheet-overlay'];
+  for(var i=0;i<ids.length;i++){
+    var el=document.getElementById(ids[i]);
+    if(el&&el.className.indexOf('open')>-1){
+      el.className='sheet-overlay';
+      var stillOpen=false;
+      for(var j=0;j<ids.length;j++){
+        var e2=document.getElementById(ids[j]);
+        if(e2&&e2.className.indexOf('open')>-1)stillOpen=true;
+      }
+      if(!stillOpen)document.body.style.overflow='';
+      return;
+    }
+  }
+  if(activeView!=='today'){
+    var navBtns=document.querySelectorAll('.nav button');
+    go('today',navBtns[0]);
+    return;
+  }
+  if(dayOffset>0){renderToday();return}
+  var now=Date.now();
+  if(now-lastBack<2000){
+    if(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.App){
+      window.Capacitor.Plugins.App.exitApp();
+    }else if(navigator.app&&navigator.app.exitApp){navigator.app.exitApp()}
+  }else{
+    lastBack=now;
+    toast('\ud55c \ubc88 \ub354 \ub204\ub974\uba74 \uc885\ub8cc\ub429\ub2c8\ub2e4');
+  }
+}
+if(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.App){
+  window.Capacitor.Plugins.App.addListener('backButton',handleBackButton);
+}
+document.addEventListener('backbutton',function(e){e.preventDefault();handleBackButton()},false);
+
+function swipeDay(direction){
+  if(swipeInProgress)return;
+  var newOffset=dayOffset+direction;
+  if(newOffset<0)return;
+  // 끝에 닿았을 때 아무 반응이 없으면 고장으로 읽힌다. 여기가 끝임을 알린다.
+  if(newOffset>MAX_BACK_DAYS){toast('여기까지가 지난 '+MAX_BACK_DAYS+'일이에요');return}
+  track('day_swipe',{direction:direction});
+  var area=document.getElementById('today-area');
+  var current=area.querySelector('.today-content');
+  if(!current){dayOffset=newOffset;showAt(getIdForOffset(dayOffset),true);return}
+  swipeInProgress=true;
+  current.className='today-content '+(direction===1?'tc-exit-newer':'tc-exit-older');
+  setTimeout(function(){
+    dayOffset=newOffset;
+    showAt(getIdForOffset(dayOffset),true);
+    swipeInProgress=false;
+  },400);
+}
+(function(){
+  var startX=0,startY=0,tracking=false;
+  var area=document.getElementById('today-area');
+  if(!area)return;
+  area.addEventListener('touchstart',function(e){
+    if(e.touches.length!==1)return;
+    startX=e.touches[0].clientX;startY=e.touches[0].clientY;tracking=true;
+  },false);
+  area.addEventListener('touchend',function(e){
+    if(!tracking)return;
+    tracking=false;
+    var endX=e.changedTouches[0].clientX,endY=e.changedTouches[0].clientY;
+    var dx=endX-startX,dy=endY-startY;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5){
+      if(dx>0){swipeDay(1)}else{swipeDay(-1)}
+    }
+  },false);
+  area.addEventListener('mousedown',function(e){
+    startX=e.clientX;startY=e.clientY;tracking=true;
+  },false);
+  area.addEventListener('mouseup',function(e){
+    if(!tracking)return;
+    tracking=false;
+    var dx=e.clientX-startX,dy=e.clientY-startY;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5){
+      if(dx>0){swipeDay(1)}else{swipeDay(-1)}
+    }
+  },false);
+})();
+
+</script>
+</body>
+</html>

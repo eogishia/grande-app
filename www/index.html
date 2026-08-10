@@ -1044,8 +1044,18 @@ var savedFontSize=localStorage.getItem('grande_fontsize');
 if(savedFontSize)document.body.setAttribute('data-fontsize',savedFontSize);
 initNotify();
 
-var lastBack=0;
+var lastBack=0,backFiredAt=0;
 function handleBackButton(){
+  // Capacitor의 App 플러그인은 뒤로가기 한 번에 'backButton' 리스너와 document의
+  // 'backbutton' 이벤트를 **둘 다** 쏜다(AppPlugin.java의 handleOnBackPressed).
+  // 예전엔 양쪽을 다 듣고 있어서 한 번 누른 것이 두 번으로 세어졌고, 그 결과
+  // "한 번 더 누르면 종료됩니다"가 뜬 바로 그 순간 앱이 종료됐다.
+  // 아래에서 한쪽만 등록하도록 고쳤지만, 다른 경로로 중복이 들어와도 같은 눌림은
+  // 한 번으로 세도록 여기서도 막는다. 사람의 연타는 최소 150ms는 벌어지므로
+  // 50ms 안에 겹쳐 들어온 호출은 같은 눌림으로 본다.
+  var fired=Date.now();
+  if(fired-backFiredAt<50)return;
+  backFiredAt=fired;
   if(hintQueue.length){if(hintArmed)dismissHint();return}
   var ob=document.getElementById('onboarding');
   if(ob&&ob.className.indexOf('show')>-1)return;
@@ -1079,10 +1089,14 @@ function handleBackButton(){
     toast('\ud55c \ubc88 \ub354 \ub204\ub974\uba74 \uc885\ub8cc\ub429\ub2c8\ub2e4');
   }
 }
+// 경로는 반드시 하나만 등록한다. Capacitor는 뒤로가기 한 번에 두 경로를 모두
+// 쏘므로, 둘 다 듣고 있으면 한 번 누른 것이 두 번으로 세어져 즉시 종료된다.
 if(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.App){
   window.Capacitor.Plugins.App.addListener('backButton',handleBackButton);
+}else{
+  // Capacitor가 없는 환경(브라우저·Cordova) 대비
+  document.addEventListener('backbutton',function(e){e.preventDefault();handleBackButton()},false);
 }
-document.addEventListener('backbutton',function(e){e.preventDefault();handleBackButton()},false);
 
 function swipeDay(direction){
   if(swipeInProgress)return;

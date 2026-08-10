@@ -509,8 +509,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "",
-    "yes24Link": ""
+    "kyoboLink": "https://bitl.bz/api@tYhAiZww",
+    "yes24Link": "https://bitl.bz/api@9BAD3Xrh"
   },
   {
     "id": "b026c4d012497",
@@ -769,8 +769,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "",
-    "yes24Link": ""
+    "kyoboLink": "https://bitl.bz/api@zrMxqrZa",
+    "yes24Link": "https://bitl.bz/api@3WCT96tJ"
   },
   {
     "id": "b09f958f7ff5e",
@@ -782,8 +782,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "",
-    "yes24Link": ""
+    "kyoboLink": "https://bitl.bz/api@nZ7tnd7B",
+    "yes24Link": "https://bitl.bz/api@u9jnewfg"
   },
   {
     "id": "b9bdcae420607",
@@ -1087,8 +1087,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "",
-    "yes24Link": ""
+    "kyoboLink": "https://bitl.bz/api@bPMbmtto",
+    "yes24Link": "https://bitl.bz/api@voAHHlyA"
   },
   {
     "id": "b0eb8849e6c15",
@@ -1271,7 +1271,12 @@ var BOOKS = [
     "author": "시몬 베유",
     "quoteIds": [
       "p64",
-      "p65"
+      "p65",
+      "p23",
+      "p103",
+      "p104",
+      "p105",
+      "p106"
     ],
     "isbn": "",
     "publisher": "",
@@ -1284,8 +1289,8 @@ var BOOKS = [
     "title": "중력과 은총",
     "author": "시몬 베유",
     "quoteIds": [
-      "p23",
-      "p66"
+      "p66",
+      "p102"
     ],
     "isbn": "",
     "publisher": "",
@@ -2207,8 +2212,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "",
-    "yes24Link": ""
+    "kyoboLink": "https://bitl.bz/api@vDOhHjGl",
+    "yes24Link": "https://bitl.bz/api@GX4cKPpO"
   },
   {
     "id": "b25af0ba1051d",
@@ -2534,8 +2539,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "",
-    "yes24Link": ""
+    "kyoboLink": "https://bitl.bz/api@om09hYHJ",
+    "yes24Link": "https://bitl.bz/api@H1qzsA78"
   },
   {
     "id": "bdea99779fed3",
@@ -2748,8 +2753,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "",
-    "yes24Link": ""
+    "kyoboLink": "https://bitl.bz/api@veJPGwsB",
+    "yes24Link": "https://bitl.bz/api@l1puiqU5"
   },
   {
     "id": "b783e4b3467a2",
@@ -3231,5 +3236,31 @@ var BOOKS = [
     "translator": "",
     "kyoboLink": "https://bitl.bz/api@cgfyAGrj",
     "yes24Link": "https://bitl.bz/api@rFfG2L6P"
+  },
+  {
+    "id": "b72a78c9c9a769",
+    "title": "일리아스 또는 힘의 시",
+    "author": "시몬 베유",
+    "quoteIds": [
+      "p100"
+    ],
+    "isbn": "",
+    "publisher": "",
+    "translator": "",
+    "kyoboLink": "",
+    "yes24Link": ""
+  },
+  {
+    "id": "bfc118ab0c3eb6",
+    "title": "인격과 성스러운 것",
+    "author": "시몬 베유",
+    "quoteIds": [
+      "p101"
+    ],
+    "isbn": "",
+    "publisher": "",
+    "translator": "",
+    "kyoboLink": "",
+    "yes24Link": ""
   }
 ];

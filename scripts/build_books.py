@@ -21,7 +21,8 @@ import os
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUOTES_PATH = os.path.join(_ROOT, "www", "quotes.js")
 BOOKS_PATH = os.path.join(_ROOT, "data", "books.js")
-BACKUP_SUFFIX = ".bak"
+# 백업은 www/ 밖에 만든다. www/ 안에 두면 APK에 그대로 실려 400KB가 낭비된다.
+BACKUP_PATH = os.path.join(_ROOT, "data", "backups", "quotes.js.bak")
 
 # 동일 인물의 표기를 하나로 모읍니다. (잘못된 표기: 올바른 표기)
 AUTHOR_ALIASES = {
@@ -145,9 +146,10 @@ def report(quotes, books):
 def main():
     prefix, quotes, suffix = load_quotes(QUOTES_PATH)
 
-    if not os.path.exists(QUOTES_PATH + BACKUP_SUFFIX):
-        shutil.copy(QUOTES_PATH, QUOTES_PATH + BACKUP_SUFFIX)
-        print("백업 생성:", QUOTES_PATH + BACKUP_SUFFIX)
+    if not os.path.exists(BACKUP_PATH):
+        os.makedirs(os.path.dirname(BACKUP_PATH), exist_ok=True)
+        shutil.copy(QUOTES_PATH, BACKUP_PATH)
+        print("백업 생성:", BACKUP_PATH)
 
     a_changed = normalize_authors(quotes)
     print("\n저자명 통일: %d건" % len(a_changed))

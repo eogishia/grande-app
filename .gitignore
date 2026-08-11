@@ -10,6 +10,25 @@ android/key.properties
 # ── 의존성 (npm install 로 복원) ───────────────────────────
 node_modules/
 
+# ── 카드 도구 (cards/) ─────────────────────────────────────
+# 앱의 자산을 복사해 온 것. 원본은 www/ 하나뿐이어야 한다.
+# 복원: node scripts/build_cards.js
+cards/www/quotes.js
+cards/www/circle.png
+cards/www/fonts/
+
+# Capacitor·Gradle 생성물
+cards/android/app/src/main/assets/public/
+cards/android/app/src/main/assets/capacitor.config.json
+cards/android/app/src/main/assets/capacitor.plugins.json
+cards/android/app/src/main/res/xml/config.xml
+cards/android/capacitor-cordova-android-plugins/
+cards/android/build/
+cards/android/app/build/
+cards/android/.gradle/
+cards/android/.kotlin/
+cards/android/local.properties
+
 # ── 자동 생성물 ────────────────────────────────────────────
 # npx cap copy 가 www/ 에서 만드는 사본. 원본은 www/ 하나뿐이어야 한다.
 android/app/src/main/assets/public/

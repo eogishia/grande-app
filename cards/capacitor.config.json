@@ -1,0 +1,8 @@
+{
+  "appId": "com.eogishia.grandecards",
+  "appName": "그란데 카드",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  }
+}

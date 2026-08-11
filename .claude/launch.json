@@ -6,6 +6,12 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["--yes", "http-server", "www", "-p", "4173", "-c-1"],
       "port": 4173
+    },
+    {
+      "name": "cards",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "http-server", "cards/www", "-p", "4174", "-c-1"],
+      "port": 4174
     }
   ]
 }

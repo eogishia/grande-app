@@ -1,0 +1,19 @@
+{
+  "name": "grande-cards",
+  "version": "1.0.0",
+  "description": "그란데 인스타 카드·릴스 제작 도구 (내부용)",
+  "private": true,
+  "scripts": {
+    "sync": "node ../scripts/build_cards.js && npx cap sync android",
+    "open": "npx cap open android"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/cli": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/filesystem": "^8.1.2",
+    "@capacitor/share": "^8.0.0"
+  }
+}

@@ -241,7 +241,7 @@ input[type=file]{display:none}
       <div class="ctrl" id="outroRow" style="display:block;border-bottom:0">
         <textarea class="outro-in" id="outroTx" rows="3"></textarea>
         <input class="outro-in" id="handleTx" style="min-height:0;margin-top:8px"
-               placeholder="인스타 아이디 (@ 없이)" autocapitalize="off" autocomplete="off">
+               placeholder="하단 문구 (기본: Grande)" autocapitalize="off" autocomplete="off">
       </div>
     </div>
 
@@ -341,13 +341,19 @@ var filterCat='', onlyNew=false, query='';
 var cur=null;                                     // 선택된 글
 var opt={ split:'auto', fsAdj:0, note:true, outro:true, outroText:'' };
 var HKEY='grande_ig_handle';
+// 마무리 카드 하단 문구. 로고 옆에 붙으므로 아이디(@grande)보다 브랜드명이 맞다.
+// @를 붙이고 싶으면 입력란에 직접 적으면 된다.
 function handle(){
   var h='';
   try{ h=localStorage.getItem(HKEY)||'' }catch(e){}
-  h=(h||'grande').replace(/^@+/,'');
-  return '@'+h;
+  return h.trim()||'Grande';
 }
-var DEFAULT_OUTRO='원문을 직접 대조하고,\n직접 옮깁니다.\n\n그란데 · 고전 큐레이션';
+// 하단에 로고와 'Grande'가 이미 들어가므로 문구에서 브랜드명을 되풀이하지 않는다.
+var DEFAULT_OUTRO='원문을 찾아\n직접 옮깁니다.\n\n매일 한 편, 앱에서.';
+var OKEY='grande_ig_outro';
+function savedOutro(){
+  try{ return localStorage.getItem(OKEY)||'' }catch(e){ return '' }
+}
 
 /* ═══════════════ 서가 ═══════════════ */
 var elList=document.getElementById('list');
@@ -419,7 +425,12 @@ document.getElementById('qx').onclick=function(){
 
 /* ═══════════════ 카드 조판 ═══════════════ */
 var W=1080, H=1350;
-var PADX=112, TOP_LABEL=112, TEXT_TOP=228, TEXT_BOT=1074, SRC_TOP=1112;
+// 본문 카드 위쪽의 '그란데' 워드마크를 뺐다. 그 자리를 그냥 비워 두면 위가
+// 휑해지므로 본문 영역을 위로 끌어올려 위아래 여백을 맞춘다.
+// TOP_LABEL은 주석 카드의 '주석' 표시가 아직 쓴다.
+var PADX=112, TOP_LABEL=112, TEXT_TOP=190, TEXT_BOT=1040, SRC_TOP=1104;
+// 저자와 저서 사이 간격. 붙어 있으면 한 덩어리로 읽힌다.
+var SRC_AUTHOR_DY=58, SRC_BOOK_DY=120;
 var SIZES=[62,58,54,50,47,44,42,40,38,36,34,32,30,28];
 
 var COMFORT=40;   // 인스타에서 읽히는 최소 크기. 이보다 작아지면 장수를 늘린다.
@@ -618,7 +629,7 @@ function drawSource(ctx,q,part){
   ctx.textBaseline='alphabetic';
   ctx.fillStyle='#2C2A28';
   ctx.font='400 34px Pretendard, sans-serif';
-  ctx.fillText(q.author,PADX,y+58);
+  ctx.fillText(q.author,PADX,y+SRC_AUTHOR_DY);
 
   var src=sourceLine(q), fs=27, avail=W-PADX*2-(part?110:0);
   while(fs>19){
@@ -627,12 +638,12 @@ function drawSource(ctx,q,part){
     fs-=1;
   }
   ctx.fillStyle='#A98053';
-  ctx.fillText(src,PADX,y+102);
+  ctx.fillText(src,PADX,y+SRC_BOOK_DY);
 
   if(part){
     ctx.font='300 24px Pretendard, sans-serif';
     ctx.globalAlpha=.6;
-    ctx.fillText(part,W-PADX-ctx.measureText(part).width,y+102);
+    ctx.fillText(part,W-PADX-ctx.measureText(part).width,y+SRC_BOOK_DY);
     ctx.globalAlpha=1;
   }
 }
@@ -641,7 +652,7 @@ function renderText(cv,q,group,fs,part){
   cv.width=W; cv.height=H;
   var ctx=cv.getContext('2d');
   paper(ctx);
-  wordmark(ctx,'그란데');
+  // 본문 카드에는 워드마크를 넣지 않는다. 브랜드는 마무리 카드가 맡는다.
   drawBody(ctx,layout(group,fs));
   drawSource(ctx,q,part);
   return cv;
@@ -725,10 +736,10 @@ var cards=[];   // {canvas, name}
 function open(q){
   cur=q;
   opt.split='auto'; opt.fsAdj=0; opt.note=!!q.note; opt.outro=true;
-  opt.outroText=opt.outroText||DEFAULT_OUTRO;
+  opt.outroText=opt.outroText||savedOutro()||DEFAULT_OUTRO;
   document.getElementById('etitle').textContent=q.author+' · '+(q.bookTitle||q.source);
   document.getElementById('outroTx').value=opt.outroText;
-  document.getElementById('handleTx').value=handle().replace(/^@/,'');
+  document.getElementById('handleTx').value=handle();
   syncControls();
   setDoneBtn();
   document.getElementById('cap').value=caption(q);
@@ -837,10 +848,14 @@ document.getElementById('swOutro').onclick=function(){
   opt.outro=!opt.outro; syncControls(); build();
 };
 document.getElementById('outroTx').addEventListener('input',function(e){
-  opt.outroText=e.target.value; build();
+  // 한 번 정한 문구는 앱을 다시 열어도 남아야 한다
+  opt.outroText=e.target.value;
+  try{ localStorage.setItem(OKEY,opt.outroText) }catch(err){}
+  build();
 });
 document.getElementById('handleTx').addEventListener('input',function(e){
-  try{ localStorage.setItem(HKEY,e.target.value.trim().replace(/^@+/,'')) }catch(err){}
+  // 적은 그대로 쓴다. @를 원하면 직접 붙이면 된다.
+  try{ localStorage.setItem(HKEY,e.target.value.trim()) }catch(err){}
   build();
 });
 
@@ -1055,7 +1070,7 @@ function drawReel(ctx,sc,t,scale){
     ctx.globalAlpha=sa;
     ctx.fillStyle='#2C2A28';
     ctx.font='400 34px Pretendard, sans-serif';
-    ctx.fillText(q.author,RPADX,sy+58);
+    ctx.fillText(q.author,RPADX,sy+SRC_AUTHOR_DY);
     var line=sourceLine(q), fz=27;
     while(fz>19){
       ctx.font='300 '+fz+'px Pretendard, sans-serif';
@@ -1063,7 +1078,7 @@ function drawReel(ctx,sc,t,scale){
       fz-=1;
     }
     ctx.fillStyle='#A98053';
-    ctx.fillText(line,RPADX,sy+102);
+    ctx.fillText(line,RPADX,sy+SRC_BOOK_DY);
     ctx.globalAlpha=1;
   }
   ctx.restore();

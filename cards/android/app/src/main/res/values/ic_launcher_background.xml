@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ic_launcher_background">#FFFFFF</color>
+    <!-- 카드 도구는 어두운 UI다. 종이색인 그란데 앱 아이콘과 한눈에 구분된다. -->
+    <color name="ic_launcher_background">#1A1815</color>
 </resources>

@@ -141,6 +141,15 @@ textarea.cap{
 textarea.cap:focus{border-color:var(--accent)}
 .outro-in{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:11px;
   padding:11px 13px;font-size:13.5px;outline:none;min-height:76px;resize:vertical;line-height:1.6}
+.outro-in:focus{border-color:var(--accent)}
+.mini{flex:none;font-size:12.5px;padding:7px 13px;border:1px solid var(--line);
+  border-radius:999px;color:var(--dim);transition:border-color .15s,color .15s}
+.mini[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+.mini.wide{width:100%;margin-top:8px;padding:10px 0;text-align:center}
+.mini:disabled{opacity:.4}
+.editrow{display:none;padding:2px 0 14px;border-bottom:1px solid var(--line)}
+.editrow.open{display:block}
+.lbl .sub.edited{color:var(--accent)}
 
 .actions{display:flex;gap:9px;padding:20px 16px 8px}
 .btn{
@@ -216,9 +225,9 @@ input[type=file]{display:none}
     <div class="deckhint">옆으로 밀어 카드를 확인하세요 · 1080 × 1350</div>
 
     <div class="sect">
-      <h3>카드</h3>
+      <h3>본문</h3>
       <div class="ctrl">
-        <span class="lbl">본문 장수<span class="sub" id="autoNote"></span></span>
+        <span class="lbl">장수<span class="sub" id="autoNote"></span></span>
         <div class="seg" id="segSplit">
           <button data-v="auto" aria-pressed="true">자동</button>
           <button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button>
@@ -231,9 +240,51 @@ input[type=file]{display:none}
         </div>
       </div>
       <div class="ctrl">
+        <span class="lbl">가로선 위치<span class="sub">저자 위 구분선</span></span>
+        <div class="stepper">
+          <button id="lnUp">−</button><span id="lnVal">0</span><button id="lnDown">+</button>
+        </div>
+      </div>
+      <div class="ctrl">
+        <span class="lbl">본문 고치기<span class="sub" id="textState">원본 그대로</span></span>
+        <button class="mini" id="textToggle">펼치기</button>
+      </div>
+      <div class="editrow" id="textRow">
+        <textarea class="outro-in" id="textTx" rows="8" spellcheck="false"></textarea>
+        <button class="mini wide" id="textReset">원본으로 되돌리기</button>
+      </div>
+    </div>
+
+    <div class="sect">
+      <h3>주석</h3>
+      <div class="ctrl">
         <span class="lbl">주석 카드<span class="sub">출처와 해설을 한 장에</span></span>
         <button class="sw" id="swNote" aria-pressed="true"></button>
       </div>
+      <div class="ctrl">
+        <span class="lbl">글자 크기<span class="sub">자동 맞춤에서 줄이기</span></span>
+        <div class="stepper">
+          <button id="nfsDown">−</button><span id="nfsVal">0</span><button id="nfsUp">+</button>
+        </div>
+      </div>
+      <div class="ctrl">
+        <span class="lbl">'주석' 제목 크기<span class="sub">카드 왼쪽 위 표시</span></span>
+        <div class="stepper">
+          <button id="lfsDown">−</button><span id="lfsVal">0</span><button id="lfsUp">+</button>
+        </div>
+      </div>
+      <div class="ctrl">
+        <span class="lbl">주석 고치기<span class="sub" id="noteState">원본 그대로</span></span>
+        <button class="mini" id="noteToggle">펼치기</button>
+      </div>
+      <div class="editrow" id="noteRow">
+        <textarea class="outro-in" id="noteTx" rows="6" spellcheck="false"></textarea>
+        <button class="mini wide" id="noteReset">원본으로 되돌리기</button>
+      </div>
+    </div>
+
+    <div class="sect">
+      <h3>마무리</h3>
       <div class="ctrl">
         <span class="lbl">마무리 카드<span class="sub">앱 안내 · 문구 수정 가능</span></span>
         <button class="sw" id="swOutro" aria-pressed="true"></button>
@@ -339,7 +390,29 @@ function savePosted(){ try{ localStorage.setItem(PKEY,JSON.stringify(posted)); }
 var CATS=['철학','문학','동양고전','신학','과학'];
 var filterCat='', onlyNew=false, query='';
 var cur=null;                                     // 선택된 글
-var opt={ split:'auto', fsAdj:0, note:true, outro:true, outroText:'' };
+var opt={ split:'auto', fsAdj:0, note:true, outro:true, outroText:'',
+          text:null, noteText:null, noteFsAdj:0, labelFsAdj:0, lineAdj:0 };
+
+/* 본문·주석을 고친 내용은 이 도구 안에만 남는다. 원본은 quotes.js이고 앱이 쓰는
+   글은 손대지 않는다. 다시 만들려면 품이 드는 편집이라 글별로 저장해 두고,
+   언제든 원본으로 되돌릴 수 있게 한다.
+   글자 크기·간격 같은 손질은 게시물마다 다르게 잡는 값이라 저장하지 않는다
+   (기존 장수·글자 크기와 같은 방식). */
+var EKEY='grande_ig_edits';
+function allEdits(){
+  try{ var m=JSON.parse(localStorage.getItem(EKEY)||'{}'); return (m&&typeof m==='object')?m:{} }
+  catch(e){ return {} }
+}
+function saveEdit(field,val){
+  if(!cur) return;
+  var m=allEdits();
+  if(!m[cur.id]) m[cur.id]={};
+  if(val==null) delete m[cur.id][field]; else m[cur.id][field]=val;
+  if(!Object.keys(m[cur.id]).length) delete m[cur.id];
+  try{ localStorage.setItem(EKEY,JSON.stringify(m)) }catch(e){}
+}
+function curText(){ return opt.text!=null ? opt.text : cur.text }
+function curNote(){ return opt.noteText!=null ? opt.noteText : (cur.note||'') }
 var HKEY='grande_ig_handle';
 // 마무리 카드 하단 문구. 로고 옆에 붙으므로 아이디(@grande)보다 브랜드명이 맞다.
 // @를 붙이고 싶으면 입력란에 직접 적으면 된다.
@@ -587,13 +660,19 @@ function paper(ctx,w,h){
   ctx.restore();
 }
 
-function wordmark(ctx,label){
+// 크기를 키우면 앞의 막대와 자간도 같이 커져야 비율이 유지된다.
+// 기본값 23px에서 원래 수치(막대 28×2, 간격 44, 자간 4.2)와 정확히 일치한다.
+var LABEL_FS=23;
+function wordmark(ctx,label,fs){
+  fs=fs||LABEL_FS;
+  var bw=Math.round(fs*1.22), gap=Math.round(fs*1.91), tr=fs*0.183;
+  var base=TOP_LABEL-6;
   ctx.fillStyle='#A98053';
-  ctx.fillRect(PADX,TOP_LABEL-14,28,2);
-  ctx.font='400 23px Pretendard, sans-serif';
+  ctx.fillRect(PADX,Math.round(base-fs*0.35),bw,2);
+  ctx.font='400 '+fs+'px Pretendard, sans-serif';
   ctx.textBaseline='alphabetic';
   ctx.save(); ctx.globalAlpha=.95;
-  drawTracked(ctx,label,PADX+44,TOP_LABEL-6,4.2);
+  drawTracked(ctx,label,PADX+gap,base,tr);
   ctx.restore();
 }
 function drawTracked(ctx,s,x,y,tr){
@@ -628,7 +707,9 @@ function sourceLine(q){
 function drawSource(ctx,q,part){
   var y=SRC_TOP;
   ctx.fillStyle='#A98053'; ctx.globalAlpha=.4;
-  ctx.fillRect(PADX,y,W-PADX*2,1.5); ctx.globalAlpha=1;
+  // 저자·저서는 그대로 두고 선만 움직인다. 선 위(본문 쪽)와 아래(저자 쪽)
+  // 여백이 서로 반대로 변하므로 한 손잡이로 균형을 잡을 수 있다.
+  ctx.fillRect(PADX,y+opt.lineAdj,W-PADX*2,1.5); ctx.globalAlpha=1;
   ctx.textBaseline='alphabetic';
   ctx.fillStyle='#2C2A28';
   ctx.font='400 34px Pretendard, sans-serif';
@@ -661,20 +742,28 @@ function renderText(cv,q,group,fs,part){
   return cv;
 }
 
+var NOTE_SIZES=[46,44,42,40,38,36,34,32,30];
+var noteAutoIdx=0;   // 자동으로 고른 크기의 자리. 조절 단추의 한계를 정하는 데 쓴다.
 function renderNote(cv,q){
   cv.width=W; cv.height=H;
   var ctx=cv.getContext('2d');
   paper(ctx);
-  wordmark(ctx,'주석');
+  wordmark(ctx,'주석',LABEL_FS+opt.labelFsAdj);
 
-  var NS=[46,44,42,40,38,36,34,32,30], maxW=W-PADX*2, avail=TEXT_BOT-TEXT_TOP-40;
-  var fs=NS[NS.length-1], lines=[];
+  var NS=NOTE_SIZES, maxW=W-PADX*2, avail=TEXT_BOT-TEXT_TOP-40;
+  var txt=curNote();
+  // 들어가는 가장 큰 크기를 먼저 찾고
+  var auto=NS.length-1;
   for(var i=0;i<NS.length;i++){
     mctx.font='300 '+NS[i]+'px Pretendard, sans-serif';
-    var L=wrap(mctx,q.note||'',maxW);
-    if(L.length*Math.round(NS[i]*1.85)<=avail){ fs=NS[i]; lines=L; break }
-    if(i===NS.length-1) lines=L;
+    if(wrap(mctx,txt,maxW).length*Math.round(NS[i]*1.85)<=avail){ auto=i; break }
   }
+  noteAutoIdx=auto;
+  // 거기서 사용자가 줄인 만큼 내린다 (본문 글자 크기와 같은 방식)
+  var fs=NS[Math.max(0,Math.min(NS.length-1,auto-opt.noteFsAdj))];
+  mctx.font='300 '+fs+'px Pretendard, sans-serif';
+  var lines=wrap(mctx,txt,maxW);
+
   ctx.fillStyle='#2C2A28'; ctx.textBaseline='alphabetic';
   ctx.font='300 '+fs+'px Pretendard, sans-serif';
   var lh=Math.round(fs*1.85), th=lines.length*lh;
@@ -739,12 +828,23 @@ var cards=[];   // {canvas, name}
 function open(q){
   cur=q;
   opt.split='auto'; opt.fsAdj=0; opt.note=!!q.note; opt.outro=true;
+  opt.noteFsAdj=0; opt.labelFsAdj=0; opt.lineAdj=0;
+  var ed=allEdits()[q.id]||{};
+  opt.text = typeof ed.text==='string' ? ed.text : null;
+  opt.noteText = typeof ed.note==='string' ? ed.note : null;
   opt.outroText=opt.outroText||savedOutro()||DEFAULT_OUTRO;
   document.getElementById('etitle').textContent=q.author+' · '+(q.bookTitle||q.source);
   document.getElementById('outroTx').value=opt.outroText;
   document.getElementById('handleTx').value=handle();
+  document.getElementById('textTx').value=curText();
+  document.getElementById('noteTx').value=curNote();
+  document.getElementById('textRow').className='editrow';
+  document.getElementById('noteRow').className='editrow';
+  document.getElementById('textToggle').textContent='펼치기';
+  document.getElementById('noteToggle').textContent='펼치기';
   syncControls();
   setDoneBtn();
+  capDirty=false;
   document.getElementById('cap').value=caption(q);
   editor.classList.add('open'); editor.setAttribute('aria-hidden','false');
   refreshReel();
@@ -767,6 +867,15 @@ function syncControls(){
   document.getElementById('swNote').setAttribute('aria-pressed',opt.note?'true':'false');
   document.getElementById('swOutro').setAttribute('aria-pressed',opt.outro?'true':'false');
   document.getElementById('outroRow').style.display=opt.outro?'block':'none';
+  markEdited('textState','textReset',opt.text!=null);
+  markEdited('noteState','noteReset',opt.noteText!=null);
+}
+// 고쳐 쓴 글은 앱과 달라지므로 그 사실이 보여야 한다. 되돌리기도 그때만 켠다.
+function markEdited(labelId,resetId,on){
+  var el=document.getElementById(labelId);
+  el.textContent = on ? '고쳐 씀 · 이 도구에만 적용' : '원본 그대로';
+  el.className = on ? 'sub edited' : 'sub';
+  document.getElementById(resetId).disabled = !on;
 }
 
 /* 번들 서체는 unicode-range로 잘게 쪼개져 있어, 그 글자가 실제로 필요해지기
@@ -775,7 +884,8 @@ function syncControls(){
    나온다. 그래서 이 글에 쓰이는 문자를 지정해 확인하고, 모자라면 싣고 다시 그린다. */
 var FONT_SPECS=['300 44px "Noto Serif KR"','300 34px "Pretendard"','400 34px "Pretendard"'];
 function fontSample(){
-  return [cur.text,cur.author,cur.source,cur.note||'',cur.bookTitle||'',cur.volume||'',
+  // 고쳐 쓴 글에 새 글자가 들어올 수 있으므로 원본이 아니라 실제로 그릴 글을 본다
+  return [curText(),cur.author,cur.source,curNote(),cur.bookTitle||'',cur.volume||'',
           opt.outroText||DEFAULT_OUTRO,handle(),'그란데','주석','『』·'].join(' ');
 }
 function fontsReady(s){
@@ -800,7 +910,7 @@ function build(){
     return;
   }
   _fontTries=0;
-  var p=plan(cur.text,opt.split);
+  var p=plan(curText(),opt.split);
   var fsIdx=SIZES.indexOf(p.fs); if(fsIdx<0) fsIdx=SIZES.length-1;
   opt.fsAdj=Math.max(-(SIZES.length-1-fsIdx),Math.min(0,opt.fsAdj));
   var fs=SIZES[fsIdx-opt.fsAdj];
@@ -810,6 +920,10 @@ function build(){
   document.getElementById('fsVal').textContent=fs+'px';
   document.getElementById('autoNote').textContent =
     '자동 = '+p.part.length+'장 · '+p.fs+'px';
+  document.getElementById('lnVal').textContent=
+    (opt.lineAdj>0?'+':'')+opt.lineAdj+'px';
+  document.getElementById('lnUp').disabled=(opt.lineAdj<=-LINE_RANGE);
+  document.getElementById('lnDown').disabled=(opt.lineAdj>=LINE_RANGE);
 
   cards=[];
   var n=p.part.length;
@@ -818,10 +932,22 @@ function build(){
     renderText(cv,cur,group,fs, n>1 ? (i+1)+'/'+n : '');
     cards.push({cv:cv,name:'본문'+(n>1?' '+(i+1):'')});
   });
-  if(opt.note && cur.note){
+  if(opt.note && curNote()){
     var c2=document.createElement('canvas'); renderNote(c2,cur);
     cards.push({cv:c2,name:'주석'});
+    // renderNote가 자동 크기를 정한 뒤라야 조절 범위를 알 수 있다
+    var used=Math.max(0,Math.min(NOTE_SIZES.length-1,noteAutoIdx-opt.noteFsAdj));
+    document.getElementById('nfsVal').textContent=NOTE_SIZES[used]+'px';
+    document.getElementById('nfsUp').disabled=(opt.noteFsAdj>=0);
+    document.getElementById('nfsDown').disabled=(used>=NOTE_SIZES.length-1);
+  }else{
+    document.getElementById('nfsVal').textContent='—';
+    document.getElementById('nfsUp').disabled=true;
+    document.getElementById('nfsDown').disabled=true;
   }
+  document.getElementById('lfsVal').textContent=(LABEL_FS+opt.labelFsAdj)+'px';
+  document.getElementById('lfsUp').disabled=(opt.labelFsAdj>=LABEL_RANGE);
+  document.getElementById('lfsDown').disabled=(opt.labelFsAdj<=-LABEL_RANGE);
   if(opt.outro){
     var c3=document.createElement('canvas'); renderOutro(c3,opt.outroText||DEFAULT_OUTRO);
     cards.push({cv:c3,name:'마무리'});
@@ -843,8 +969,63 @@ document.getElementById('segSplit').onclick=function(e){
 };
 document.getElementById('fsUp').onclick=function(){ opt.fsAdj++; build() };
 document.getElementById('fsDown').onclick=function(){ opt.fsAdj--; build() };
+
+/* ── 가로선 위치 ── */
+// 너무 밀면 본문이나 저자에 닿는다. 위아래 36px씩으로 묶는다.
+var LINE_RANGE=36;
+document.getElementById('lnUp').onclick=function(){
+  opt.lineAdj=Math.max(-LINE_RANGE,opt.lineAdj-4); build(); refreshReel();
+};
+document.getElementById('lnDown').onclick=function(){
+  opt.lineAdj=Math.min(LINE_RANGE,opt.lineAdj+4); build(); refreshReel();
+};
+
+/* ── 주석 글자·제목 크기 ── */
+var LABEL_RANGE=10;
+document.getElementById('nfsUp').onclick=function(){ opt.noteFsAdj++; build() };
+document.getElementById('nfsDown').onclick=function(){ opt.noteFsAdj--; build() };
+document.getElementById('lfsUp').onclick=function(){
+  opt.labelFsAdj=Math.min(LABEL_RANGE,opt.labelFsAdj+1); build();
+};
+document.getElementById('lfsDown').onclick=function(){
+  opt.labelFsAdj=Math.max(-LABEL_RANGE,opt.labelFsAdj-1); build();
+};
+
+/* ── 본문·주석 고치기 ── */
+function bindEditor(toggleId,rowId,taId,resetId,field){
+  var row=document.getElementById(rowId), ta=document.getElementById(taId);
+  document.getElementById(toggleId).onclick=function(){
+    var open=row.className.indexOf('open')===-1;
+    row.className=open?'editrow open':'editrow';
+    this.textContent=open?'접기':'펼치기';
+    if(open) setTimeout(function(){ ta.focus() },120);
+  };
+  ta.addEventListener('input',function(){
+    // 원본과 같아지면 '고쳐 씀' 표시를 지운다
+    var orig = field==='text' ? cur.text : (cur.note||'');
+    var v = ta.value===orig ? null : ta.value;
+    if(field==='text') opt.text=v;
+    else{
+      opt.noteText=v;
+      // 주석이 없던 글에 주석을 써 넣으면 주석 카드도 같이 켜 준다.
+      // 안 그러면 써도 카드가 안 나와 고장으로 보인다.
+      if(!orig && ta.value.trim() && !opt.note) opt.note=true;
+    }
+    saveEdit(field,v);
+    syncControls(); build(); refreshReel(); refreshCaption();
+  });
+  document.getElementById(resetId).onclick=function(){
+    if(field==='text') opt.text=null; else opt.noteText=null;
+    saveEdit(field,null);
+    ta.value = field==='text' ? cur.text : (cur.note||'');
+    syncControls(); build(); refreshReel(); refreshCaption();
+    toast('원본으로 되돌렸습니다');
+  };
+}
+bindEditor('textToggle','textRow','textTx','textReset','text');
+bindEditor('noteToggle','noteRow','noteTx','noteReset','note');
 document.getElementById('swNote').onclick=function(){
-  if(!cur.note){ toast('이 글에는 주석이 없습니다'); return }
+  if(!curNote()){ toast('이 글에는 주석이 없습니다'); return }
   opt.note=!opt.note; syncControls(); build();
 };
 document.getElementById('swOutro').onclick=function(){
@@ -886,13 +1067,22 @@ var TAGS={
 var BASE=['#그란데','#고전','#책스타그램','#독서기록','#문장수집','#밑줄긋기','#책추천','#독서스타그램','#북스타그램'];
 
 function caption(q){
-  var first=q.text.split(/\n/)[0];
+  // 카드에 그린 글과 캡션이 어긋나면 안 되므로 고쳐 쓴 쪽을 따른다
+  var text=curText(), note=curNote();
+  var first=text.split(/\n/)[0];
   if(first.length>60) first=first.slice(0,60).replace(/[,·\s]+$/,'')+'…';
   var src='— '+q.author+', '+sourceLine(q);
   var tags=BASE.concat(TAGS[q.cat]||[]);
-  return first+'\n\n'+q.text+'\n\n'+src+'\n\n'+
-         (q.note?q.note+'\n\n':'')+
+  return first+'\n\n'+text+'\n\n'+src+'\n\n'+
+         (note?note+'\n\n':'')+
          '·\n\n'+tags.join(' ');
+}
+// 캡션을 손수 고쳤다면 본문을 고쳐도 덮어쓰지 않는다
+var capDirty=false;
+document.getElementById('cap').addEventListener('input',function(){ capDirty=true });
+function refreshCaption(){
+  if(capDirty||!cur) return;
+  document.getElementById('cap').value=caption(cur);
 }
 document.getElementById('copyCap').onclick=function(){
   var t=document.getElementById('cap');
@@ -991,7 +1181,7 @@ var reelSpeed=1, reelScript=null, reelBG=null, reelBlob=null, reelExt='mp4';
 var rafId=null, playT0=0, playing=false;
 
 function buildReelScript(q,speed){
-  var p=plan(q.text,'auto',RAVAIL);
+  var p=plan(curText(),'auto',RAVAIL);   // 릴스도 고쳐 쓴 본문을 따른다
   var STAG=0.19*speed, FADE=0.62*speed, OUT=0.5*speed;
   var t=0, stages=[];
   p.part.forEach(function(g,gi){
@@ -1069,7 +1259,7 @@ function drawReel(ctx,sc,t,scale){
   if(sa>0){
     var q=sc.q, sy=sc.srcY;
     ctx.globalAlpha=sa*0.4; ctx.fillStyle='#A98053';
-    ctx.fillRect(RPADX,sy,RW-RPADX*2,1.5);
+    ctx.fillRect(RPADX,sy+opt.lineAdj,RW-RPADX*2,1.5);
     ctx.globalAlpha=sa;
     ctx.fillStyle='#2C2A28';
     ctx.font='400 34px Pretendard, sans-serif';

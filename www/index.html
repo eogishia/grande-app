@@ -128,8 +128,21 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink);max-width:
 .hint-pop{position:fixed;z-index:401;font-family:var(--sans);font-size:12px;font-weight:300;color:var(--paper);line-height:1.7;opacity:0;transition:opacity .35s ease;pointer-events:none;word-break:keep-all;text-align:center}
 .hint-pop.show{opacity:1}
 #today-area{position:relative}
-.today-content{transform-style:preserve-3d}
-.tc-exit-newer,.tc-exit-older{opacity:0;transition:opacity .3s ease}
+/* 날짜 넘김 — 글자가 민 방향으로 번지며 물러나고, 다음 글이 반대편에서 또렷해진다.
+   예전에는 newer/older CSS가 똑같아 방향이 화면에 드러나지 않았고, 페이드아웃이
+   끝난 뒤 교체까지 100ms가 비어 글이 툭 나타났다. 이제 두 장이 겹쳐 오간다. */
+.tc-ghost{position:absolute;pointer-events:none}
+.tc-out-older{animation:tcOutR .34s ease-in both}
+.tc-in-older {animation:tcInL .44s ease-out .08s both}
+.tc-out-newer{animation:tcOutL .34s ease-in both}
+.tc-in-newer {animation:tcInR .44s ease-out .08s both}
+@keyframes tcOutR{to{opacity:0;filter:blur(5px);transform:translateX(26px)}}
+@keyframes tcInL{from{opacity:0;filter:blur(5px);transform:translateX(-30px)}to{opacity:1;filter:none;transform:none}}
+@keyframes tcOutL{to{opacity:0;filter:blur(5px);transform:translateX(-26px)}}
+@keyframes tcInR{from{opacity:0;filter:blur(5px);transform:translateX(30px)}to{opacity:1;filter:none;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .tc-out-older,.tc-in-older,.tc-out-newer,.tc-in-newer{animation-duration:.01ms!important;animation-delay:0s!important}
+}
 .settings-btn{position:absolute;top:calc(16px + env(safe-area-inset-top, 0px));right:16px;width:36px;height:36px;border-radius:50%;background:none;border:none;display:flex;align-items:center;justify-content:center;z-index:40;cursor:pointer;color:var(--muted);transition:opacity .2s}
 .settings-btn.hidden{display:none}
 .font-size-btns{display:flex;gap:16px;margin-top:8px}
@@ -600,33 +613,44 @@ function closeNotifyAsk(accepted){
   track('notify_prompt_result',{accepted:accepted?1:0});
   if(accepted)setNotify(true);
 }
-function maybeAskNotify(days){
+// 예전에는 사흘 이상 연 사람에게만, 그것도 5.2초 뒤 한 번만 시도했다. 그때 온보딩이나
+// 힌트가 떠 있으면 그대로 포기해서 영영 안 묻는 경우도 있었다.
+// 이제 첫 실행부터 바로 권하되, 온보딩·힌트·다른 시트가 떠 있으면 끝날 때까지 기다린다.
+function maybeAskNotify(){
   if(!getLN()&&!NOTIFY_DEBUG_ALWAYS_ASK)return;
   if(!NOTIFY_DEBUG_ALWAYS_ASK){
     if(notifyOn())return;
     if(localStorage.getItem('grande_notify_asked')==='true')return;
-    if(!localStorage.getItem('grande_onboarded'))return;
-    if(days<3)return;
   }
-  setTimeout(function(){
-    if(hintQueue.length)return;
+  var BLOCKERS=['share-overlay','store-overlay','reset-overlay','settings-overlay',
+                'sheet-overlay','notify-ask-overlay'];
+  function busy(){
+    if(hintQueue.length)return true;
     var ob=document.getElementById('onboarding');
-    if(ob&&ob.className.indexOf('show')>-1)return;
-    var ids=['share-overlay','store-overlay','reset-overlay','settings-overlay','sheet-overlay','notify-ask-overlay'];
-    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.className.indexOf('open')>-1)return}
+    if(ob&&ob.className.indexOf('show')>-1)return true;
+    for(var i=0;i<BLOCKERS.length;i++){
+      var el=document.getElementById(BLOCKERS[i]);
+      if(el&&el.className.indexOf('open')>-1)return true;
+    }
+    return false;
+  }
+  var tries=0;
+  (function attempt(){
+    if(tries++>60)return;            // 최대 1분쯤 기다리고 이번 실행은 포기
+    if(busy()){setTimeout(attempt,1000);return}
     openNotifyAsk();
-  },NOTIFY_DEBUG_ALWAYS_ASK?1200:5200)
+  })();
 }
 function initNotify(){
-  var days=trackOpenDay();
+  trackOpenDay();   // 사용일 기록은 유지 (설정 화면·통계용)
   if(!getLN()){
     var s=document.getElementById('nt-section');
     if(s&&!NOTIFY_DEBUG_ALWAYS_ASK)s.style.display='none';
-    maybeAskNotify(days);
+    maybeAskNotify();
     return
   }
   scheduleDaily();
-  maybeAskNotify(days);
+  maybeAskNotify();
 }
 function esc(s){if(!s)return '';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function toggleTodayMemo(){var m=document.getElementById('today-memo');if(!m)return;if(m.className.indexOf('open')===-1){m.className='today-memo open';var ta=document.getElementById('today-memo-input');if(ta)setTimeout(function(){ta.focus()},350)}else{m.className='today-memo'}}
@@ -1109,12 +1133,31 @@ function swipeDay(direction){
   var current=area.querySelector('.today-content');
   if(!current){dayOffset=newOffset;showAt(getIdForOffset(dayOffset),true);return}
   swipeInProgress=true;
-  current.className='today-content '+(direction===1?'tc-exit-newer':'tc-exit-older');
+  // direction 1 = 지난 글. 오른쪽으로 미는 제스처라 나가는 장도 오른쪽으로 물러난다.
+  var kind = direction===1 ? 'older' : 'newer';
+  // showAt이 innerHTML을 갈아엎으므로, 나가는 장을 미리 복제해 두었다가
+  // 새 장을 그린 뒤 그 위에 겹쳐 놓는다. 그래야 빈 화면 없이 두 장이 교차한다.
+  var ghostHTML=current.outerHTML;
+  var top=current.offsetTop, left=current.offsetLeft, wid=current.offsetWidth;
+
+  dayOffset=newOffset;
+  showAt(getIdForOffset(dayOffset),true);
+
+  var host=document.getElementById('today-area');
+  var fresh=host.querySelector('.today-content');
+  var holder=document.createElement('div');
+  holder.innerHTML=ghostHTML;
+  var ghost=holder.firstChild;
+  ghost.className='today-content tc-ghost tc-out-'+kind;
+  ghost.style.top=top+'px'; ghost.style.left=left+'px'; ghost.style.width=wid+'px';
+  host.appendChild(ghost);
+  if(fresh) fresh.className='today-content tc-in-'+kind;
+
   setTimeout(function(){
-    dayOffset=newOffset;
-    showAt(getIdForOffset(dayOffset),true);
+    if(ghost.parentNode) ghost.parentNode.removeChild(ghost);
+    if(fresh) fresh.className='today-content';
     swipeInProgress=false;
-  },400);
+  },540);
 }
 (function(){
   var startX=0,startY=0,tracking=false;

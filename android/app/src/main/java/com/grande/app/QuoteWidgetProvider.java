@@ -2,7 +2,9 @@ package com.grande.app;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -40,6 +42,61 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int id : appWidgetIds) {
             updateWidget(context, appWidgetManager, id);
+        }
+        // 주기 갱신이 올 때마다 자정 알람을 다시 건다. 재부팅으로 알람이 날아가도
+        // 늦어도 다음 주기(6시간)에 복구된다.
+        scheduleMidnight(context);
+    }
+
+    // ── 자정 갱신 ──────────────────────────────────────────────────────────
+    // updatePeriodMillis(6시간)에만 기대면 자정을 넘겨도 한참 어제 글이 떠 있다.
+    // 밤 11시에 갱신됐다면 새벽 5시까지 그렇다. 위젯은 주로 아침에 보는데
+    // 그때가 가장 어긋나기 쉬웠다. 자정 직후에 한 번 더 깨워 맞춘다.
+    private static final String ACTION_MIDNIGHT = "com.grande.app.WIDGET_MIDNIGHT";
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+        if (intent != null && ACTION_MIDNIGHT.equals(intent.getAction())) {
+            AppWidgetManager m = AppWidgetManager.getInstance(context);
+            int[] ids = m.getAppWidgetIds(new ComponentName(context, QuoteWidgetProvider.class));
+            for (int id : ids) updateWidget(context, m, id);
+            scheduleMidnight(context);   // 다음 자정을 다시 예약
+        }
+    }
+
+    @Override
+    public void onEnabled(Context context) {
+        scheduleMidnight(context);
+    }
+
+    @Override
+    public void onDisabled(Context context) {
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (am != null) am.cancel(midnightIntent(context));
+    }
+
+    private static PendingIntent midnightIntent(Context context) {
+        Intent i = new Intent(context, QuoteWidgetProvider.class).setAction(ACTION_MIDNIGHT);
+        return PendingIntent.getBroadcast(context, 0, i,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+    }
+
+    private static void scheduleMidnight(Context context) {
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (am == null) return;
+        Calendar next = Calendar.getInstance();
+        next.add(Calendar.DAY_OF_MONTH, 1);
+        next.set(Calendar.HOUR_OF_DAY, 0);
+        next.set(Calendar.MINUTE, 0);
+        next.set(Calendar.SECOND, 20);   // 날짜가 확실히 넘어간 뒤
+        next.set(Calendar.MILLISECOND, 0);
+        try {
+            // 정확한 알람은 안드로이드 12부터 별도 권한이 필요하다. 몇 분 늦어도
+            // 무방한 일이라 권한이 필요 없는 쪽을 쓴다.
+            am.setAndAllowWhileIdle(AlarmManager.RTC, next.getTimeInMillis(), midnightIntent(context));
+        } catch (Exception e) {
+            Log.w(TAG, "자정 알람 예약 실패 — 주기 갱신에만 의존한다", e);
         }
     }
 

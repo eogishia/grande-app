@@ -57,11 +57,19 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-        if (intent != null && ACTION_MIDNIGHT.equals(intent.getAction())) {
+        if (intent == null) return;
+        String a = intent.getAction();
+        // 자정 타이머가 깨웠을 때, 그리고 '오늘'의 기준이 흔들리는 모든 순간에
+        // 다시 그리고 다시 예약한다. 재부팅은 예약된 타이머를 지우기 때문에
+        // 이게 없으면 다음 주기 갱신(최대 6시간)까지 어제 글이 남는다.
+        if (ACTION_MIDNIGHT.equals(a)
+                || Intent.ACTION_BOOT_COMPLETED.equals(a)
+                || Intent.ACTION_TIME_CHANGED.equals(a)
+                || Intent.ACTION_TIMEZONE_CHANGED.equals(a)) {
             AppWidgetManager m = AppWidgetManager.getInstance(context);
             int[] ids = m.getAppWidgetIds(new ComponentName(context, QuoteWidgetProvider.class));
             for (int id : ids) updateWidget(context, m, id);
-            scheduleMidnight(context);   // 다음 자정을 다시 예약
+            if (ids.length > 0) scheduleMidnight(context);
         }
     }
 

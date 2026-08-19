@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- 재부팅 후 위젯의 자정 타이머를 다시 걸기 위해서만 쓴다 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,6 +14,11 @@
         <receiver android:name=".QuoteWidgetProvider" android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <!-- 재부팅하면 예약해 둔 자정 타이머가 지워진다. 부팅 직후 다시 건다. -->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <!-- 사용자가 시간·시간대를 바꾸면 '오늘'의 기준이 달라진다. -->
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"

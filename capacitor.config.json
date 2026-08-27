@@ -12,7 +12,7 @@
     },
     "SplashScreen": {
       "launchAutoHide": true,
-      "autoHideDelay": 1500,
+      "autoHideDelay": 600,
       "backgroundColor": "#F8F6F1",
       "showSpinner": false
     }

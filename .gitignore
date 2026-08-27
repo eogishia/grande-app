@@ -59,7 +59,7 @@ android/local.properties
 # 400KB가 그대로 배포되므로, 실수로 생겨도 커밋되지 않게 막는다.
 www/*.bak*
 www/*_backup.*
-data/*quotes_backup.js*
+data/quotes_backup.js
 # ── 에디터 · OS ────────────────────────────────────────────
 .idea/
 *.iml

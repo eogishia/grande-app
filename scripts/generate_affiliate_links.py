@@ -23,17 +23,18 @@ import re
 import time
 import urllib.parse
 import shutil
-
 import requests
 
-API_KEY = "edeaa1f8674cb964de8bfe133791d1f90654e7"  # 본인 키로 교체
+API_KEY = os.environ.get("ADPICK_API_KEY", "")
+if not API_KEY:
+    raise SystemExit("환경변수 ADPICK_API_KEY를 설정하세요")
 API_ENDPOINT = "https://deg.kr/cps/click.php"
 # 이 스크립트는 scripts/ 에 있고 quotes.js는 www/ 에 있다. APK에 실리지 않도록
 # www/ 밖으로 옮겼기 때문에, 어디서 실행하든 스크립트 위치를 기준으로 경로를 잡는다.
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUOTES_PATH = os.path.join(_ROOT, "www", "quotes.js")
 BACKUP_PATH = os.path.join(_ROOT, "data", "quotes_backup.js")
-REQUEST_DELAY_SEC = 0.5  # 짧은 시간에 몰아치면 제한될 수 있다고 안내되어 있어 약간의 텀을 둠
+REQUEST_DELAY_SEC = 1.0  # 짧은 시간에 몰아치면 제한될 수 있다고 안내되어 있어 약간의 텀을 둠
 
 # 인코딩 버그로 깨졌던 예스24 링크를 한 번 다시 만들기 위한 일회성 스위치.
 #
@@ -42,28 +43,25 @@ REQUEST_DELAY_SEC = 0.5  # 짧은 시간에 몰아치면 제한될 수 있다고
 # 3중 인코딩으로 전부 다시 생성해야 하기 때문입니다.
 # 이번에 한 번 돌려서 정상 동작을 확인한 뒤에는 반드시 False로 되돌려 놓으세요.
 # (True로 두면 실행할 때마다 예스24 링크를 전부 다시 만들어 API를 낭비합니다)
-FORCE_REGENERATE_YES24 = False
+FORCE_REGENERATE_ALL = False
 
 
 def make_kyobo_search_url(book_title, author):
-    query = urllib.parse.quote(f"{book_title} {author}".strip())
+    query = urllib.parse.quote(book_title)
     return f"https://search.kyobobook.co.kr/search?keyword={query}"
 
 
 def make_yes24_search_url(book_title, author):
-    # 예스24 검색 URL은 검색어를 2중 인코딩해야 정상 동작한다.
-    # (예스24 자체 페이지의 검색 링크도 %25... 형태의 2중 인코딩을 사용)
+    # 2026.08 실측: YES24가 애드픽 리퍼러로 들어오는 검색 요청을
+    # 홈으로 리다이렉트한다. 인코딩 겹수와 무관하며 우회 불가.
+    # 교보는 같은 방식으로 정상 동작하므로 애드픽 문제는 아니다.
     #
-    # 다만 이 목적지 URL은 애드픽(deg.kr)을 거쳐 전달되는데,
-    # 애드픽이 리다이렉트 과정에서 인코딩을 한 겹 벗겨낸다.
-    # 따라서 여기서는 3중으로 만들어야 예스24에 2중으로 도착한다.
-    # (2026.07 실측 확인: 1중·2중은 검색어가 깨지고 3중만 정상 동작)
-    raw = f"{book_title} {author}".strip()
-    once = urllib.parse.quote(raw, safe="")
+    # 현재 앱은 이 링크를 쓰지 않고 index.html에서 직접
+    # m.yes24.com/Search?query= 로 연결한다.
+    # 애드픽/YES24 정책이 바뀌면 이 함수를 되살릴 것.
+    once = urllib.parse.quote(book_title, safe="")
     twice = urllib.parse.quote(once, safe="")
-    thrice = urllib.parse.quote(twice, safe="")
-    return f"https://www.yes24.com/product/search?domain=BOOK&query={thrice}"
-
+    return f"https://m.yes24.com/Search?query={twice}"
 
 def get_affiliate_link(destination_url):
     # requests의 params=딕셔너리 방식은 이미 인코딩된 문자열을 또 한 번 인코딩해버려서
@@ -71,7 +69,7 @@ def get_affiliate_link(destination_url):
     encoded = urllib.parse.quote(destination_url, safe="")
     full_url = f"{API_ENDPOINT}?apikey={API_KEY}&url={encoded}&print=1"
     try:
-        resp = requests.get(full_url, timeout=10)
+        resp = requests.get(full_url, timeout=20)
         resp.raise_for_status()
         data = resp.json()
         return data.get("link", "")
@@ -95,10 +93,11 @@ def main():
 
     # 인코딩 문제로 깨졌던 예스24 링크를 비워서, 아래 증분 로직이 새 인코딩으로 다시 생성하게 만든다.
     # (교보문고는 정상이었으니 건드리지 않음). 평소(FORCE_REGENERATE_YES24=False)에는 실행 안 됨.
-    if FORCE_REGENERATE_YES24:
+    if FORCE_REGENERATE_ALL:
         for q in data:
-            q["yes24Link"] = ""
-        print("[일회성] 예스24 링크 전체 초기화 — 새 인코딩으로 다시 생성합니다.")
+            q["kyoboLink"] = ""
+            #q["yes24Link"] = ""
+        print("[일회성] 제휴 링크 전체 초기화")
 
     total = len(data)
     stats = {"kyobo": {"processed": 0, "skipped": 0, "failed": 0, "reused": 0},
@@ -106,7 +105,7 @@ def main():
 
     stores = [
         ("kyoboLink", make_kyobo_search_url),
-        ("yes24Link", make_yes24_search_url),
+        #("yes24Link", make_yes24_search_url),
     ]
 
     # 같은 책(저자+제목)이 여러 항목에 걸쳐 있을 때, 항목마다 API를 새로 호출하면
@@ -140,7 +139,7 @@ def main():
             store_key = "kyobo" if field == "kyoboLink" else "yes24"
 
             # 같은 책의 링크가 이미 캐시에 있으면 재사용 (API 호출 없이)
-            if key in link_cache[field] and link_cache[field][key]:
+            if key in link_cache[field] and link_cache[field][key]:     
                 if q.get(field) != link_cache[field][key]:
                     q[field] = link_cache[field][key]
                     stats[store_key]["reused"] += 1
@@ -173,7 +172,7 @@ def main():
         f.write(out)
 
     print()
-    for store_key, label in [("kyobo", "교보문고"), ("yes24", "예스24")]:
+    for store_key, label in [("kyobo", "교보문고")]:
         s = stats[store_key]
         print(f"{label}: 신규 성공 {s['processed']} / 재사용(중복 통일) {s['reused']} / 실패 {s['failed']} / 건너뜀(변경없음) {s['skipped']} / 전체 {total}")
 

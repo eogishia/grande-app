@@ -57,11 +57,25 @@ android/local.properties
 # ── www/ 오염 방지 ─────────────────────────────────────────
 # www/ 안의 것은 전부 APK에 실린다. 스크립트가 만든 백업이 여기 남으면
 # 400KB가 그대로 배포되므로, 실수로 생겨도 커밋되지 않게 막는다.
-www/*.bak
+www/*.bak*
 www/*_backup.*
-
+data/*quotes_backup.js*
 # ── 에디터 · OS ────────────────────────────────────────────
 .idea/
 *.iml
 .DS_Store
 Thumbs.db
+# ── 비밀값 ────────────────────────────────────────────────
+# Firebase 설정과 애드픽 API 키. 유출되면 남이 내 계정으로
+# 수익 링크를 만들거나 분석 데이터를 오염시킬 수 있다.
+.env
+google-services.json
+ios/App/App/GoogleService-Info.plist
+
+# ── iOS 자동 생성물 ────────────────────────────────────────
+# pod install 로 복원된다
+ios/App/Pods/
+ios/App/build/
+ios/App/App/public/
+ios/App/App/capacitor.config.json
+ios/App/Podfile.lock

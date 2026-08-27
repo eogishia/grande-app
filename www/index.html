@@ -120,8 +120,9 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink);max-width:
 .add-select{-webkit-appearance:none}
 .add-submit{display:block;margin-left:auto;background:none;border:none;font-family:var(--sans);font-size:12px;font-weight:400;color:var(--accent);cursor:pointer;padding:12px 0;letter-spacing:1px;transition:opacity .2s}
 .add-submit:hover{opacity:.7}
-.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(30px);font-family:var(--sans);font-size:10px;font-weight:300;color:var(--ink);background:rgba(169,128,83,.15);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:10px 24px;border-radius:20px;opacity:0;transition:all .3s ease;z-index:300;letter-spacing:.5px;white-space:nowrap}
+.toast{pointer-events:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(30px);font-family:var(--sans);font-size:10px;font-weight:300;color:var(--ink);background:rgba(169,128,83,.15);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:10px 24px;border-radius:20px;opacity:0;transition:all .3s ease;z-index:300;letter-spacing:.5px;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#notify-ask-overlay{z-index:500}
 .hint-block{position:fixed;inset:0;z-index:402;display:none;background:transparent}
 .hint-spot{position:fixed;z-index:400;border-radius:10px;box-shadow:0 0 0 9999px rgba(30,28,26,.72);opacity:0;transition:opacity .35s ease,left .4s ease,top .4s ease,width .4s ease,height .4s ease;pointer-events:none}
 .hint-spot.show{opacity:1}
@@ -325,8 +326,8 @@ function saveMemos(m){
   writeJSON(MEMO_KEY,m);
 }
 // TODO: 애드픽(교보문고)·텐핑(예스24) 제휴 링크 발급받으면 이 값들을 실제 트래킹 링크로 교체
-var BOOK_LINK_CONFIG={kyobo:'https://search.kyobobook.co.kr/search?keyword=',yes24:'https://www.yes24.com/product/search?domain=BOOK&query='};
-function openStoreLink(id,store){var q=getQ().find(function(x){return x.id===id});if(!q||!q.bookTitle)return;var field=store==='kyobo'?'kyoboLink':'yes24Link';track('book_link_click',{book:q.bookTitle,store:store});if(q[field]){window.open(q[field],'_blank');return}var raw=q.bookTitle+' '+(q.author||'');var query=encodeURIComponent(raw);if(store==='yes24')query=encodeURIComponent(query);window.open(BOOK_LINK_CONFIG[store]+query,'_blank')}
+var BOOK_LINK_CONFIG={kyobo:'https://search.kyobobook.co.kr/search?keyword=',yes24:'https://m.yes24.com/Search?query='};
+function openStoreLink(id,store){var q=getQ().find(function(x){return x.id===id});if(!q||!q.bookTitle)return;var field=store==='kyobo'?'kyoboLink':null;track('book_link_click',{book:q.bookTitle,store:store});if(q[field]){window.open(q[field],'_blank');return}var query=encodeURIComponent(q.bookTitle);window.open(BOOK_LINK_CONFIG[store]+query,'_blank')}
 var LEGAL_URLS={privacy:'https://eogishia.github.io/Grande/privacy.html',terms:'https://eogishia.github.io/Grande/terms.html'};
 function openLegal(kind){
   var url=LEGAL_URLS[kind];
@@ -354,6 +355,7 @@ function getIdForOffset(offset){
 }
 function renderToday(){var q=getQ(),el=document.getElementById('today-area');if(!q.length){el.innerHTML='<div class="empty">아직 글이 없습니다.</div>';return;}dayOffset=0;todayId=getIdForOffset(0);showAt(todayId)}
 function showAt(id,noFade){var quotes=getQ();if(!quotes.length)return;var q=null;for(var qi=0;qi<quotes.length;qi++)if(quotes[qi].id===id){q=quotes[qi];break}if(!q)return;todayId=id;if(dayOffset===0)addHistory(q.id);var memos=getMemos();var hasMemo=memos[q.id]?true:false;var memo=memos[q.id]||'';var dayLabel=(dayOffset===0?'오늘':(dayOffset===1?'어제':dayOffset+'일 전'));var fc=noFade?'today-content':'today-content fade-in';var fg=noFade?'today-galpi':'today-galpi fade-in';var h='<div class="'+fc+'"><div class="today-day">'+dayLabel+'</div><div class="today-text">'+esc(q.text)+'</div><div class="today-meta"><div class="today-author">'+esc(q.author||'')+'</div>'+(q.source?'<div class="today-source">'+esc(q.source)+(q.note?'<span class="note-wrap"><button class="note-btn" onclick="toggleNote(event)">?</button><div class="note-tooltip">'+esc(q.note)+'</div></span>':'')+'</div>':'')+'</div><div class="'+fg+'"><button class="'+(q.bm?'saved':'')+'" onclick="toggleGT(this,\''+q.id+'\')">'+(q.bm?'갈피 해제':'갈피 끼우기')+'</button><button class="'+(hasMemo?'saved':'')+'" onclick="toggleTodayMemo()">메모</button><button class="btn-share" onclick="shareChoose(\''+q.id+'\')">'+'공유</button></div><div class="today-memo" id="today-memo"><textarea class="memo-input" id="today-memo-input" placeholder="이 글에 대한 생각">'+esc(memo)+'</textarea><button class="memo-save" onclick="saveTodayMemo(\''+q.id+'\')">'+'저장</button></div></div>';document.getElementById('today-area').innerHTML=h;maybeQueueTodayHints(q)}
+var hintPendingFirstRun=false;
 function maybeQueueTodayHints(q,delay){
   if(!localStorage.getItem('grande_onboarded'))return;
   var ob=document.getElementById('onboarding');
@@ -365,6 +367,7 @@ function maybeQueueTodayHints(q,delay){
     queueHint('galpi','마음에 드는 글엔 갈피를 끼워보세요','.today-galpi button',true);
     if(q&&q.note&&q.source)queueHint('note','?를 누르면 글에 대한 설명을 볼 수 있어요','.today-source .note-btn');
     queueHint('share','텍스트나 인스타 스토리용 이미지로 공유할 수 있어요','.btn-share',true);
+    if(!hintQueue.length&&hintPendingFirstRun){hintPendingFirstRun=false;setTimeout(maybeAskNotify,500)}
   },delay==null?4200:delay)
 }
 function getHistory(){try{return JSON.parse(localStorage.getItem('grande_history')||'[]')}catch(e){return []}}
@@ -496,6 +499,7 @@ function closeShareChoose(e){if(e.target.id==='share-overlay'){closeShareOverlay
 function closeResetBtn(){document.getElementById('reset-overlay').className='sheet-overlay'}
 function doReset(type){if(type==='memo'){saveMemos({});clearBookmarks();var _m=getSyncMeta();_m.memoAt={};_m.memoDel={};saveSyncMeta(_m);toast('메모와 갈피를 초기화했습니다')}else{clearCustom();toast('서랍 글을 초기화했습니다')}document.getElementById('reset-overlay').className='sheet-overlay';document.getElementById('settings-overlay').className='sheet-overlay';document.body.style.overflow='';if(activeView==='today')showAt(todayId);if(activeView==='shelf')renderShelf();if(activeView==='galpi')renderGalpi();if(activeView==='drawer')renderDrawer()}
 function dismissOnboarding(){
+  hintPendingFirstRun=true;   // 힌트 준비 전 폴링이 끼어드는 틈을 막는다
   localStorage.setItem('grande_onboarded','true');
   track('onboarding_complete',{});
   var ob=document.getElementById('onboarding');
@@ -601,7 +605,13 @@ function trackOpenDay(){
   if(arr.indexOf(d)===-1){arr.push(d);if(arr.length>30)arr=arr.slice(-30);localStorage.setItem('grande_open_days',JSON.stringify(arr))}
   return arr.length;
 }
+var notifyAskedThisRun=false;
 function openNotifyAsk(){
+  if(notifyAskedThisRun)return;
+  notifyAskedThisRun=true;
+  var _o=document.getElementById('notify-ask-overlay');
+  if(_o&&_o.className.indexOf('open')>-1)return;
+  console.trace();
   document.getElementById('notify-ask-overlay').className='sheet-overlay modal open';
   document.body.style.overflow='hidden';
   track('notify_prompt_shown',{});
@@ -626,6 +636,11 @@ function maybeAskNotify(){
                 'sheet-overlay','notify-ask-overlay'];
   function busy(){
     if(hintQueue.length)return true;
+    if(!localStorage.getItem('grande_onboarded'))return true;
+    var sp=document.getElementById('splash');
+    if(sp&&sp.style.display!=='none')return true;
+    var hb=document.getElementById('hint-block');
+    if(hb&&hb.style.display==='block')return true;
     var ob=document.getElementById('onboarding');
     if(ob&&ob.className.indexOf('show')>-1)return true;
     for(var i=0;i<BLOCKERS.length;i++){
@@ -636,8 +651,10 @@ function maybeAskNotify(){
   }
   var tries=0;
   (function attempt(){
-    if(tries++>60)return;            // 최대 1분쯤 기다리고 이번 실행은 포기
+    if(tries++>600)return;            // 최대 1분쯤 기다리고 이번 실행은 포기
     if(busy()){setTimeout(attempt,1000);return}
+    // 첫 실행은 힌트 종료 시점에 직접 호출하므로 폴링은 물러난다.
+    if(hintPendingFirstRun){return}
     openNotifyAsk();
   })();
 }
@@ -894,6 +911,10 @@ function hideHintUI(){
   if(sp)sp.className='hint-spot';
   if(pp)pp.className='hint-pop';
   if(bl)bl.style.display='none';
+  if(hintPendingFirstRun&&!hintQueue.length){
+    hintPendingFirstRun=false;
+    setTimeout(maybeAskNotify,500);
+  }
 }
 function isHintTargetVisible(el){
   if(!el)return false;
@@ -1060,7 +1081,7 @@ function dismissHint(){
   var txt = document.querySelector('.splash-text');
   if(txt){ txt.style.opacity='0'; txt.style.transform='translateY(8px)'; }
 })();
-setTimeout(function(){document.getElementById('splash').className='splash done';setTimeout(function(){document.getElementById('splash').style.display='none';if(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.StatusBar){window.Capacitor.Plugins.StatusBar.setStyle({style:'LIGHT'}).catch(function(){})}if(!localStorage.getItem('grande_onboarded')){document.getElementById('onboarding').className='onboarding show';document.body.style.overflow='hidden';return}},700)},2600);
+setTimeout(function(){if(!localStorage.getItem('grande_onboarded')){document.getElementById('onboarding').className='onboarding show';document.body.style.overflow='hidden'}document.getElementById('splash').className='splash done';setTimeout(function(){document.getElementById('splash').style.display='none';if(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.StatusBar){window.Capacitor.Plugins.StatusBar.setStyle({style:'LIGHT'}).catch(function(){})}},700)},2600);
 renderToday();
 getMemos(); // 메모까지 읽어 본 뒤에 유실 여부를 보고한다
 reportLoadError();

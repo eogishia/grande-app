@@ -10,8 +10,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@qGnVyJBo",
-    "yes24Link": "https://bitl.bz/api@OyiMqLrL"
+    "kyoboLink": "https://bitl.bz/api@3eBjbhmQ",
+    "yes24Link": "https://bitl.bz/api@9dy8aMJU"
   },
   {
     "id": "b1bb72bf40af2",
@@ -23,8 +23,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@rw5BP9ju",
-    "yes24Link": "https://bitl.bz/api@gF1Isxwn"
+    "kyoboLink": "https://bitl.bz/api@c16maSge",
+    "yes24Link": "https://bitl.bz/api@9IeDEzCf"
   },
   {
     "id": "b6522ea10e0a0",
@@ -36,8 +36,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@qw2UYxlQ",
-    "yes24Link": "https://bitl.bz/api@amON4VT6"
+    "kyoboLink": "https://bitl.bz/api@T2JD0mol",
+    "yes24Link": "https://bitl.bz/api@rmdQf1gw"
   },
   {
     "id": "baaf8e9f4d0ef",
@@ -49,8 +49,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@fY5knVJA",
-    "yes24Link": "https://bitl.bz/api@R7cclere"
+    "kyoboLink": "https://bitl.bz/api@ZpwJKeSh",
+    "yes24Link": "https://bitl.bz/api@eaVCSBN5"
   },
   {
     "id": "bd2c16def7de5",
@@ -62,8 +62,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@xZDCSc1N",
-    "yes24Link": "https://bitl.bz/api@OjdDliXZ"
+    "kyoboLink": "https://bitl.bz/api@qMLkIhUW",
+    "yes24Link": "https://bitl.bz/api@SPKRcD5u"
   },
   {
     "id": "bb26268a3657a",
@@ -75,8 +75,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@TT3BVjCA",
-    "yes24Link": "https://bitl.bz/api@AB35OYtE"
+    "kyoboLink": "https://bitl.bz/api@qPo3lNnX",
+    "yes24Link": "https://bitl.bz/api@kUvjkmqf"
   },
   {
     "id": "b8b2f54250731",
@@ -88,8 +88,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@0IOtwUq7",
-    "yes24Link": "https://bitl.bz/api@cfVF2bl7"
+    "kyoboLink": "https://bitl.bz/api@piHjgpO4",
+    "yes24Link": "https://bitl.bz/api@5YKjvd5m"
   },
   {
     "id": "b0c44807173fd",
@@ -105,8 +105,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@fVcUTWAM",
-    "yes24Link": "https://bitl.bz/api@N20kkDyJ"
+    "kyoboLink": "https://bitl.bz/api@lowgCSIk",
+    "yes24Link": "https://bitl.bz/api@UdhX7Dvp"
   },
   {
     "id": "bd46119d286e1",
@@ -118,8 +118,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@79BiwPdM",
-    "yes24Link": "https://bitl.bz/api@8t0odhRK"
+    "kyoboLink": "https://bitl.bz/api@6OsxMWTn",
+    "yes24Link": "https://bitl.bz/api@KUbie8Bk"
   },
   {
     "id": "b0afe4f1b48af",
@@ -131,8 +131,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@pE4E6LhZ",
-    "yes24Link": "https://bitl.bz/api@OMBriA12"
+    "kyoboLink": "https://bitl.bz/api@QnqmvJuH",
+    "yes24Link": "https://bitl.bz/api@1eY34MwC"
   },
   {
     "id": "ba7efe88ddd65",
@@ -144,8 +144,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@i3Gvgop5",
-    "yes24Link": "https://bitl.bz/api@Cu3TEaaO"
+    "kyoboLink": "https://bitl.bz/api@PTpzjQPU",
+    "yes24Link": "https://bitl.bz/api@HdpqowHb"
   },
   {
     "id": "b45e3faf11426",
@@ -157,8 +157,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@WEFfhjlv",
-    "yes24Link": "https://bitl.bz/api@GrQH9IHR"
+    "kyoboLink": "https://bitl.bz/api@K9HnnBYL",
+    "yes24Link": "https://bitl.bz/api@ktnWpHt5"
   },
   {
     "id": "b47fb8fb0f1ca",
@@ -170,8 +170,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@RaO7UPla",
-    "yes24Link": "https://bitl.bz/api@hOj49VQr"
+    "kyoboLink": "https://bitl.bz/api@aUQxvY0j",
+    "yes24Link": "https://bitl.bz/api@69obztan"
   },
   {
     "id": "bc1106a2fb5d1",
@@ -184,8 +184,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@ViZFyLA2",
-    "yes24Link": "https://bitl.bz/api@0YLfrgau"
+    "kyoboLink": "https://bitl.bz/api@9YiQpQto",
+    "yes24Link": "https://bitl.bz/api@iUfbkUZW"
   },
   {
     "id": "b3064db83a73d",
@@ -198,8 +198,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@iVYkht1D",
-    "yes24Link": "https://bitl.bz/api@SzkXsq82"
+    "kyoboLink": "https://bitl.bz/api@uMYnN9QM",
+    "yes24Link": "https://bitl.bz/api@Ez7clwfP"
   },
   {
     "id": "bfe91ad41faae",
@@ -217,8 +217,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@zqbatQ2G",
-    "yes24Link": "https://bitl.bz/api@EXUpnAnt"
+    "kyoboLink": "https://bitl.bz/api@Cn16tqhT",
+    "yes24Link": "https://bitl.bz/api@A3BkFQgZ"
   },
   {
     "id": "b8de542c40088",
@@ -230,8 +230,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@67vm0ov7",
-    "yes24Link": "https://bitl.bz/api@PCb3hwaq"
+    "kyoboLink": "https://bitl.bz/api@VBrxYjw8",
+    "yes24Link": "https://bitl.bz/api@itWXasYA"
   },
   {
     "id": "b839319398ef7",
@@ -243,8 +243,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@V4oUkDaH",
-    "yes24Link": "https://bitl.bz/api@WmuFXUDQ"
+    "kyoboLink": "https://bitl.bz/api@GGhKmMFG",
+    "yes24Link": "https://bitl.bz/api@LsrhOol6"
   },
   {
     "id": "b0cea8ee6d7c5",
@@ -256,8 +256,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@DOyAWHKA",
-    "yes24Link": "https://bitl.bz/api@H6BqqmZz"
+    "kyoboLink": "https://bitl.bz/api@JQ4Nppzu",
+    "yes24Link": "https://bitl.bz/api@u4WIoW8s"
   },
   {
     "id": "bd3b80e47d473",
@@ -269,8 +269,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@d1sGW7WW",
-    "yes24Link": "https://bitl.bz/api@SHCnG5aP"
+    "kyoboLink": "https://deg.kr/7104cf3/1784200881719",
+    "yes24Link": "https://bitl.bz/api@u6WoDGOx"
   },
   {
     "id": "b8f377a4d530a",
@@ -282,8 +282,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@BH1osFmg",
-    "yes24Link": "https://bitl.bz/api@qN7AFbbS"
+    "kyoboLink": "https://bitl.bz/api@8ZuFLyGH",
+    "yes24Link": "https://bitl.bz/api@6KO9Povm"
   },
   {
     "id": "b5f2dc4dfbd5c",
@@ -295,8 +295,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@llYklzVz",
-    "yes24Link": "https://bitl.bz/api@Sdml6iYh"
+    "kyoboLink": "https://bitl.bz/api@RcBR65Hm",
+    "yes24Link": "https://bitl.bz/api@eIIIDZio"
   },
   {
     "id": "b55dcbc7373e5",
@@ -309,8 +309,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@JJc3eXrO",
-    "yes24Link": "https://bitl.bz/api@cttzK064"
+    "kyoboLink": "https://bitl.bz/api@gIKmRRKi",
+    "yes24Link": "https://bitl.bz/api@pTn1xzo7"
   },
   {
     "id": "b518c22e92498",
@@ -322,8 +322,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@T1t7D6mw",
-    "yes24Link": "https://bitl.bz/api@PR8cQVwS"
+    "kyoboLink": "https://bitl.bz/api@AqGWNpUk",
+    "yes24Link": "https://bitl.bz/api@y7V4nUUE"
   },
   {
     "id": "b5e03f63b0030",
@@ -335,8 +335,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@yZB2xXHR",
-    "yes24Link": "https://bitl.bz/api@Zwp9Z3EY"
+    "kyoboLink": "https://bitl.bz/api@iJlKYMXO",
+    "yes24Link": "https://bitl.bz/api@23Xx3gvW"
   },
   {
     "id": "bbfa90bf37b46",
@@ -348,8 +348,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@TIn0LOPK",
-    "yes24Link": "https://bitl.bz/api@5ZbpbbY9"
+    "kyoboLink": "https://bitl.bz/api@wK5nheAJ",
+    "yes24Link": "https://bitl.bz/api@0AArDDXY"
   },
   {
     "id": "bcb640df983b8",
@@ -361,8 +361,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@xWO1ue4W",
-    "yes24Link": "https://bitl.bz/api@SZFllCo3"
+    "kyoboLink": "https://bitl.bz/api@EYsorJVU",
+    "yes24Link": "https://bitl.bz/api@8qqoFxUo"
   },
   {
     "id": "b2f25f6106019",
@@ -374,8 +374,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@tOLELKk3",
-    "yes24Link": "https://bitl.bz/api@BFQscomI"
+    "kyoboLink": "https://bitl.bz/api@gTyHI4Di",
+    "yes24Link": "https://bitl.bz/api@pRn4HCd1"
   },
   {
     "id": "bd2d10fc2e706",
@@ -388,8 +388,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@e25sKVv9",
-    "yes24Link": "https://bitl.bz/api@NY1szaCW"
+    "kyoboLink": "https://bitl.bz/api@zhLIjoHA",
+    "yes24Link": "https://bitl.bz/api@69Yyzfiq"
   },
   {
     "id": "b8ed3680c7400",
@@ -402,8 +402,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@hYQnHZyX",
-    "yes24Link": "https://bitl.bz/api@HxUxSSfw"
+    "kyoboLink": "https://bitl.bz/api@JdH3Bf0s",
+    "yes24Link": "https://bitl.bz/api@yXs8zJaY"
   },
   {
     "id": "b58490f5b0d59",
@@ -415,8 +415,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@PC334Vvz",
-    "yes24Link": "https://bitl.bz/api@n4wRcSdf"
+    "kyoboLink": "https://bitl.bz/api@psAHJYzT",
+    "yes24Link": "https://bitl.bz/api@fVjGFoLD"
   },
   {
     "id": "bda5dfa2a1ac4",
@@ -428,8 +428,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@biHsNGj6",
-    "yes24Link": "https://bitl.bz/api@PixlY0DX"
+    "kyoboLink": "https://bitl.bz/api@Z8oLw8Sp",
+    "yes24Link": "https://bitl.bz/api@pEZS3Bk5"
   },
   {
     "id": "b1010d41a8174",
@@ -441,8 +441,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@DzADH3fp",
-    "yes24Link": "https://bitl.bz/api@Q0ymrWB2"
+    "kyoboLink": "https://bitl.bz/api@7n9nMUPp",
+    "yes24Link": "https://bitl.bz/api@AduhdI03"
   },
   {
     "id": "b3c07a7d0c56b",
@@ -455,8 +455,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@TRkpMh44",
-    "yes24Link": "https://bitl.bz/api@olRGxlc6"
+    "kyoboLink": "https://bitl.bz/api@GA0UqNXu",
+    "yes24Link": "https://bitl.bz/api@B6C7mefu"
   },
   {
     "id": "b5818dc37e956",
@@ -470,8 +470,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@rFyOiEOk",
-    "yes24Link": "https://bitl.bz/api@LqqqRthC"
+    "kyoboLink": "https://bitl.bz/api@1yIhSkPA",
+    "yes24Link": "https://bitl.bz/api@0MpODvh7"
   },
   {
     "id": "b76cd6298dc8d",
@@ -483,8 +483,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@gVQ0ifR3",
-    "yes24Link": "https://bitl.bz/api@F7YrvxbI"
+    "kyoboLink": "https://bitl.bz/api@yCgEJ2Qf",
+    "yes24Link": "https://bitl.bz/api@NSoGSFbu"
   },
   {
     "id": "bd2fcb08fb477",
@@ -496,8 +496,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@S3U08lML",
-    "yes24Link": "https://bitl.bz/api@5KxVJxWW"
+    "kyoboLink": "https://bitl.bz/api@2DSj5XM6",
+    "yes24Link": "https://bitl.bz/api@oWC4vT3L"
   },
   {
     "id": "bb4f496cda3c2",
@@ -509,8 +509,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@tYhAiZww",
-    "yes24Link": "https://bitl.bz/api@9BAD3Xrh"
+    "kyoboLink": "https://bitl.bz/api@vX7Tipo7",
+    "yes24Link": "https://bitl.bz/api@nHB1YOHu"
   },
   {
     "id": "b026c4d012497",
@@ -522,8 +522,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@8h3p0RWn",
-    "yes24Link": "https://bitl.bz/api@7e5BZ3yE"
+    "kyoboLink": "https://bitl.bz/api@zTimL6LC",
+    "yes24Link": "https://bitl.bz/api@y598Go27"
   },
   {
     "id": "b53e811495edc",
@@ -535,8 +535,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@tVktXLDs",
-    "yes24Link": "https://bitl.bz/api@LRxONhG8"
+    "kyoboLink": "https://bitl.bz/api@ulrcWyWP",
+    "yes24Link": "https://bitl.bz/api@eAyCzhvP"
   },
   {
     "id": "baea985ad0242",
@@ -548,8 +548,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@C9oL1Hnt",
-    "yes24Link": "https://bitl.bz/api@98zNJnei"
+    "kyoboLink": "https://bitl.bz/api@0zje8hOJ",
+    "yes24Link": "https://bitl.bz/api@tHogpoIm"
   },
   {
     "id": "b42f64fef9b14",
@@ -561,8 +561,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@YLpEdYFk",
-    "yes24Link": "https://bitl.bz/api@GgPFx8oS"
+    "kyoboLink": "https://bitl.bz/api@ty0r6eNb",
+    "yes24Link": "https://bitl.bz/api@NMCdOGDZ"
   },
   {
     "id": "b67e2ba48e61b",
@@ -574,8 +574,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@OPNpKjYH",
-    "yes24Link": "https://bitl.bz/api@islwEWgL"
+    "kyoboLink": "https://bitl.bz/api@KcVbmHYX",
+    "yes24Link": "https://bitl.bz/api@N02cfNga"
   },
   {
     "id": "b0b12b4eb2a94",
@@ -587,8 +587,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@JbLXUZXf",
-    "yes24Link": "https://bitl.bz/api@mWcYxtNk"
+    "kyoboLink": "https://bitl.bz/api@2E2bup8J",
+    "yes24Link": "https://bitl.bz/api@lZzGXGaG"
   },
   {
     "id": "bfb13d557dce3",
@@ -600,8 +600,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@pboQ0Azo",
-    "yes24Link": "https://bitl.bz/api@Bs0pDLyk"
+    "kyoboLink": "https://bitl.bz/api@rDc1CsW2",
+    "yes24Link": "https://bitl.bz/api@d85LAQhI"
   },
   {
     "id": "b47605799794f",
@@ -613,8 +613,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@iZuFm7jq",
-    "yes24Link": "https://bitl.bz/api@nwa7ZBHw"
+    "kyoboLink": "https://bitl.bz/api@ywg3uDfS",
+    "yes24Link": "https://bitl.bz/api@h77E1JUj"
   },
   {
     "id": "b7b282e2cb50a",
@@ -627,8 +627,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@eUa7QqII",
-    "yes24Link": "https://bitl.bz/api@X3Ibb8GK"
+    "kyoboLink": "https://bitl.bz/api@6hzUuezz",
+    "yes24Link": "https://bitl.bz/api@PmSR77d4"
   },
   {
     "id": "bc2eb940101ef",
@@ -641,8 +641,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@idQqtOdm",
-    "yes24Link": "https://bitl.bz/api@X3Ibb8GK"
+    "kyoboLink": "https://bitl.bz/api@6hzUuezz",
+    "yes24Link": "https://bitl.bz/api@PmSR77d4"
   },
   {
     "id": "bd58deef6c7f2",
@@ -655,8 +655,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@idQqtOdm",
-    "yes24Link": "https://bitl.bz/api@X3Ibb8GK"
+    "kyoboLink": "https://bitl.bz/api@6hzUuezz",
+    "yes24Link": "https://bitl.bz/api@PmSR77d4"
   },
   {
     "id": "bac13ec91dc36",
@@ -672,8 +672,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@idQqtOdm",
-    "yes24Link": "https://bitl.bz/api@X3Ibb8GK"
+    "kyoboLink": "https://bitl.bz/api@6hzUuezz",
+    "yes24Link": "https://bitl.bz/api@PmSR77d4"
   },
   {
     "id": "b6e7703253f62",
@@ -687,8 +687,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@idQqtOdm",
-    "yes24Link": "https://bitl.bz/api@X3Ibb8GK"
+    "kyoboLink": "https://bitl.bz/api@6hzUuezz",
+    "yes24Link": "https://bitl.bz/api@PmSR77d4"
   },
   {
     "id": "bc05ef630ec3c",
@@ -703,8 +703,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@7BaSZBrH",
-    "yes24Link": "https://bitl.bz/api@MS4dajPK"
+    "kyoboLink": "https://bitl.bz/api@at3gzpSA",
+    "yes24Link": "https://bitl.bz/api@LoI3TwNv"
   },
   {
     "id": "beb0345e099e8",
@@ -716,8 +716,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@E9ogZXCV",
-    "yes24Link": "https://bitl.bz/api@4JW81e2n"
+    "kyoboLink": "https://bitl.bz/api@n8NjebNJ",
+    "yes24Link": "https://bitl.bz/api@BwTUS9HU"
   },
   {
     "id": "beb350efb55bf",
@@ -729,8 +729,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@UCthdikt",
-    "yes24Link": "https://bitl.bz/api@1ssyH1DB"
+    "kyoboLink": "https://bitl.bz/api@taUdjskP",
+    "yes24Link": "https://bitl.bz/api@vB4kgBLd"
   },
   {
     "id": "b1cb761929958",
@@ -743,8 +743,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@Oli9F5pu",
-    "yes24Link": "https://bitl.bz/api@0H0igmYk"
+    "kyoboLink": "https://bitl.bz/api@ryUBExDG",
+    "yes24Link": "https://bitl.bz/api@vgfrjF8K"
   },
   {
     "id": "bfa6c8097c022",
@@ -756,8 +756,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@m5UcssNu",
-    "yes24Link": "https://bitl.bz/api@iat3doTy"
+    "kyoboLink": "https://bitl.bz/api@aTMpySpA",
+    "yes24Link": "https://bitl.bz/api@RKpt8HLs"
   },
   {
     "id": "b48ad69d56069",
@@ -769,8 +769,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@zrMxqrZa",
-    "yes24Link": "https://bitl.bz/api@3WCT96tJ"
+    "kyoboLink": "https://bitl.bz/api@wsEtQZXw",
+    "yes24Link": "https://bitl.bz/api@YV11qi6A"
   },
   {
     "id": "b09f958f7ff5e",
@@ -782,8 +782,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@nZ7tnd7B",
-    "yes24Link": "https://bitl.bz/api@u9jnewfg"
+    "kyoboLink": "https://bitl.bz/api@hQIpXezC",
+    "yes24Link": "https://bitl.bz/api@ZFr5BZGk"
   },
   {
     "id": "b9bdcae420607",
@@ -795,8 +795,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@KUEOljAR",
-    "yes24Link": "https://bitl.bz/api@HfenhI0X"
+    "kyoboLink": "https://bitl.bz/api@IvcG3jr7",
+    "yes24Link": "https://bitl.bz/api@g10OHQ2B"
   },
   {
     "id": "bac7cb0a0bd26",
@@ -812,8 +812,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@2DyotHY4",
-    "yes24Link": "https://bitl.bz/api@mT8V33EL"
+    "kyoboLink": "https://bitl.bz/api@GR5ZbV8G",
+    "yes24Link": "https://bitl.bz/api@NJ3MNd4l"
   },
   {
     "id": "bb7dc387b0ad1",
@@ -825,8 +825,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@dRCaw5rz",
-    "yes24Link": "https://bitl.bz/api@mp7P3drG"
+    "kyoboLink": "https://bitl.bz/api@9XbpHEup",
+    "yes24Link": "https://bitl.bz/api@mKAyCkjW"
   },
   {
     "id": "b8257afbf219c",
@@ -838,8 +838,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@xgpFax7d",
-    "yes24Link": "https://bitl.bz/api@kSYRL2L8"
+    "kyoboLink": "https://bitl.bz/api@RwyZETOF",
+    "yes24Link": "https://bitl.bz/api@Rn5fzNAl"
   },
   {
     "id": "b851c87cfba7f",
@@ -852,8 +852,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@oRYw5gtJ",
-    "yes24Link": "https://bitl.bz/api@IAB33Qzu"
+    "kyoboLink": "https://bitl.bz/api@eoFRRGUt",
+    "yes24Link": "https://bitl.bz/api@r2ir2yH1"
   },
   {
     "id": "b6407871475a7",
@@ -865,8 +865,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@D8i1BJCg",
-    "yes24Link": "https://bitl.bz/api@dKDwbXA3"
+    "kyoboLink": "https://bitl.bz/api@c8euJGuT",
+    "yes24Link": "https://bitl.bz/api@5ZOv6anQ"
   },
   {
     "id": "b877532b38de6",
@@ -879,8 +879,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@FXNILhM0",
-    "yes24Link": "https://bitl.bz/api@TGTOzdJ0"
+    "kyoboLink": "https://bitl.bz/api@WuQhsI8I",
+    "yes24Link": "https://bitl.bz/api@ZnSUeWvb"
   },
   {
     "id": "b09d965456ed1",
@@ -895,8 +895,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@gwlCtPmL",
-    "yes24Link": "https://bitl.bz/api@uZgc36Pd"
+    "kyoboLink": "https://bitl.bz/api@SrersoJh",
+    "yes24Link": "https://bitl.bz/api@OPUYn2iR"
   },
   {
     "id": "b56f8c8730a46",
@@ -909,8 +909,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@9VSZRRIg",
-    "yes24Link": "https://bitl.bz/api@7UfHDXCb"
+    "kyoboLink": "https://bitl.bz/api@wDpyVp1q",
+    "yes24Link": "https://bitl.bz/api@CX5MHfU6"
   },
   {
     "id": "b03990a34d402",
@@ -923,8 +923,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@pilNlayI",
-    "yes24Link": "https://bitl.bz/api@lF8JmqjC"
+    "kyoboLink": "https://bitl.bz/api@Xy2lyVsR",
+    "yes24Link": "https://bitl.bz/api@kwE9bKb4"
   },
   {
     "id": "b74289377fb4c",
@@ -936,8 +936,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@BjV23tpc",
-    "yes24Link": "https://bitl.bz/api@zQYcydcQ"
+    "kyoboLink": "https://bitl.bz/api@HVWnB1J6",
+    "yes24Link": "https://bitl.bz/api@f8WoxzhV"
   },
   {
     "id": "bde27c1bceb69",
@@ -949,8 +949,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@FCsjSUzq",
-    "yes24Link": "https://bitl.bz/api@iq9XFHrf"
+    "kyoboLink": "https://bitl.bz/api@3Kro9HZN",
+    "yes24Link": "https://bitl.bz/api@NTYKyzx5"
   },
   {
     "id": "b13760c2d33ff",
@@ -962,8 +962,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@atBma1iV",
-    "yes24Link": "https://bitl.bz/api@vdMziyqb"
+    "kyoboLink": "https://bitl.bz/api@iNGXRNqI",
+    "yes24Link": "https://bitl.bz/api@ddbCBvTC"
   },
   {
     "id": "bb1b717b631d6",
@@ -976,8 +976,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@rwMUM15L",
-    "yes24Link": "https://bitl.bz/api@D4DbzBFU"
+    "kyoboLink": "https://bitl.bz/api@JWEyNe2u",
+    "yes24Link": "https://bitl.bz/api@c9mHkrMZ"
   },
   {
     "id": "b26dee75a854d",
@@ -989,8 +989,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@ayV4mdtP",
-    "yes24Link": "https://bitl.bz/api@emeO3Q6X"
+    "kyoboLink": "https://bitl.bz/api@MdfiTlT5",
+    "yes24Link": "https://bitl.bz/api@6qv1h16Z"
   },
   {
     "id": "b87cf878966df",
@@ -1003,8 +1003,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@2vjexraF",
-    "yes24Link": "https://bitl.bz/api@GorQuBMN"
+    "kyoboLink": "https://bitl.bz/api@1GCcOrKI",
+    "yes24Link": "https://bitl.bz/api@z6o832Y9"
   },
   {
     "id": "b57c1b7d668e1",
@@ -1019,8 +1019,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@PMXWbKMi",
-    "yes24Link": "https://bitl.bz/api@2cdlY96y"
+    "kyoboLink": "https://bitl.bz/api@rpCRNLDS",
+    "yes24Link": "https://bitl.bz/api@nBYYurFP"
   },
   {
     "id": "bf05beb6e5225",
@@ -1033,8 +1033,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@k4NpANNg",
-    "yes24Link": "https://bitl.bz/api@TDkQ5q11"
+    "kyoboLink": "https://bitl.bz/api@blVffyGU",
+    "yes24Link": "https://bitl.bz/api@tGaObFpY"
   },
   {
     "id": "b8c7a058fb046",
@@ -1046,8 +1046,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@MR5PU9NS",
-    "yes24Link": "https://bitl.bz/api@39JCrSg4"
+    "kyoboLink": "https://bitl.bz/api@pHh3e4OR",
+    "yes24Link": "https://bitl.bz/api@pTKyeaAL"
   },
   {
     "id": "b3c05ef5ba212",
@@ -1059,8 +1059,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@yHIwNNUC",
-    "yes24Link": "https://bitl.bz/api@bSRM1lwE"
+    "kyoboLink": "https://bitl.bz/api@EFtBtcX2",
+    "yes24Link": "https://bitl.bz/api@qlKQ5lYo"
   },
   {
     "id": "bf9d97a62fbc0",
@@ -1073,8 +1073,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@7OEsZdSd",
-    "yes24Link": "https://bitl.bz/api@nxLHCvEG"
+    "kyoboLink": "https://bitl.bz/api@Iz0xcICz",
+    "yes24Link": "https://bitl.bz/api@wfmEMTeQ"
   },
   {
     "id": "b5ae205adb59e",
@@ -1087,8 +1087,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@bPMbmtto",
-    "yes24Link": "https://bitl.bz/api@voAHHlyA"
+    "kyoboLink": "https://bitl.bz/api@KiPmIzZc",
+    "yes24Link": "https://bitl.bz/api@PYFRlNce"
   },
   {
     "id": "b0eb8849e6c15",
@@ -1100,8 +1100,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@S5U0aD6w",
-    "yes24Link": "https://bitl.bz/api@quYvoazy"
+    "kyoboLink": "https://bitl.bz/api@J8c5WQhJ",
+    "yes24Link": "https://bitl.bz/api@rcmc3KF5"
   },
   {
     "id": "b4eb9bca46728",
@@ -1113,8 +1113,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@AQYCRRux",
-    "yes24Link": "https://bitl.bz/api@JMbpCFWP"
+    "kyoboLink": "https://bitl.bz/api@oOe9nYCA",
+    "yes24Link": "https://bitl.bz/api@udN8Amf7"
   },
   {
     "id": "befc4d14cf75e",
@@ -1131,8 +1131,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@DGnfwvCW",
-    "yes24Link": "https://bitl.bz/api@r0bmfi3G"
+    "kyoboLink": "https://bitl.bz/api@0HQ3H3KO",
+    "yes24Link": "https://bitl.bz/api@oIaoK8WM"
   },
   {
     "id": "b0502297fa8c9",
@@ -1144,8 +1144,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@y7EEJcZN",
-    "yes24Link": "https://bitl.bz/api@18oL3MAo"
+    "kyoboLink": "https://bitl.bz/api@JCfiKWHa",
+    "yes24Link": "https://bitl.bz/api@LyvnRwC7"
   },
   {
     "id": "ba0a663f15f14",
@@ -1157,8 +1157,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@HxcJC9la",
-    "yes24Link": "https://bitl.bz/api@rfzlzjTG"
+    "kyoboLink": "https://bitl.bz/api@4WEITwfv",
+    "yes24Link": "https://bitl.bz/api@SRsYw8zd"
   },
   {
     "id": "b47ab28658f37",
@@ -1170,8 +1170,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@86kRXM06",
-    "yes24Link": "https://bitl.bz/api@ypuvvG7Y"
+    "kyoboLink": "https://bitl.bz/api@m3eGmVoi",
+    "yes24Link": "https://bitl.bz/api@p5wgVQqD"
   },
   {
     "id": "ba807fb21138f",
@@ -1183,8 +1183,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@d7IVPJ9D",
-    "yes24Link": "https://bitl.bz/api@Pj9yIfaR"
+    "kyoboLink": "https://bitl.bz/api@F957ITsN",
+    "yes24Link": "https://bitl.bz/api@40w7ALdI"
   },
   {
     "id": "b072365c2ee51",
@@ -1196,8 +1196,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@pSYn6urm",
-    "yes24Link": "https://bitl.bz/api@wjMJAkXV"
+    "kyoboLink": "https://bitl.bz/api@YkEolJRP",
+    "yes24Link": "https://bitl.bz/api@RJjAO9am"
   },
   {
     "id": "b8312bb8fbda6",
@@ -1209,8 +1209,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@yp4f1AEF",
-    "yes24Link": "https://bitl.bz/api@2MDpAmYO"
+    "kyoboLink": "https://bitl.bz/api@QUVg5Er2",
+    "yes24Link": "https://bitl.bz/api@bkWd9KqX"
   },
   {
     "id": "b34825ace1b46",
@@ -1222,8 +1222,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@PM4rId1b",
-    "yes24Link": "https://bitl.bz/api@g74JRIWz"
+    "kyoboLink": "https://bitl.bz/api@spf4bjSB",
+    "yes24Link": "https://bitl.bz/api@074e8W9e"
   },
   {
     "id": "b1b7e75817ff4",
@@ -1236,8 +1236,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@uLGY0biE",
-    "yes24Link": "https://bitl.bz/api@JPblzS85"
+    "kyoboLink": "https://bitl.bz/api@h2O6fvUj",
+    "yes24Link": "https://bitl.bz/api@zfRmvhYe"
   },
   {
     "id": "b1c5a2249e129",
@@ -1249,8 +1249,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@tVgOMtck",
-    "yes24Link": "https://bitl.bz/api@b0933S9z"
+    "kyoboLink": "https://bitl.bz/api@E3rgd1P0",
+    "yes24Link": "https://bitl.bz/api@ionXnrr8"
   },
   {
     "id": "bc8132a6704ec",
@@ -1262,17 +1262,17 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@7pTxVFHv",
-    "yes24Link": "https://bitl.bz/api@PePHoc72"
+    "kyoboLink": "https://bitl.bz/api@J6xUyvLL",
+    "yes24Link": "https://bitl.bz/api@esiZmox6"
   },
   {
     "id": "b113924c267b5",
     "title": "신을 기다리며",
     "author": "시몬 베유",
     "quoteIds": [
+      "p23",
       "p64",
       "p65",
-      "p23",
       "p103",
       "p104",
       "p105",
@@ -1281,8 +1281,34 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@SGebTOfJ",
-    "yes24Link": "https://bitl.bz/api@AEGsf1h9"
+    "kyoboLink": "https://bitl.bz/api@kGPjeukW",
+    "yes24Link": "https://bitl.bz/api@jPiYqPhy"
+  },
+  {
+    "id": "b625b124225cf",
+    "title": "인격과 성스러운 것",
+    "author": "시몬 베유",
+    "quoteIds": [
+      "p101"
+    ],
+    "isbn": "",
+    "publisher": "",
+    "translator": "",
+    "kyoboLink": "https://bitl.bz/api@GztGIEbv",
+    "yes24Link": "https://bitl.bz/api@av8JErho"
+  },
+  {
+    "id": "bb279988ce134",
+    "title": "일리아스 또는 힘의 시",
+    "author": "시몬 베유",
+    "quoteIds": [
+      "p100"
+    ],
+    "isbn": "",
+    "publisher": "",
+    "translator": "",
+    "kyoboLink": "https://bitl.bz/api@YCxMjVwx",
+    "yes24Link": "https://bitl.bz/api@vvHtfiPa"
   },
   {
     "id": "bc5e2d651d87a",
@@ -1295,8 +1321,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@tduS096y",
-    "yes24Link": "https://bitl.bz/api@YmnkUaE6"
+    "kyoboLink": "https://bitl.bz/api@P2TAnFQi",
+    "yes24Link": "https://bitl.bz/api@x1Jm9zZl"
   },
   {
     "id": "bc97001d68cb7",
@@ -1308,8 +1334,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@XimgpYRV",
-    "yes24Link": "https://bitl.bz/api@OdCvOR5l"
+    "kyoboLink": "https://bitl.bz/api@56cpwseu",
+    "yes24Link": "https://bitl.bz/api@X2tRoIIE"
   },
   {
     "id": "b4d74de83ce26",
@@ -1322,8 +1348,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@39UdLGsQ",
-    "yes24Link": "https://bitl.bz/api@axeEP0Io"
+    "kyoboLink": "https://bitl.bz/api@lt0ER3UK",
+    "yes24Link": "https://bitl.bz/api@sJSnye5Y"
   },
   {
     "id": "b0fdc5a6ab53a",
@@ -1335,8 +1361,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@llqul9Sx",
-    "yes24Link": "https://bitl.bz/api@PF2rRukD"
+    "kyoboLink": "https://bitl.bz/api@qe5kA4iy",
+    "yes24Link": "https://bitl.bz/api@W1mz3HBr"
   },
   {
     "id": "bb1be40c14b50",
@@ -1349,8 +1375,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@yzbk8NRQ",
-    "yes24Link": "https://bitl.bz/api@sU7iML7n"
+    "kyoboLink": "https://bitl.bz/api@Ql2Q4cOi",
+    "yes24Link": "https://bitl.bz/api@oXEiYtVx"
   },
   {
     "id": "bb45ed7e50dc7",
@@ -1362,8 +1388,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@KVLyyuLJ",
-    "yes24Link": "https://bitl.bz/api@UNCoE2jD"
+    "kyoboLink": "https://bitl.bz/api@rCXBo8Sz",
+    "yes24Link": "https://bitl.bz/api@Hvp36SKg"
   },
   {
     "id": "bdd817ae1cf0c",
@@ -1375,8 +1401,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@vuCs4LQn",
-    "yes24Link": "https://bitl.bz/api@6ugLWPYF"
+    "kyoboLink": "https://bitl.bz/api@OmCBdRBG",
+    "yes24Link": "https://bitl.bz/api@h3Z7Pg5D"
   },
   {
     "id": "bd0f9ab390f51",
@@ -1388,8 +1414,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@CZB7T2dB",
-    "yes24Link": "https://bitl.bz/api@k0BoMiBB"
+    "kyoboLink": "https://bitl.bz/api@yWNxxD4V",
+    "yes24Link": "https://bitl.bz/api@crMvkoXV"
   },
   {
     "id": "b57e4a5f0759c",
@@ -1401,8 +1427,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@Fz6eAGRR",
-    "yes24Link": "https://bitl.bz/api@NyPMq3Gj"
+    "kyoboLink": "https://bitl.bz/api@argjr0to",
+    "yes24Link": "https://bitl.bz/api@7WjKd9GO"
   },
   {
     "id": "bb61b222be89b",
@@ -1414,8 +1440,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@TucP4oVU",
-    "yes24Link": "https://bitl.bz/api@Jvsc4JqJ"
+    "kyoboLink": "https://bitl.bz/api@QgDJy4jp",
+    "yes24Link": "https://bitl.bz/api@BOFE46uz"
   },
   {
     "id": "b01a215c61d35",
@@ -1427,8 +1453,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@vw0YSc1u",
-    "yes24Link": "https://bitl.bz/api@RSCF1pPF"
+    "kyoboLink": "https://bitl.bz/api@d7WivQl9",
+    "yes24Link": "https://bitl.bz/api@mjJLp5SJ"
   },
   {
     "id": "b709ac9e01d5d",
@@ -1444,8 +1470,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@jwGd29ql",
-    "yes24Link": "https://bitl.bz/api@KVIiCQB3"
+    "kyoboLink": "https://bitl.bz/api@xF1FWjv8",
+    "yes24Link": "https://bitl.bz/api@91EbsuIk"
   },
   {
     "id": "ba27bd71104b8",
@@ -1457,8 +1483,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@B3Fh6yAQ",
-    "yes24Link": "https://bitl.bz/api@S1eAPJ8p"
+    "kyoboLink": "https://bitl.bz/api@pCnIYN8M",
+    "yes24Link": "https://bitl.bz/api@xy70hymx"
   },
   {
     "id": "b551837b2b482",
@@ -1470,8 +1496,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@vaATHHZ3",
-    "yes24Link": "https://bitl.bz/api@34XDsvKH"
+    "kyoboLink": "https://bitl.bz/api@56yHozOE",
+    "yes24Link": "https://bitl.bz/api@FYXsXWz8"
   },
   {
     "id": "b1885d4ef759d",
@@ -1483,8 +1509,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@x91dFWbH",
-    "yes24Link": "https://bitl.bz/api@1Q0hZWwz"
+    "kyoboLink": "https://bitl.bz/api@fQF0jiFE",
+    "yes24Link": "https://bitl.bz/api@qEwEldw7"
   },
   {
     "id": "b4a3d26653261",
@@ -1496,8 +1522,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@4JaFopZP",
-    "yes24Link": "https://bitl.bz/api@UsSJV9yR"
+    "kyoboLink": "https://bitl.bz/api@jr0fzwE0",
+    "yes24Link": "https://bitl.bz/api@UoOWH13V"
   },
   {
     "id": "bd8124457ad22",
@@ -1509,8 +1535,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@Z8IWAcCA",
-    "yes24Link": "https://bitl.bz/api@iHpVTIJt"
+    "kyoboLink": "https://bitl.bz/api@tJDSCGo2",
+    "yes24Link": "https://bitl.bz/api@yd2fZkhk"
   },
   {
     "id": "b200fc99a7e4f",
@@ -1522,8 +1548,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@h6ScyT8s",
-    "yes24Link": "https://bitl.bz/api@PZthXLhC"
+    "kyoboLink": "https://bitl.bz/api@IqeuuRUm",
+    "yes24Link": "https://bitl.bz/api@tWFFaIDJ"
   },
   {
     "id": "bbfc817bbe735",
@@ -1535,8 +1561,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@ZbPUWoHc",
-    "yes24Link": "https://bitl.bz/api@9A3o444V"
+    "kyoboLink": "https://bitl.bz/api@6ipRBpka",
+    "yes24Link": "https://bitl.bz/api@8uLC25sG"
   },
   {
     "id": "b9d57eec63215",
@@ -1548,8 +1574,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@I1QQUAxN",
-    "yes24Link": "https://bitl.bz/api@1I7MGiKt"
+    "kyoboLink": "https://bitl.bz/api@Qj7LloTb",
+    "yes24Link": "https://bitl.bz/api@nBK2oCYA"
   },
   {
     "id": "b737888471f74",
@@ -1561,8 +1587,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@OX1XNtEQ",
-    "yes24Link": "https://bitl.bz/api@OoVyeEzf"
+    "kyoboLink": "https://bitl.bz/api@9hRmLGhK",
+    "yes24Link": "https://bitl.bz/api@5JBaH04L"
   },
   {
     "id": "bb0d3b8a67133",
@@ -1574,8 +1600,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@Isv0s0iO",
-    "yes24Link": "https://bitl.bz/api@CSdwf0nZ"
+    "kyoboLink": "https://bitl.bz/api@a6LdIcEw",
+    "yes24Link": "https://bitl.bz/api@RnFFzpVd"
   },
   {
     "id": "bf98af3c081ec",
@@ -1587,8 +1613,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@eX2CrSJD",
-    "yes24Link": "https://bitl.bz/api@GCdO8MxM"
+    "kyoboLink": "https://bitl.bz/api@2mDNeu0A",
+    "yes24Link": "https://bitl.bz/api@lhpMupue"
   },
   {
     "id": "badcd68377766",
@@ -1600,8 +1626,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@iypZzuhQ",
-    "yes24Link": "https://bitl.bz/api@MoJicroZ"
+    "kyoboLink": "https://bitl.bz/api@HWC0p6TU",
+    "yes24Link": "https://bitl.bz/api@zzfGyxa1"
   },
   {
     "id": "bb5455416b6d7",
@@ -1613,8 +1639,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@LnluJYyg",
-    "yes24Link": "https://bitl.bz/api@WkAPQF4w"
+    "kyoboLink": "https://bitl.bz/api@n0qiEN1B",
+    "yes24Link": "https://bitl.bz/api@HWbXTq08"
   },
   {
     "id": "b831c392f782f",
@@ -1626,8 +1652,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@BARaXgVX",
-    "yes24Link": "https://bitl.bz/api@YRQY8FOo"
+    "kyoboLink": "https://bitl.bz/api@E73bvTqF",
+    "yes24Link": "https://bitl.bz/api@zI3G3uwK"
   },
   {
     "id": "bb12da781d160",
@@ -1639,8 +1665,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@1yMthbAS",
-    "yes24Link": "https://bitl.bz/api@wV7c8jd1"
+    "kyoboLink": "https://bitl.bz/api@cS4Z9dts",
+    "yes24Link": "https://bitl.bz/api@6ChjxonJ"
   },
   {
     "id": "b946425da9561",
@@ -1653,8 +1679,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@ASLBdiGt",
-    "yes24Link": "https://bitl.bz/api@3zty4M3a"
+    "kyoboLink": "https://bitl.bz/api@hfDvJud0",
+    "yes24Link": "https://bitl.bz/api@WLoOZaan"
   },
   {
     "id": "bf22f0efbb83d",
@@ -1666,8 +1692,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@zAn0q9Q3",
-    "yes24Link": "https://bitl.bz/api@NjA1T1hn"
+    "kyoboLink": "https://bitl.bz/api@EMTxNWFO",
+    "yes24Link": "https://bitl.bz/api@AyJqo984"
   },
   {
     "id": "b1640b5b42ba0",
@@ -1679,8 +1705,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@uyp9SnKp",
-    "yes24Link": "https://bitl.bz/api@KTLkzVWT"
+    "kyoboLink": "https://bitl.bz/api@qrGl0lda",
+    "yes24Link": "https://bitl.bz/api@g6443dLl"
   },
   {
     "id": "b22c78d216bbb",
@@ -1692,8 +1718,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@cHYgjrry",
-    "yes24Link": "https://bitl.bz/api@SR2G6A3C"
+    "kyoboLink": "https://bitl.bz/api@zYpqSYWM",
+    "yes24Link": "https://bitl.bz/api@QGCZYjSB"
   },
   {
     "id": "ba64d826708ac",
@@ -1705,8 +1731,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@GBy0bkjj",
-    "yes24Link": "https://bitl.bz/api@xenu8qd3"
+    "kyoboLink": "https://bitl.bz/api@m5MxuHnE",
+    "yes24Link": "https://bitl.bz/api@5CemBLSD"
   },
   {
     "id": "bc33c8bac7244",
@@ -1718,8 +1744,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@aXt0G74Y",
-    "yes24Link": "https://bitl.bz/api@gx5Tzoia"
+    "kyoboLink": "https://bitl.bz/api@UzuV2Hxb",
+    "yes24Link": "https://bitl.bz/api@krpuzB9E"
   },
   {
     "id": "b9e9868666228",
@@ -1731,8 +1757,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@6sJJGIyn",
-    "yes24Link": "https://bitl.bz/api@ZqYnWPDr"
+    "kyoboLink": "https://bitl.bz/api@1Sbva3SH",
+    "yes24Link": "https://bitl.bz/api@Px2qWzrk"
   },
   {
     "id": "ba3f6cdf2cac4",
@@ -1744,8 +1770,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@u5P3YFH3",
-    "yes24Link": "https://bitl.bz/api@Od82nS2q"
+    "kyoboLink": "https://bitl.bz/api@sx6Obb43",
+    "yes24Link": "https://bitl.bz/api@LRMqODoi"
   },
   {
     "id": "b558f85c287df",
@@ -1757,8 +1783,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@qDeLS3BT",
-    "yes24Link": "https://bitl.bz/api@gR0LlIVj"
+    "kyoboLink": "https://bitl.bz/api@AfKQxHGW",
+    "yes24Link": "https://bitl.bz/api@YUmm95db"
   },
   {
     "id": "b7021ea6dbdf2",
@@ -1770,8 +1796,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@aixQFLvX",
-    "yes24Link": "https://bitl.bz/api@5cqSWrdk"
+    "kyoboLink": "https://bitl.bz/api@jSLhI35g",
+    "yes24Link": "https://bitl.bz/api@FZEZd7mz"
   },
   {
     "id": "b4727308408e7",
@@ -1783,8 +1809,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@5137qk6t",
-    "yes24Link": "https://bitl.bz/api@TBH0k2VT"
+    "kyoboLink": "https://bitl.bz/api@DSpMTF4J",
+    "yes24Link": "https://bitl.bz/api@nFdtsoRo"
   },
   {
     "id": "bed377ada5b6d",
@@ -1796,8 +1822,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@MZBF8ItW",
-    "yes24Link": "https://bitl.bz/api@h0iLxjbj"
+    "kyoboLink": "https://bitl.bz/api@R1kuUsWT",
+    "yes24Link": "https://bitl.bz/api@Ox1AEVCs"
   },
   {
     "id": "b5d1f8f860c36",
@@ -1809,8 +1835,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@z0ybex3v",
-    "yes24Link": "https://bitl.bz/api@dRukPOXB"
+    "kyoboLink": "https://bitl.bz/api@OLhO0Lvv",
+    "yes24Link": "https://bitl.bz/api@yOHPpwdw"
   },
   {
     "id": "bd7b9d19c00ba",
@@ -1822,8 +1848,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@WmLvrWIf",
-    "yes24Link": "https://bitl.bz/api@ED44jlnx"
+    "kyoboLink": "https://bitl.bz/api@IMKirBVU",
+    "yes24Link": "https://bitl.bz/api@u953gVQO"
   },
   {
     "id": "b7d03ed0e91b0",
@@ -1835,8 +1861,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@CaMCcG6L",
-    "yes24Link": "https://bitl.bz/api@7HTGb7oY"
+    "kyoboLink": "https://bitl.bz/api@CqJCr6Pm",
+    "yes24Link": "https://bitl.bz/api@KEg8UQNw"
   },
   {
     "id": "b2fac5bccecd7",
@@ -1852,8 +1878,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@zzaL6h2y",
-    "yes24Link": "https://bitl.bz/api@0l9kZMIe"
+    "kyoboLink": "https://bitl.bz/api@aNjpcDwp",
+    "yes24Link": "https://bitl.bz/api@UptjTd5G"
   },
   {
     "id": "ba2ec42aecc43",
@@ -1865,8 +1891,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@MDyrn5Xi",
-    "yes24Link": "https://bitl.bz/api@2u4t3jKp"
+    "kyoboLink": "https://bitl.bz/api@448eLvc7",
+    "yes24Link": "https://bitl.bz/api@4Eyj4lZP"
   },
   {
     "id": "b68603bac2530",
@@ -1880,8 +1906,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@y28OHkib",
-    "yes24Link": "https://bitl.bz/api@wguPVRJD"
+    "kyoboLink": "https://bitl.bz/api@O62NurIu",
+    "yes24Link": "https://bitl.bz/api@0XCCgqKB"
   },
   {
     "id": "bc4e3afdf3f00",
@@ -1894,8 +1920,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@iVoHxeA6",
-    "yes24Link": "https://bitl.bz/api@QoAxtaq7"
+    "kyoboLink": "https://bitl.bz/api@3ekYmkn8",
+    "yes24Link": "https://bitl.bz/api@YToyEo2k"
   },
   {
     "id": "bea63aed0d0cd",
@@ -1907,8 +1933,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@Ja5Jwa5d",
-    "yes24Link": "https://bitl.bz/api@TgrJ1mY4"
+    "kyoboLink": "https://bitl.bz/api@WbV4cIIQ",
+    "yes24Link": "https://bitl.bz/api@lAPnTmPg"
   },
   {
     "id": "b0995e03f8cd9",
@@ -1922,8 +1948,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@uomC343C",
-    "yes24Link": "https://bitl.bz/api@JsDEffEh"
+    "kyoboLink": "https://bitl.bz/api@sjZeYomx",
+    "yes24Link": "https://bitl.bz/api@KblGXN4s"
   },
   {
     "id": "b05fd95f85e25",
@@ -1936,8 +1962,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@d2K73u1e",
-    "yes24Link": "https://bitl.bz/api@fTxdtxoJ"
+    "kyoboLink": "https://bitl.bz/api@AsBhwu2i",
+    "yes24Link": "https://bitl.bz/api@LzG64gbT"
   },
   {
     "id": "b671aadd900a3",
@@ -1949,8 +1975,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@9p1tV40O",
-    "yes24Link": "https://bitl.bz/api@wIg5z1fD"
+    "kyoboLink": "https://bitl.bz/api@7Vc2EiHM",
+    "yes24Link": "https://bitl.bz/api@koWmsFUB"
   },
   {
     "id": "b19ca015f1c43",
@@ -1962,8 +1988,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@hy72DBaO",
-    "yes24Link": "https://bitl.bz/api@ylygsljb"
+    "kyoboLink": "https://bitl.bz/api@My4q3FIS",
+    "yes24Link": "https://bitl.bz/api@Jskxk8AS"
   },
   {
     "id": "b40d4ab7a3e4c",
@@ -1975,8 +2001,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@TI45MB8X",
-    "yes24Link": "https://bitl.bz/api@KpzF3kgi"
+    "kyoboLink": "https://bitl.bz/api@EamZlG33",
+    "yes24Link": "https://bitl.bz/api@15qWwMuN"
   },
   {
     "id": "b42169d80cea9",
@@ -1988,8 +2014,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@ITBnAXEN",
-    "yes24Link": "https://bitl.bz/api@oQZk3icS"
+    "kyoboLink": "https://bitl.bz/api@mvUf93aN",
+    "yes24Link": "https://bitl.bz/api@VR7Xam5I"
   },
   {
     "id": "b692f8c9221df",
@@ -2002,8 +2028,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@oF7kXDV9",
-    "yes24Link": "https://bitl.bz/api@evjEs8I8"
+    "kyoboLink": "https://bitl.bz/api@NwoYq7ZI",
+    "yes24Link": "https://bitl.bz/api@qk3TxAj5"
   },
   {
     "id": "bbeb81449ab61",
@@ -2015,8 +2041,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@XufaJvKw",
-    "yes24Link": "https://bitl.bz/api@gxu71xFA"
+    "kyoboLink": "https://bitl.bz/api@uH7LE2r6",
+    "yes24Link": "https://bitl.bz/api@MjXJds2A"
   },
   {
     "id": "b60096174c927",
@@ -2028,8 +2054,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@SrpC1czc",
-    "yes24Link": "https://bitl.bz/api@uKEWOTCB"
+    "kyoboLink": "https://bitl.bz/api@HVST30zj",
+    "yes24Link": "https://bitl.bz/api@tPvzjAdI"
   },
   {
     "id": "b5791c0a5a0c4",
@@ -2041,8 +2067,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@wfegLA1m",
-    "yes24Link": "https://bitl.bz/api@hEd1JJ9l"
+    "kyoboLink": "https://bitl.bz/api@xWZpNhYw",
+    "yes24Link": "https://bitl.bz/api@Gz3ykhNQ"
   },
   {
     "id": "b6fb82b5baeca",
@@ -2055,8 +2081,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@rI8dXD74",
-    "yes24Link": "https://bitl.bz/api@irRpDR4p"
+    "kyoboLink": "https://bitl.bz/api@cG1E6ZK5",
+    "yes24Link": "https://bitl.bz/api@SRwSJjXe"
   },
   {
     "id": "b9e9f7176dadb",
@@ -2068,8 +2094,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@aBJysm4y",
-    "yes24Link": "https://bitl.bz/api@495IAjLx"
+    "kyoboLink": "https://bitl.bz/api@9QuZtZCR",
+    "yes24Link": "https://bitl.bz/api@Z7FoDiRU"
   },
   {
     "id": "b4efe48307869",
@@ -2081,8 +2107,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@T2x72JMg",
-    "yes24Link": "https://bitl.bz/api@dIlIT4WP"
+    "kyoboLink": "https://bitl.bz/api@QmB1Gz6t",
+    "yes24Link": "https://bitl.bz/api@W8gsk0Cn"
   },
   {
     "id": "b0c933434ef37",
@@ -2095,8 +2121,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@FyIUmLLI",
-    "yes24Link": "https://bitl.bz/api@XbsUBIJj"
+    "kyoboLink": "https://bitl.bz/api@Skev8NY9",
+    "yes24Link": "https://bitl.bz/api@oG7NdF8x"
   },
   {
     "id": "b50c48e4b1f72",
@@ -2108,8 +2134,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@K0pOmU3s",
-    "yes24Link": "https://bitl.bz/api@olVKkT6q"
+    "kyoboLink": "https://bitl.bz/api@WPfKm4Du",
+    "yes24Link": "https://bitl.bz/api@dvovWZLD"
   },
   {
     "id": "b4d71e960da1f",
@@ -2121,8 +2147,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@RHmAObSD",
-    "yes24Link": "https://bitl.bz/api@5wpsd00v"
+    "kyoboLink": "https://bitl.bz/api@AogwjjcW",
+    "yes24Link": "https://bitl.bz/api@fyxpHPsn"
   },
   {
     "id": "be900202836ec",
@@ -2134,8 +2160,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@z93blklh",
-    "yes24Link": "https://bitl.bz/api@TTXF7S7N"
+    "kyoboLink": "https://bitl.bz/api@TEvXTJ6U",
+    "yes24Link": "https://bitl.bz/api@rBwtrzWn"
   },
   {
     "id": "b134b0ae8a0ca",
@@ -2147,8 +2173,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@eIlKgLG7",
-    "yes24Link": "https://bitl.bz/api@yh0hJnng"
+    "kyoboLink": "https://bitl.bz/api@1uVvgC1k",
+    "yes24Link": "https://bitl.bz/api@jlM5qIG8"
   },
   {
     "id": "b7fa44fc2bc9d",
@@ -2160,8 +2186,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@CqA4SNEN",
-    "yes24Link": "https://bitl.bz/api@TnA1W9wQ"
+    "kyoboLink": "https://bitl.bz/api@J8ITYpoJ",
+    "yes24Link": "https://bitl.bz/api@ZTTWc3Fw"
   },
   {
     "id": "bbae1b09f041a",
@@ -2173,8 +2199,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@H2PDGq2q",
-    "yes24Link": "https://bitl.bz/api@4OmYb3W2"
+    "kyoboLink": "https://bitl.bz/api@tTFQwJ9M",
+    "yes24Link": "https://bitl.bz/api@p9WLTE7s"
   },
   {
     "id": "b9f5239dbcb8f",
@@ -2186,8 +2212,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@IOMKG47x",
-    "yes24Link": "https://bitl.bz/api@d5yE6Goc"
+    "kyoboLink": "https://bitl.bz/api@aDCJrhpM",
+    "yes24Link": "https://bitl.bz/api@qTGnENTs"
   },
   {
     "id": "b26c2ae042db3",
@@ -2199,8 +2225,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@JXGt25MK",
-    "yes24Link": "https://bitl.bz/api@kidFUilt"
+    "kyoboLink": "https://bitl.bz/api@pqxx38pE",
+    "yes24Link": "https://bitl.bz/api@EO2N9IfT"
   },
   {
     "id": "b46cf4a2f7733",
@@ -2212,8 +2238,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@vDOhHjGl",
-    "yes24Link": "https://bitl.bz/api@GX4cKPpO"
+    "kyoboLink": "https://bitl.bz/api@9recJ3ki",
+    "yes24Link": "https://bitl.bz/api@ftYLTs0H"
   },
   {
     "id": "b25af0ba1051d",
@@ -2225,8 +2251,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@FRQxy3YZ",
-    "yes24Link": "https://bitl.bz/api@3qmYvap5"
+    "kyoboLink": "https://bitl.bz/api@9HfU1vj1",
+    "yes24Link": "https://bitl.bz/api@mzZgiVTP"
   },
   {
     "id": "b3b370371fd8c",
@@ -2238,8 +2264,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@ZD5O7esY",
-    "yes24Link": "https://bitl.bz/api@SRz5DlrV"
+    "kyoboLink": "https://bitl.bz/api@UvadbIKj",
+    "yes24Link": "https://bitl.bz/api@VQ7oo55z"
   },
   {
     "id": "bc62ac64e846d",
@@ -2251,8 +2277,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@bfRlfhFm",
-    "yes24Link": "https://bitl.bz/api@7SzjtF7d"
+    "kyoboLink": "https://bitl.bz/api@yW0RkCvd",
+    "yes24Link": "https://bitl.bz/api@bCEI9vUF"
   },
   {
     "id": "b65fd285c6418",
@@ -2264,8 +2290,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@SHyByANb",
-    "yes24Link": "https://bitl.bz/api@JMRdchJc"
+    "kyoboLink": "https://bitl.bz/api@QNao0YtB",
+    "yes24Link": "https://bitl.bz/api@iNINsrxE"
   },
   {
     "id": "bb91b12cd1dc1",
@@ -2278,8 +2304,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@VVaA3UmK",
-    "yes24Link": "https://bitl.bz/api@G9oor16v"
+    "kyoboLink": "https://bitl.bz/api@QtfiNJnX",
+    "yes24Link": "https://bitl.bz/api@BYLVHrK4"
   },
   {
     "id": "bbcafb0676b36",
@@ -2291,8 +2317,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@OqdOrvl6",
-    "yes24Link": "https://bitl.bz/api@zecDtyTx"
+    "kyoboLink": "https://bitl.bz/api@8fqFNa6N",
+    "yes24Link": "https://bitl.bz/api@jhoKPx7S"
   },
   {
     "id": "b6c13bbdf5bf5",
@@ -2304,8 +2330,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@2s9QB4c4",
-    "yes24Link": "https://bitl.bz/api@Y1DVLkAv"
+    "kyoboLink": "https://bitl.bz/api@zfGUmQ9P",
+    "yes24Link": "https://bitl.bz/api@ms5neqn9"
   },
   {
     "id": "b16dd722b5920",
@@ -2317,8 +2343,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@Mqc5zSkP",
-    "yes24Link": "https://bitl.bz/api@GrjD3gcp"
+    "kyoboLink": "https://bitl.bz/api@BhYC6eLe",
+    "yes24Link": "https://bitl.bz/api@YxFLm5k3"
   },
   {
     "id": "beade2a0bdbfd",
@@ -2330,8 +2356,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@ov5pdja6",
-    "yes24Link": "https://bitl.bz/api@C4QcYKpf"
+    "kyoboLink": "https://bitl.bz/api@2kftWSmc",
+    "yes24Link": "https://bitl.bz/api@kgJTsjIt"
   },
   {
     "id": "bd48a5c6701d6",
@@ -2351,8 +2377,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@RUmmsH4n",
-    "yes24Link": "https://bitl.bz/api@pwOiAhz1"
+    "kyoboLink": "https://bitl.bz/api@pToJAKuv",
+    "yes24Link": "https://bitl.bz/api@EL9CInIL"
   },
   {
     "id": "b09d726a00bff",
@@ -2364,8 +2390,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@v7v8A5qx",
-    "yes24Link": "https://bitl.bz/api@4nJrXHHX"
+    "kyoboLink": "https://bitl.bz/api@2M9G98yO",
+    "yes24Link": "https://bitl.bz/api@YGTsx6qD"
   },
   {
     "id": "b3dea33e9eee5",
@@ -2378,8 +2404,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@OOqlGZD7",
-    "yes24Link": "https://bitl.bz/api@SoXoqrr9"
+    "kyoboLink": "https://bitl.bz/api@SAtJpvlK",
+    "yes24Link": "https://bitl.bz/api@jM1tRZU6"
   },
   {
     "id": "bac241135bc3b",
@@ -2391,8 +2417,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@dXN87Ut0",
-    "yes24Link": "https://bitl.bz/api@B9n8U1Fp"
+    "kyoboLink": "https://bitl.bz/api@w5khj8zy",
+    "yes24Link": "https://bitl.bz/api@JC3lAbtL"
   },
   {
     "id": "b8b3b81fcae0b",
@@ -2406,8 +2432,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@BBR13par",
-    "yes24Link": "https://bitl.bz/api@gog7pHZh"
+    "kyoboLink": "https://bitl.bz/api@yhAJdIgf",
+    "yes24Link": "https://bitl.bz/api@qvU6h2RR"
   },
   {
     "id": "baaa32713d4e3",
@@ -2420,8 +2446,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@PEhAsXNY",
-    "yes24Link": "https://bitl.bz/api@Un0pNYH3"
+    "kyoboLink": "https://bitl.bz/api@JZQHtYDo",
+    "yes24Link": "https://bitl.bz/api@tQwuEJcy"
   },
   {
     "id": "b226fd03b27e4",
@@ -2434,8 +2460,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@x033wCgz",
-    "yes24Link": "https://bitl.bz/api@OJwUrUkO"
+    "kyoboLink": "https://bitl.bz/api@9YkafeFl",
+    "yes24Link": "https://bitl.bz/api@aTRHYlLE"
   },
   {
     "id": "bc8e73f60f98d",
@@ -2447,8 +2473,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@MKS12i9P",
-    "yes24Link": "https://bitl.bz/api@abB5d4xE"
+    "kyoboLink": "https://bitl.bz/api@YGbHsSlr",
+    "yes24Link": "https://bitl.bz/api@j7OKhztC"
   },
   {
     "id": "bee0169ba4605",
@@ -2460,8 +2486,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@DDTsZwl8",
-    "yes24Link": "https://bitl.bz/api@C2A9JMCx"
+    "kyoboLink": "https://bitl.bz/api@bJAnc6XG",
+    "yes24Link": "https://bitl.bz/api@tRCNDuLS"
   },
   {
     "id": "bbbd358ccd780",
@@ -2473,8 +2499,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@P5khsge0",
-    "yes24Link": "https://bitl.bz/api@3vqGjfy5"
+    "kyoboLink": "https://bitl.bz/api@u38057UV",
+    "yes24Link": "https://bitl.bz/api@DlcpXLvF"
   },
   {
     "id": "b572cd852cc54",
@@ -2487,8 +2513,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@AZiDNA3R",
-    "yes24Link": "https://bitl.bz/api@qN8YOnor"
+    "kyoboLink": "https://bitl.bz/api@NBQUBurR",
+    "yes24Link": "https://bitl.bz/api@SvorwlJL"
   },
   {
     "id": "b3864eb792390",
@@ -2500,8 +2526,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@dsadKsM0",
-    "yes24Link": "https://bitl.bz/api@1oAtkpcZ"
+    "kyoboLink": "https://bitl.bz/api@8HFZufZe",
+    "yes24Link": "https://bitl.bz/api@iFNkWAPP"
   },
   {
     "id": "b7e18b51f1c3f",
@@ -2513,8 +2539,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@enHzrpvv",
-    "yes24Link": "https://bitl.bz/api@P3fE3sGz"
+    "kyoboLink": "https://bitl.bz/api@xlh0I6US",
+    "yes24Link": "https://bitl.bz/api@vftIQuWB"
   },
   {
     "id": "b76177a7a59d5",
@@ -2526,8 +2552,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@JBIET9u3",
-    "yes24Link": "https://bitl.bz/api@wkUM862F"
+    "kyoboLink": "https://bitl.bz/api@XklbXyHW",
+    "yes24Link": "https://bitl.bz/api@nwNfA2U2"
   },
   {
     "id": "b93636a6fd8f4",
@@ -2539,8 +2565,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@om09hYHJ",
-    "yes24Link": "https://bitl.bz/api@H1qzsA78"
+    "kyoboLink": "https://bitl.bz/api@Z3ONjJHs",
+    "yes24Link": "https://bitl.bz/api@GTsRL9DX"
   },
   {
     "id": "bdea99779fed3",
@@ -2552,8 +2578,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@xw2TKEfs",
-    "yes24Link": "https://bitl.bz/api@MvY2DS1R"
+    "kyoboLink": "https://bitl.bz/api@lwfTntlf",
+    "yes24Link": "https://bitl.bz/api@CeGoNNnW"
   },
   {
     "id": "be5393f158317",
@@ -2565,8 +2591,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@KZKiTiJw",
-    "yes24Link": "https://bitl.bz/api@KQyXrmTu"
+    "kyoboLink": "https://bitl.bz/api@GumD0iuS",
+    "yes24Link": "https://bitl.bz/api@FNdNlU3s"
   },
   {
     "id": "ba8f9d3dec0a8",
@@ -2578,8 +2604,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@85CBhtfI",
-    "yes24Link": "https://bitl.bz/api@NSZp3VZs"
+    "kyoboLink": "https://bitl.bz/api@1NVjwYWz",
+    "yes24Link": "https://bitl.bz/api@2Zrtq1px"
   },
   {
     "id": "b927946179d0a",
@@ -2591,8 +2617,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@tCmm6mcu",
-    "yes24Link": "https://bitl.bz/api@euPnm6Xx"
+    "kyoboLink": "https://bitl.bz/api@8Iw8KtkX",
+    "yes24Link": "https://bitl.bz/api@o6id01c4"
   },
   {
     "id": "bd21defd1803b",
@@ -2604,8 +2630,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@gpWwsxJ2",
-    "yes24Link": "https://bitl.bz/api@l6pPxz53"
+    "kyoboLink": "https://bitl.bz/api@3NKd6b8m",
+    "yes24Link": "https://bitl.bz/api@tFhF1XrP"
   },
   {
     "id": "b442c16876e88",
@@ -2617,8 +2643,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@2dZVW6Wu",
-    "yes24Link": "https://bitl.bz/api@suvuPZQD"
+    "kyoboLink": "https://bitl.bz/api@yWNxxD4V",
+    "yes24Link": "https://bitl.bz/api@crMvkoXV"
   },
   {
     "id": "b8f6d6adc0ad8",
@@ -2632,8 +2658,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@1UI1aqQn",
-    "yes24Link": "https://bitl.bz/api@IWmjm6vr"
+    "kyoboLink": "https://bitl.bz/api@Ig97U190",
+    "yes24Link": "https://bitl.bz/api@7CSAFL8r"
   },
   {
     "id": "bb78f682396b6",
@@ -2645,8 +2671,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@sqXgB0r6",
-    "yes24Link": "https://bitl.bz/api@8cibNZQe"
+    "kyoboLink": "https://bitl.bz/api@FrMfDwg2",
+    "yes24Link": "https://bitl.bz/api@wM51R73R"
   },
   {
     "id": "bc366df75c0ce",
@@ -2659,8 +2685,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@sI4KRHUC",
-    "yes24Link": "https://bitl.bz/api@zRcNGogl"
+    "kyoboLink": "https://bitl.bz/api@gTmExgug",
+    "yes24Link": "https://bitl.bz/api@3rkMnYsr"
   },
   {
     "id": "bbcf243b8ba88",
@@ -2672,8 +2698,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@yjfz7hlp",
-    "yes24Link": "https://bitl.bz/api@NhVZVk0h"
+    "kyoboLink": "https://bitl.bz/api@Gs6npIMy",
+    "yes24Link": "https://bitl.bz/api@GYah8vf4"
   },
   {
     "id": "b4d6582965d32",
@@ -2686,8 +2712,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@ZbaHVkkK",
-    "yes24Link": "https://bitl.bz/api@wJbcTiQy"
+    "kyoboLink": "https://bitl.bz/api@D56citxn",
+    "yes24Link": "https://bitl.bz/api@lSiOvONY"
   },
   {
     "id": "b66bfcd7942e9",
@@ -2699,8 +2725,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@Z1AiCMLc",
-    "yes24Link": "https://bitl.bz/api@CuDaxZQ5"
+    "kyoboLink": "https://bitl.bz/api@g4CITwqn",
+    "yes24Link": "https://bitl.bz/api@r93b1bXg"
   },
   {
     "id": "bd0f92c618e1d",
@@ -2712,8 +2738,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@0QlryvIZ",
-    "yes24Link": "https://bitl.bz/api@1Qk3IqBC"
+    "kyoboLink": "https://bitl.bz/api@9GcewnEY",
+    "yes24Link": "https://bitl.bz/api@AVmZQ4Hf"
   },
   {
     "id": "b1e699f7491a1",
@@ -2725,8 +2751,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@1M07D7Ps",
-    "yes24Link": "https://bitl.bz/api@pbenzThH"
+    "kyoboLink": "https://bitl.bz/api@BKIkpP6L",
+    "yes24Link": "https://bitl.bz/api@ExuGx9ZJ"
   },
   {
     "id": "b08e452d791f2",
@@ -2740,8 +2766,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@D57EnV4k",
-    "yes24Link": "https://bitl.bz/api@iCb8naOv"
+    "kyoboLink": "https://bitl.bz/api@67CZZA0U",
+    "yes24Link": "https://bitl.bz/api@hZ55JGrn"
   },
   {
     "id": "beb0e191adb89",
@@ -2753,8 +2779,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@veJPGwsB",
-    "yes24Link": "https://bitl.bz/api@l1puiqU5"
+    "kyoboLink": "https://bitl.bz/api@PDx1fndG",
+    "yes24Link": "https://bitl.bz/api@G6vqoGXA"
   },
   {
     "id": "b783e4b3467a2",
@@ -2766,8 +2792,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@FAwn8GLe",
-    "yes24Link": "https://bitl.bz/api@HSvW2C4o"
+    "kyoboLink": "https://bitl.bz/api@PRconzMD",
+    "yes24Link": "https://bitl.bz/api@B7mjRsFO"
   },
   {
     "id": "b499b88505824",
@@ -2779,8 +2805,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@X8Wb2322",
-    "yes24Link": "https://bitl.bz/api@DBB9oS2x"
+    "kyoboLink": "https://bitl.bz/api@bRSz9RiI",
+    "yes24Link": "https://bitl.bz/api@abYyo1Zy"
   },
   {
     "id": "b24a30aa3f95b",
@@ -2792,8 +2818,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@espNYLdN",
-    "yes24Link": "https://bitl.bz/api@o4F9nxz5"
+    "kyoboLink": "https://bitl.bz/api@7zgS2RcS",
+    "yes24Link": "https://bitl.bz/api@8qDJYiwM"
   },
   {
     "id": "b7b5d6c0f2f40",
@@ -2805,8 +2831,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@47B5IGBz",
-    "yes24Link": "https://bitl.bz/api@XaahNov6"
+    "kyoboLink": "https://bitl.bz/api@1ZXeaO1S",
+    "yes24Link": "https://bitl.bz/api@KNXUxSOa"
   },
   {
     "id": "b511f24c2e317",
@@ -2820,8 +2846,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@5VKvx530",
-    "yes24Link": "https://bitl.bz/api@yP8x7e4W"
+    "kyoboLink": "https://bitl.bz/api@FMLXBdUy",
+    "yes24Link": "https://bitl.bz/api@1I4iq6u2"
   },
   {
     "id": "b9efcacc67161",
@@ -2833,8 +2859,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@kEZJT4IK",
-    "yes24Link": "https://bitl.bz/api@MOjZ0zts"
+    "kyoboLink": "https://bitl.bz/api@BoY4PGf2",
+    "yes24Link": "https://bitl.bz/api@meDk1Hx2"
   },
   {
     "id": "b3dfc06b2927d",
@@ -2847,8 +2873,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@p4gI5FNY",
-    "yes24Link": "https://bitl.bz/api@qXUVWLBW"
+    "kyoboLink": "https://bitl.bz/api@KkKVTaYi",
+    "yes24Link": "https://bitl.bz/api@3iohYAkT"
   },
   {
     "id": "ba8a3ed564ed2",
@@ -2866,8 +2892,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@Zqk8dBbc",
-    "yes24Link": "https://deg.kr/2cd44f0/1784877731446"
+    "kyoboLink": "https://bitl.bz/api@JJqZ0w2K",
+    "yes24Link": "https://bitl.bz/api@spOFd3l7"
   },
   {
     "id": "b6844cfc50678",
@@ -2879,8 +2905,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@d6EHXOQq",
-    "yes24Link": "https://bitl.bz/api@2F5bdx6U"
+    "kyoboLink": "https://bitl.bz/api@ECHokugw",
+    "yes24Link": "https://bitl.bz/api@FmFVojAH"
   },
   {
     "id": "b4efbcc411498",
@@ -2892,8 +2918,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@wRIXVigw",
-    "yes24Link": "https://bitl.bz/api@t8qaAPEX"
+    "kyoboLink": "https://bitl.bz/api@M7hvdEf9",
+    "yes24Link": "https://bitl.bz/api@NpMdzP1S"
   },
   {
     "id": "b06e09292082e",
@@ -2905,8 +2931,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@3r9GNHKT",
-    "yes24Link": "https://bitl.bz/api@s1SoCcRl"
+    "kyoboLink": "https://bitl.bz/api@lfotL02N",
+    "yes24Link": "https://bitl.bz/api@n1BPhDsJ"
   },
   {
     "id": "bf4172aa3415b",
@@ -2918,8 +2944,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@j6Tro1LI",
-    "yes24Link": "https://bitl.bz/api@tO1fA9TS"
+    "kyoboLink": "https://bitl.bz/api@1htIoCgr",
+    "yes24Link": "https://bitl.bz/api@hkEWcR70"
   },
   {
     "id": "b82020f8aec3c",
@@ -2931,8 +2957,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@JrtznGN5",
-    "yes24Link": "https://bitl.bz/api@Jo0rDHE7"
+    "kyoboLink": "https://bitl.bz/api@txxVdPtT",
+    "yes24Link": "https://bitl.bz/api@ew7y88Mo"
   },
   {
     "id": "b398329939e50",
@@ -2944,8 +2970,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@Ckj1fHOM",
-    "yes24Link": "https://bitl.bz/api@OWtzVt9e"
+    "kyoboLink": "https://bitl.bz/api@0mOHOc3s",
+    "yes24Link": "https://bitl.bz/api@UxzYJ9qM"
   },
   {
     "id": "bda9f2809602e",
@@ -2958,8 +2984,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@735FmWmz",
-    "yes24Link": "https://bitl.bz/api@V3EouWoV"
+    "kyoboLink": "https://bitl.bz/api@81retRRz",
+    "yes24Link": "https://bitl.bz/api@m77ex0qU"
   },
   {
     "id": "b59b06cf6ba66",
@@ -2972,8 +2998,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@B3as6nAE",
-    "yes24Link": "https://bitl.bz/api@44OzwwGY"
+    "kyoboLink": "https://bitl.bz/api@abbzS6xL",
+    "yes24Link": "https://bitl.bz/api@Vh5OxvDs"
   },
   {
     "id": "bff6380b8f554",
@@ -2985,8 +3011,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@Yww0E70H",
-    "yes24Link": "https://bitl.bz/api@rY7OGUR2"
+    "kyoboLink": "https://bitl.bz/api@5zCsGs4W",
+    "yes24Link": "https://bitl.bz/api@MEVq69b4"
   },
   {
     "id": "b3215134ba021",
@@ -2998,8 +3024,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@Uh8fSGBk",
-    "yes24Link": "https://bitl.bz/api@2b0Tp80B"
+    "kyoboLink": "https://bitl.bz/api@MqaO7WUP",
+    "yes24Link": "https://bitl.bz/api@gvrXPiSU"
   },
   {
     "id": "b415cadc0a614",
@@ -3011,8 +3037,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@2xDOuNNT",
-    "yes24Link": "https://bitl.bz/api@HHBQKUG3"
+    "kyoboLink": "https://bitl.bz/api@Vfc2DiTm",
+    "yes24Link": "https://bitl.bz/api@ugdDPHx6"
   },
   {
     "id": "b93a2c443fe30",
@@ -3024,8 +3050,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@cYqLvlyh",
-    "yes24Link": "https://bitl.bz/api@Y6gNgDPb"
+    "kyoboLink": "https://bitl.bz/api@PP0yDKyH",
+    "yes24Link": "https://bitl.bz/api@RMYMqgNV"
   },
   {
     "id": "bd52cf916395d",
@@ -3037,8 +3063,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@SmeWx9gC",
-    "yes24Link": "https://bitl.bz/api@CmYNyxWp"
+    "kyoboLink": "https://bitl.bz/api@KR2IAqq7",
+    "yes24Link": "https://bitl.bz/api@InbYQsIa"
   },
   {
     "id": "b4bdd9e1c6dae",
@@ -3050,8 +3076,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@y8whqIY4",
-    "yes24Link": "https://bitl.bz/api@QUnupXAc"
+    "kyoboLink": "https://bitl.bz/api@aC65UbvC",
+    "yes24Link": "https://bitl.bz/api@3krvjBvC"
   },
   {
     "id": "b84e32641bfda",
@@ -3063,8 +3089,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@IPrIrg0e",
-    "yes24Link": "https://bitl.bz/api@3PzvnbQZ"
+    "kyoboLink": "https://bitl.bz/api@QITyWQFP",
+    "yes24Link": "https://bitl.bz/api@5aPDCqK0"
   },
   {
     "id": "bd9886942d31a",
@@ -3076,8 +3102,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@BBTAPWvs",
-    "yes24Link": "https://bitl.bz/api@gpxElpn7"
+    "kyoboLink": "https://bitl.bz/api@xfUC9J0z",
+    "yes24Link": "https://bitl.bz/api@iHcX2oRv"
   },
   {
     "id": "b9d1c45d93bc6",
@@ -3089,8 +3115,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@poUqitPn",
-    "yes24Link": "https://bitl.bz/api@vzNm0sYQ"
+    "kyoboLink": "https://bitl.bz/api@qvi1Jmr9",
+    "yes24Link": "https://bitl.bz/api@wcx7e75O"
   },
   {
     "id": "bd9d74069d898",
@@ -3102,8 +3128,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@LsBDKSYS",
-    "yes24Link": "https://bitl.bz/api@yi9fbhUf"
+    "kyoboLink": "https://bitl.bz/api@Q9XGiOk9",
+    "yes24Link": "https://bitl.bz/api@dqXW8SXZ"
   },
   {
     "id": "bcd72c4c13df7",
@@ -3115,8 +3141,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@IgIiNh9g",
-    "yes24Link": "https://bitl.bz/api@VLh9MoS0"
+    "kyoboLink": "https://bitl.bz/api@wDHB4aSp",
+    "yes24Link": "https://bitl.bz/api@XIGVR8qm"
   },
   {
     "id": "bc59c92524a9a",
@@ -3128,8 +3154,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@0OyaTuo6",
-    "yes24Link": "https://bitl.bz/api@sNyNPgI2"
+    "kyoboLink": "https://bitl.bz/api@ncfX6ajw",
+    "yes24Link": "https://bitl.bz/api@EpGfm2WN"
   },
   {
     "id": "b96aafd31e178",
@@ -3141,8 +3167,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@4rzSCqph",
-    "yes24Link": "https://bitl.bz/api@BIoQnhbK"
+    "kyoboLink": "https://bitl.bz/api@yhU2Cf1V",
+    "yes24Link": "https://bitl.bz/api@D9iaxARN"
   },
   {
     "id": "b3b1e49d07dae",
@@ -3155,8 +3181,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@esCK0muv",
-    "yes24Link": "https://bitl.bz/api@sJPTigUp"
+    "kyoboLink": "https://bitl.bz/api@aCmIgDGk",
+    "yes24Link": "https://bitl.bz/api@iJgFD96b"
   },
   {
     "id": "b0602ddad0aa1",
@@ -3168,8 +3194,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@a1ZVYnd1",
-    "yes24Link": "https://bitl.bz/api@tbx95L2Y"
+    "kyoboLink": "https://bitl.bz/api@4EtEeAQj",
+    "yes24Link": "https://bitl.bz/api@LZphePYf"
   },
   {
     "id": "bd699d62b71cf",
@@ -3181,8 +3207,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@mLhYdHi8",
-    "yes24Link": "https://bitl.bz/api@y5JwCtpc"
+    "kyoboLink": "https://bitl.bz/api@G1Ptm810",
+    "yes24Link": "https://bitl.bz/api@MDCLCtIW"
   },
   {
     "id": "bf17e8c19afab",
@@ -3194,8 +3220,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@WvSP2Ea9",
-    "yes24Link": "https://bitl.bz/api@igmDGcyG"
+    "kyoboLink": "https://bitl.bz/api@0iYMi6au",
+    "yes24Link": "https://bitl.bz/api@cgS8jLXH"
   },
   {
     "id": "b0b8a3d3abe6e",
@@ -3207,8 +3233,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@Ur4eEIqq",
-    "yes24Link": "https://bitl.bz/api@ldDOBDoU"
+    "kyoboLink": "https://bitl.bz/api@XaXkHJmx",
+    "yes24Link": "https://bitl.bz/api@zoigyGWg"
   },
   {
     "id": "b8373b00b8023",
@@ -3220,8 +3246,8 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@qOXahSLo",
-    "yes24Link": "https://bitl.bz/api@PGgmkIcS"
+    "kyoboLink": "https://bitl.bz/api@xw1vZ5ca",
+    "yes24Link": "https://bitl.bz/api@WvY4hzi3"
   },
   {
     "id": "b0cf4a997a1e9",
@@ -3234,33 +3260,7 @@ var BOOKS = [
     "isbn": "",
     "publisher": "",
     "translator": "",
-    "kyoboLink": "https://bitl.bz/api@cgfyAGrj",
-    "yes24Link": "https://bitl.bz/api@rFfG2L6P"
-  },
-  {
-    "id": "b72a78c9c9a769",
-    "title": "일리아스 또는 힘의 시",
-    "author": "시몬 베유",
-    "quoteIds": [
-      "p100"
-    ],
-    "isbn": "",
-    "publisher": "",
-    "translator": "",
-    "kyoboLink": "",
-    "yes24Link": ""
-  },
-  {
-    "id": "bfc118ab0c3eb6",
-    "title": "인격과 성스러운 것",
-    "author": "시몬 베유",
-    "quoteIds": [
-      "p101"
-    ],
-    "isbn": "",
-    "publisher": "",
-    "translator": "",
-    "kyoboLink": "",
-    "yes24Link": ""
+    "kyoboLink": "https://bitl.bz/api@WY909acF",
+    "yes24Link": "https://bitl.bz/api@qGUSSunk"
   }
 ];

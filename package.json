@@ -4,7 +4,9 @@
   "description": "커피 한 잔의 시간 동안, 좋은 글 한 편.",
   "main": "index.js",
   "scripts": {
-    "build": "echo 'No build step needed'"
+    "build": "echo 'No build step needed'",
+    "capacitor:copy:after": "node scripts/check_www.js",
+    "check": "node scripts/check_www.js"
   },
   "author": "",
   "license": "UNLICENSED",

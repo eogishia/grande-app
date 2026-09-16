@@ -6,6 +6,10 @@
     "androidScheme": "https"
   },
   "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_grande",
+      "iconColor": "#A98053"
+    },
     "StatusBar": {
       "backgroundColor": "#F8F6F1",
       "style": "LIGHT"

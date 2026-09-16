@@ -23,12 +23,12 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink);max-width:
 .onboarding{position:fixed;inset:0;background:var(--paper);z-index:900;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s ease;padding:calc(28px + env(safe-area-inset-top, 0px)) 28px calc(28px + env(safe-area-inset-bottom, 0px))}
 .onboarding.show{opacity:1;pointer-events:auto}
 .onboarding-inner{max-width:400px;width:100%;text-align:center}
-.onboarding-slogan{font-family:var(--serif);font-size:17px;font-weight:300;line-height:1.9;color:var(--ink);word-break:keep-all}
+.onboarding-slogan{font-family:var(--serif);font-size:18px;font-weight:300;line-height:1.9;color:var(--ink);word-break:keep-all}
 .onboarding-tabs{margin-top:48px;text-align:left;display:flex;flex-direction:column;gap:22px}
 .onboarding-tab{display:flex;flex-direction:column;gap:3px;border-left:1px solid var(--line);padding-left:14px}
-.onboarding-tab-name{font-family:var(--sans);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:1px}
-.onboarding-tab-desc{font-family:var(--sans);font-size:11px;font-weight:300;color:var(--muted);line-height:1.6;word-break:keep-all}
-.onboarding-start{margin-top:52px;background:none;border:1px solid var(--accent);border-radius:24px;padding:12px 40px;font-family:var(--sans);font-size:12px;font-weight:400;color:var(--accent);letter-spacing:1px;cursor:pointer;transition:opacity .2s}
+.onboarding-tab-name{font-family:var(--sans);font-size:12px;font-weight:400;color:var(--accent);letter-spacing:1px}
+.onboarding-tab-desc{font-family:var(--sans);font-size:12px;font-weight:300;color:var(--muted);line-height:1.6;word-break:keep-all}
+.onboarding-start{margin-top:52px;background:none;border:1px solid var(--accent);border-radius:24px;padding:12px 40px;font-family:var(--sans);font-size:13px;font-weight:400;color:var(--accent);letter-spacing:1px;cursor:pointer;transition:opacity .2s}
 .onboarding-start:hover{opacity:.7}
 .main{flex:1;display:flex;flex-direction:column}
 .view{display:none;flex:1;flex-direction:column}
@@ -36,97 +36,99 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink);max-width:
 .view.leaving{display:flex;animation:viewOut .2s ease both}
 @keyframes viewIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 @keyframes viewOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-6px)}}
-.today{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:100px 28px calc(120px + env(safe-area-inset-bottom, 0px));min-height:80vh}
+.today{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 28px calc(120px + env(safe-area-inset-bottom, 0px));min-height:80vh}
 .today-content{max-width:440px;width:100%;opacity:1}
 .today-content.fade-in{opacity:0;animation:fadeUp .6s ease .3s both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.today-text{font-family:var(--serif);font-size:14px;font-weight:300;line-height:2.1;color:var(--ink);white-space:pre-line;word-break:keep-all;text-align:justify}
-.today-day{font-family:var(--sans);font-size:10px;font-weight:300;color:var(--faint);letter-spacing:2px;text-align:center;margin-bottom:60px}
+.today-text{font-family:var(--serif);font-size:15px;font-weight:300;line-height:2.1;color:var(--ink);word-break:keep-all;text-align:justify}
+.today-text p+p{margin-top:.9em}
+.today-day{font-family:var(--sans);font-size:11px;font-weight:300;color:var(--faint);letter-spacing:2px;text-align:center;margin-bottom:60px}
 .today-memo{margin-top:32px;max-height:0;opacity:0;overflow:hidden;transform:translateY(16px);transition:max-height .35s ease,opacity .3s ease,transform .3s ease}
 .today-memo.open{max-height:200px;opacity:1;transform:translateY(0)}
 .today-meta{margin-top:48px}
-.note-wrap{position:relative;display:inline-block}
-.sheet-source{position:relative}
-.sheet-source .note-wrap{position:static}
-.sheet-source .note-tooltip{left:0;right:auto;width:auto;max-width:280px}
-.note-btn{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;border:1px solid var(--faint);background:none;color:var(--muted);font-size:8px;font-family:var(--sans);cursor:pointer;margin-left:5px;vertical-align:middle;padding:0;line-height:1;position:relative;top:-1px}
-.note-tooltip{display:none;position:absolute;top:100%;left:0;z-index:60;width:260px;background:var(--ink);color:var(--paper);font-family:var(--sans);font-size:11px;font-weight:300;line-height:1.7;padding:12px 14px;border-radius:8px;margin-top:6px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
-.note-tooltip.show{display:block}
-.sheet-source .note-tooltip{left:auto;right:0}
-.today-author{font-family:var(--sans);font-size:13px;font-weight:400;color:var(--accent);letter-spacing:.5px}
-.today-source{font-family:var(--sans);font-size:11px;font-weight:300;color:var(--muted);margin-top:8px}
+/* 주석은 그란데의 핵심인데 '?' 툴팁 뒤에 숨어 아무도 누르지 않았다.
+   물음표는 문의 아이콘으로 읽혀 '설명'으로 연결되지 않는다. 본문 아래
+   독립 섹션으로 꺼내 언제나 보이게 한다. */
+.note-sec{margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
+.note-sec-label{font-family:var(--sans);font-size:10px;font-weight:400;color:var(--accent);letter-spacing:1.5px;margin-bottom:12px}
+.note-sec-text{font-family:var(--serif);font-size:12px;font-weight:300;line-height:1.9;color:var(--muted);word-break:keep-all;text-align:justify;white-space:pre-line}
+.today-author{font-family:var(--sans);font-size:14px;font-weight:400;color:var(--accent);letter-spacing:.5px}
+.today-source{font-family:var(--sans);font-size:12px;font-weight:300;color:var(--muted);margin-top:8px}
 .today-galpi{margin-top:60px;display:flex;gap:36px;justify-content:center}
 .today-galpi.fade-in{opacity:0;animation:fadeUp .6s ease .6s both}
-.today-galpi button{background:none;border:none;font-family:var(--sans);font-size:12px;font-weight:300;color:var(--faint);cursor:pointer;letter-spacing:1px;transition:color .2s;padding:8px 0}
+.today-galpi button{background:none;border:none;font-family:var(--sans);font-size:13px;font-weight:300;color:var(--faint);cursor:pointer;letter-spacing:1px;transition:color .2s;padding:8px 0}
 .today-galpi button:hover{color:var(--accent)}
 .today-galpi button.saved{color:var(--accent);font-weight:400}
 .page-header{padding:calc(28px + env(safe-area-inset-top, 0px)) 28px 0;position:relative;display:flex;align-items:baseline;gap:10px}
-.page-title{font-family:var(--serif);font-size:26px;font-weight:300;color:var(--ink);letter-spacing:1px}
-.page-subtitle{font-family:var(--sans);font-size:11px;font-weight:300;color:var(--muted);margin-top:0}
+.page-title{font-family:var(--serif);font-size:28px;font-weight:300;color:var(--ink);letter-spacing:1px}
+.page-subtitle{font-family:var(--sans);font-size:12px;font-weight:300;color:var(--muted);margin-top:0}
 .search-wrap{padding:24px 28px 0}
-.search-input{width:100%;background:none;border:none;border-bottom:1px solid var(--line);font-family:var(--sans);font-size:11px;font-weight:300;color:var(--ink);padding:8px 0;outline:none;transition:border-color .2s}
+.search-input{width:100%;background:none;border:none;border-bottom:1px solid var(--line);font-family:var(--sans);font-size:12px;font-weight:300;color:var(--ink);padding:8px 0;outline:none;transition:border-color .2s}
 .search-input:focus{border-color:var(--accent)}
 .search-input::placeholder{color:var(--faint)}
 .filter-wrap{padding:16px 28px 0;display:flex;gap:16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .filter-wrap::-webkit-scrollbar{display:none}
-.filter-btn{background:none;border:none;font-family:var(--sans);font-size:12px;font-weight:300;color:var(--muted);cursor:pointer;white-space:nowrap;padding:4px 0;transition:color .2s;letter-spacing:.3px;border-bottom:1px solid transparent}
+.filter-btn{background:none;border:none;font-family:var(--sans);font-size:13px;font-weight:300;color:var(--muted);cursor:pointer;white-space:nowrap;padding:4px 0;transition:color .2s;letter-spacing:.3px;border-bottom:1px solid transparent}
 .filter-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:400}
 .list-wrap{padding:24px 28px calc(120px + env(safe-area-inset-bottom, 0px));flex:1;transition:opacity .2s ease,transform .2s ease}
 .list-wrap.leaving{opacity:0;transform:translateY(-6px)}
 .list-wrap.entering{animation:viewIn .25s ease both}
-.list-count{font-family:var(--sans);font-size:9px;font-weight:300;color:var(--faint);margin-bottom:20px;letter-spacing:.5px;display:flex;align-items:center;justify-content:space-between}
-.memo-filter-btn{background:none;border:1px solid var(--line);border-radius:14px;padding:4px 10px;cursor:pointer;display:flex;align-items:center;gap:4px;font-family:var(--sans);font-size:9px;color:var(--muted);transition:all .2s}
+.list-count{font-family:var(--sans);font-size:10px;font-weight:300;color:var(--faint);margin-bottom:20px;letter-spacing:.5px;display:flex;align-items:center;justify-content:space-between}
+.memo-filter-btn{background:none;border:1px solid var(--line);border-radius:14px;padding:4px 10px;cursor:pointer;display:flex;align-items:center;gap:4px;font-family:var(--sans);font-size:10px;color:var(--muted);transition:all .2s}
 .memo-filter-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(169,128,83,.08)}
 .list-item{padding:24px 0;border-bottom:1px solid var(--line);cursor:pointer;transition:opacity .2s}
 .list-item:first-child{border-top:1px solid var(--line)}
 .list-item:hover{opacity:.7}
-.list-item-text{font-family:var(--serif);font-size:13px;font-weight:300;line-height:1.9;color:var(--ink);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-line}
-.list-item-meta{font-family:var(--sans);font-size:11px;font-weight:300;color:var(--muted);margin-top:10px}
-.list-item-memo{margin-top:6px;font-family:var(--sans);font-size:10px;font-weight:300;color:var(--faint);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.list-item-note{margin-top:6px;font-family:var(--sans);font-size:10px;font-weight:300;color:var(--faint);line-height:1.6;word-break:keep-all}
+.list-item-text{font-family:var(--serif);font-size:14px;font-weight:300;line-height:1.9;color:var(--ink);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-line}
+mark.hl{background:rgba(169,128,83,.28);color:inherit;padding:0 1px;border-radius:2px}
+.list-item-meta{font-family:var(--sans);font-size:12px;font-weight:300;color:var(--muted);margin-top:10px}
+.list-item-memo{margin-top:6px;font-family:var(--sans);font-size:11px;font-weight:300;color:var(--faint);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.note-tag{font-family:var(--sans);font-size:9px;font-weight:400;color:var(--accent);letter-spacing:1px;margin-right:7px}
+.list-item-note{margin-top:6px;font-family:var(--sans);font-size:11px;font-weight:300;color:var(--faint);line-height:1.6;word-break:keep-all}
 .list-item-meta .cat{color:var(--faint);margin-left:8px}
-.empty{text-align:center;padding:80px 28px;font-family:var(--sans);font-size:11px;font-weight:300;color:var(--faint);line-height:1.8}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;display:flex;justify-content:center;gap:32px;padding:36px 28px calc(24px + env(safe-area-inset-bottom, 0px));background:linear-gradient(transparent,var(--paper) 28%);z-index:50}
-.nav button{background:none;border:none;font-family:var(--sans);font-size:12px;font-weight:300;color:var(--faint);cursor:pointer;letter-spacing:1.5px;transition:color .2s;padding:4px}
+.empty{text-align:center;padding:80px 28px;font-family:var(--sans);font-size:12px;font-weight:300;color:var(--faint);line-height:1.8}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;display:flex;justify-content:space-between;gap:4px;padding:32px 26px calc(14px + env(safe-area-inset-bottom, 0px));background:linear-gradient(transparent,var(--paper) 28%);z-index:50}
+.nav::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:72px;background:linear-gradient(transparent,var(--paper));pointer-events:none}
+.nav button{background:none;border:none;font-family:var(--sans);font-size:15px;font-weight:300;color:var(--faint);cursor:pointer;letter-spacing:1.5px;transition:color .2s;padding:16px 18px}
 .nav button.active{color:var(--accent);font-weight:400}
 .sheet-overlay{position:fixed;inset:0;background:rgba(44,42,40,.15);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s ease}
 .sheet-overlay.open{opacity:1;pointer-events:auto}
 .sheet{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:520px;background:var(--paper);border-radius:16px 16px 0 0;padding:20px 28px calc(40px + env(safe-area-inset-bottom, 0px));z-index:201;transition:transform .3s ease}
 .sheet-overlay.open .sheet{transform:translateX(-50%) translateY(0)}.sheet-overlay.modal{background:rgba(44,42,40,.28)}.sheet.centered{top:50%;bottom:auto;width:calc(100% - 56px);max-width:340px;border-radius:16px;padding:30px 26px 26px;opacity:0;transform:translate(-50%,-50%) scale(.94);transition:transform .26s ease,opacity .26s ease}.sheet-overlay.open .sheet.centered{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .sheet-handle{width:32px;height:3px;background:var(--line);border-radius:2px;margin:0 auto 24px}
-.sheet-text{font-family:var(--serif);font-size:13px;font-weight:300;line-height:2;color:var(--ink);white-space:pre-line;word-break:keep-all;max-height:40vh;overflow-y:auto}
+.sheet-text{font-family:var(--serif);font-size:14px;font-weight:300;line-height:2;color:var(--ink);word-break:keep-all;max-height:40vh;overflow-y:auto}
+.sheet-text p+p{margin-top:.9em}
 .sheet-meta{margin-top:20px}
-.sheet-author{font-family:var(--sans);font-size:13px;color:var(--accent);font-weight:400}
-.sheet-source{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:6px;font-weight:300}
-.sheet-cat{display:flex;align-items:center;justify-content:space-between;margin-top:12px}.sheet-cat-label{font-family:var(--sans);font-size:8px;color:var(--faint);letter-spacing:1px;font-weight:300}.open-book-btn{font-family:var(--sans);font-size:11px;font-weight:400;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:14px;padding:5px 13px;cursor:pointer;letter-spacing:.3px;transition:background .2s,color .2s}.open-book-btn:hover{background:var(--accent);color:var(--paper)}
+.sheet-author{font-family:var(--sans);font-size:14px;color:var(--accent);font-weight:400}
+.sheet-source{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:6px;font-weight:300}
+.sheet-cat{display:flex;align-items:center;justify-content:space-between;margin-top:12px}.sheet-cat-label{font-family:var(--sans);font-size:9px;color:var(--faint);letter-spacing:1px;font-weight:300}.open-book-btn{font-family:var(--sans);font-size:12px;font-weight:400;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:14px;padding:5px 13px;cursor:pointer;letter-spacing:.3px;transition:background .2s,color .2s}.open-book-btn:hover{background:var(--accent);color:var(--paper)}
 .sheet-memo{margin-top:20px;padding:16px;background:rgba(169,128,83,.06);border-radius:8px}
-.sheet-memo-label{font-family:var(--sans);font-size:9px;font-weight:300;color:var(--accent);letter-spacing:1px;margin-bottom:8px}
-.sheet-memo-text{font-family:var(--serif);font-size:12px;font-weight:300;line-height:1.8;color:var(--ink);white-space:pre-line}
+.sheet-memo-label{font-family:var(--sans);font-size:10px;font-weight:300;color:var(--accent);letter-spacing:1px;margin-bottom:8px}
+.sheet-memo-text{font-family:var(--serif);font-size:13px;font-weight:300;line-height:1.8;color:var(--ink);white-space:pre-line}
 .sheet-actions{display:flex;gap:0;margin-top:28px;border-top:1px solid var(--line);padding-top:20px}
-.sheet-btn{flex:1;background:none;border:none;font-family:var(--sans);font-size:12px;font-weight:300;color:var(--muted);cursor:pointer;padding:12px 0;transition:color .2s;letter-spacing:.5px}
+.sheet-btn{flex:1;background:none;border:none;font-family:var(--sans);font-size:13px;font-weight:300;color:var(--muted);cursor:pointer;padding:12px 0;transition:color .2s;letter-spacing:.5px}
 .sheet-btn:hover{color:var(--accent)}
 .sheet-btn.saved{color:var(--accent);font-weight:400}
 .memo-area{margin-top:16px;max-height:0;opacity:0;overflow:hidden;transform:translateY(12px);transition:max-height .35s ease,opacity .3s ease,transform .3s ease}
 .memo-area.open{max-height:200px;opacity:1;transform:translateY(0)}
-.memo-input{width:100%;background:none;border:none;border-bottom:1px solid var(--line);font-family:var(--sans);font-size:11px;font-weight:300;color:var(--ink);padding:8px 0;outline:none;resize:none;min-height:60px;line-height:1.7}
-.memo-save{background:none;border:none;font-family:var(--sans);font-size:11px;font-weight:400;color:var(--accent);cursor:pointer;margin-top:8px;padding:4px 0;letter-spacing:.5px;display:block;margin-left:auto}
+.memo-input{width:100%;background:none;border:none;border-bottom:1px solid var(--line);font-family:var(--sans);font-size:12px;font-weight:300;color:var(--ink);padding:8px 0;outline:none;resize:none;min-height:60px;line-height:1.7}
+.memo-save{background:none;border:none;font-family:var(--sans);font-size:12px;font-weight:400;color:var(--accent);cursor:pointer;margin-top:8px;padding:4px 0;letter-spacing:.5px;display:block;margin-left:auto}
 .add-wrap{padding:24px 28px calc(120px + env(safe-area-inset-bottom, 0px))}
 .add-form-area{max-height:0;opacity:0;overflow:hidden;transform:translateY(12px);transition:max-height .35s ease,opacity .3s ease,transform .3s ease}
 .add-form-area.open{max-height:600px;opacity:1;transform:translateY(0);transition:max-height .7s ease,opacity .6s ease,transform .6s ease}
 .add-group{margin-bottom:24px}
-.add-label{font-family:var(--sans);font-size:10px;font-weight:400;color:var(--muted);margin-bottom:8px;letter-spacing:.5px}
-.add-textarea{width:100%;background:none;border:none;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:14px;font-weight:300;color:var(--ink);padding:8px 0;outline:none;resize:none;min-height:140px;line-height:1.9}
-.add-input,.add-select{width:100%;background:none;border:none;border-bottom:1px solid var(--line);font-family:var(--sans);font-size:13px;font-weight:300;color:var(--ink);padding:8px 0;outline:none}
+.add-label{font-family:var(--sans);font-size:11px;font-weight:400;color:var(--muted);margin-bottom:8px;letter-spacing:.5px}
+.add-textarea{width:100%;background:none;border:none;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:15px;font-weight:300;color:var(--ink);padding:8px 0;outline:none;resize:none;min-height:140px;line-height:1.9}
+.add-input,.add-select{width:100%;background:none;border:none;border-bottom:1px solid var(--line);font-family:var(--sans);font-size:14px;font-weight:300;color:var(--ink);padding:8px 0;outline:none}
 .add-select{-webkit-appearance:none}
-.add-submit{display:block;margin-left:auto;background:none;border:none;font-family:var(--sans);font-size:12px;font-weight:400;color:var(--accent);cursor:pointer;padding:12px 0;letter-spacing:1px;transition:opacity .2s}
+.add-submit{display:block;margin-left:auto;background:none;border:none;font-family:var(--sans);font-size:13px;font-weight:400;color:var(--accent);cursor:pointer;padding:12px 0;letter-spacing:1px;transition:opacity .2s}
 .add-submit:hover{opacity:.7}
-.toast{pointer-events:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(30px);font-family:var(--sans);font-size:10px;font-weight:300;color:var(--ink);background:rgba(169,128,83,.15);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:10px 24px;border-radius:20px;opacity:0;transition:all .3s ease;z-index:300;letter-spacing:.5px;white-space:nowrap}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(30px);font-family:var(--sans);font-size:11px;font-weight:300;color:var(--ink);background:rgba(169,128,83,.15);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:10px 24px;border-radius:20px;opacity:0;transition:all .3s ease;z-index:300;letter-spacing:.5px;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-#notify-ask-overlay{z-index:500}
 .hint-block{position:fixed;inset:0;z-index:402;display:none;background:transparent}
 .hint-spot{position:fixed;z-index:400;border-radius:10px;box-shadow:0 0 0 9999px rgba(30,28,26,.72);opacity:0;transition:opacity .35s ease,left .4s ease,top .4s ease,width .4s ease,height .4s ease;pointer-events:none}
 .hint-spot.show{opacity:1}
-.hint-pop{position:fixed;z-index:401;font-family:var(--sans);font-size:12px;font-weight:300;color:var(--paper);line-height:1.7;opacity:0;transition:opacity .35s ease;pointer-events:none;word-break:keep-all;text-align:center}
+.hint-pop{position:fixed;z-index:401;font-family:var(--sans);font-size:13px;font-weight:300;color:var(--paper);line-height:1.7;opacity:0;transition:opacity .35s ease;pointer-events:none;word-break:keep-all;text-align:center}
 .hint-pop.show{opacity:1}
 #today-area{position:relative}
 /* 날짜 넘김 — 글자가 민 방향으로 번지며 물러나고, 다음 글이 반대편에서 또렷해진다.
@@ -156,18 +158,18 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink);max-width:
 .reset-confirm-btns{display:flex;gap:10px;margin-top:24px}
 .reset-cancel{flex:1;font-family:var(--sans);font-size:13px;font-weight:400;color:var(--muted);background:none;border:1px solid var(--line);border-radius:12px;padding:13px 0;cursor:pointer}
 .reset-go{flex:1;font-family:var(--sans);font-size:13px;font-weight:400;color:#fff;background:#B5463C;border:none;border-radius:12px;padding:13px 0;cursor:pointer}.confirm-go{flex:1;font-family:var(--sans);font-size:13px;font-weight:400;color:#fff;background:var(--accent);border:none;border-radius:12px;padding:13px 0;cursor:pointer}.store-choose{padding:8px 4px 4px}.store-choose-title{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--ink);text-align:center}.store-choose-sub{font-family:var(--sans);font-size:12px;font-weight:300;color:var(--muted);text-align:center;margin-top:8px}.store-disclosure{font-family:var(--sans);font-size:10px;font-weight:300;color:var(--faint);text-align:center;margin-top:14px;letter-spacing:.2px;word-break:keep-all}.legal-links{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);display:flex;gap:18px;justify-content:center}.legal-link{font-family:var(--sans);font-size:11.5px;font-weight:300;color:var(--faint);background:none;border:none;padding:4px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}.legal-link:hover{color:var(--accent)}.store-choose-btns{display:flex;gap:10px;margin-top:24px}.store-btn{flex:1;font-family:var(--sans);font-size:13px;font-weight:400;color:var(--ink);background:none;border:1px solid var(--line);border-radius:12px;padding:15px 0;cursor:pointer;transition:border-color .2s,color .2s}.store-btn:hover{border-color:var(--accent);color:var(--accent)}
-body[data-fontsize="small"] .today-text{font-size:12px}
-body[data-fontsize="small2"] .today-text{font-size:13px}
-body[data-fontsize="large2"] .today-text{font-size:15px}
-body[data-fontsize="large"] .today-text{font-size:16px}
-body[data-fontsize="small"] .sheet-text,body[data-fontsize="small"] .list-item-text{font-size:11px}
-body[data-fontsize="small2"] .sheet-text,body[data-fontsize="small2"] .list-item-text{font-size:12px}
-body[data-fontsize="large2"] .sheet-text,body[data-fontsize="large2"] .list-item-text{font-size:14px}
-body[data-fontsize="large"] .sheet-text,body[data-fontsize="large"] .list-item-text{font-size:15px}
-body[data-fontsize="small"] .note-tooltip{font-size:9px}
-body[data-fontsize="small2"] .note-tooltip{font-size:10px}
-body[data-fontsize="large2"] .note-tooltip{font-size:12px}
-body[data-fontsize="large"] .note-tooltip{font-size:13px}
+body[data-fontsize="small"] .today-text{font-size:13px}
+body[data-fontsize="small2"] .today-text{font-size:14px}
+body[data-fontsize="large2"] .today-text{font-size:16px}
+body[data-fontsize="large"] .today-text{font-size:17px}
+body[data-fontsize="small"] .sheet-text,body[data-fontsize="small"] .list-item-text{font-size:12px}
+body[data-fontsize="small2"] .sheet-text,body[data-fontsize="small2"] .list-item-text{font-size:13px}
+body[data-fontsize="large2"] .sheet-text,body[data-fontsize="large2"] .list-item-text{font-size:15px}
+body[data-fontsize="large"] .sheet-text,body[data-fontsize="large"] .list-item-text{font-size:16px}
+body[data-fontsize="small"] .note-sec-text{font-size:10px}
+body[data-fontsize="small2"] .note-sec-text{font-size:11px}
+body[data-fontsize="large2"] .note-sec-text{font-size:13px}
+body[data-fontsize="large"] .note-sec-text{font-size:14px}
 </style>
 </head>
 <body>
@@ -192,17 +194,17 @@ body[data-fontsize="large"] .note-tooltip{font-size:13px}
 <div class="view active" id="v-today"><div class="today" id="today-area"></div></div>
 <div class="view" id="v-shelf"><div class="page-header"><div class="page-title">서가</div><div class="page-subtitle">모아 둔 모든 글</div></div><div class="search-wrap"><input class="search-input" placeholder="검색" oninput="onSearch(this.value)"></div><div class="filter-wrap" id="filter-wrap"></div><div class="list-wrap" id="shelf-list"></div></div>
 <div class="view" id="v-galpi"><div class="page-header"><div class="page-title">갈피</div><div class="page-subtitle">마음에 남은 글</div></div><div class="search-wrap"><input class="search-input" placeholder="검색" oninput="onGalpiSearch(this.value)"></div><div class="list-wrap" id="galpi-list"></div></div>
-<div class="view" id="v-drawer"><div class="page-header"><div class="page-title">서랍</div><div class="page-subtitle">내가 기록한 글</div></div><div class="list-wrap" id="drawer-list"></div><div class="add-wrap"><button class="add-submit" id="add-toggle-btn" onclick="toggleAddForm()" style="margin-bottom:20px">새 글 추가</button><div id="add-form" class="add-form-area"><input type="hidden" id="edit-id" value=""><div class="add-group"><div class="add-label">글</div><textarea class="add-textarea" id="add-text" placeholder="기억하고 싶은 문단"></textarea></div><div class="add-group"><div class="add-label">저자</div><input class="add-input" id="add-author" placeholder="누구의 글인가요"></div><div class="add-group"><div class="add-label">출처</div><input class="add-input" id="add-source" placeholder="어디서 만난 글인가요"></div><div class="add-group"><div class="add-label">분류</div><select class="add-select" id="add-cat"><option value="철학">철학</option><option value="문학">문학</option><option value="신학">신학</option><option value="동양고전">동양고전</option><option value="과학">과학</option></select></div><button class="add-submit" onclick="addQuote()">저장</button> <button class="add-submit" onclick="cancelEdit()" style="color:var(--muted)">취소</button></div></div></div>
+<div class="view" id="v-drawer"><div class="page-header"><div class="page-title">서랍</div><div class="page-subtitle">내가 기록한 글</div></div><div class="list-wrap" id="drawer-list"></div><div class="add-wrap"><button class="add-submit" id="add-toggle-btn" onclick="toggleAddForm()" style="margin-bottom:20px">새 글 추가</button><div id="add-form" class="add-form-area"><input type="hidden" id="edit-id" value=""><div class="add-group"><div class="add-label">글</div><textarea class="add-textarea" id="add-text" placeholder="기억하고 싶은 문단"></textarea></div><div class="add-group"><div class="add-label">저자</div><input class="add-input" id="add-author" placeholder="누구의 글인가요"></div><div class="add-group"><div class="add-label">출처</div><input class="add-input" id="add-source" placeholder="어디서 만난 글인가요"></div><div class="add-group"><div class="add-label">분류</div><select class="add-select" id="add-cat"><option value="철학">철학</option><option value="문학">문학</option><option value="신학">신학</option><option value="동양고전">동양고전</option><option value="과학">과학</option><option value="기타">기타</option></select></div><button class="add-submit" onclick="addQuote()">저장</button> <button class="add-submit" onclick="cancelEdit()" style="color:var(--muted)">취소</button></div></div></div>
 </div>
 <div class="nav"><button class="active" onclick="go('today',this)">오늘</button><button onclick="go('shelf',this)">서가</button><button onclick="go('galpi',this)">갈피</button><button onclick="go('drawer',this)">서랍</button></div>
-<div class="sheet-overlay" id="sheet-overlay" onclick="closeSheet(event)"><div class="sheet" onclick="event.stopPropagation();closeAllNotes()"><div class="sheet-handle"></div><div id="sheet-body"></div></div></div>
+<div class="sheet-overlay" id="sheet-overlay" onclick="closeSheet(event)"><div class="sheet" onclick="event.stopPropagation()"><div class="sheet-handle"></div><div id="sheet-body"></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="hint-spot" id="hint-spot"></div>
 <div class="hint-pop" id="hint-pop"></div>
 <div class="hint-block" id="hint-block"></div>
 <button class="settings-btn hidden" id="settings-btn" onclick="openSettings()"><svg width="18" height="18" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="4" y1="18" x2="20" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
-<div class="sheet-overlay" id="settings-overlay" onclick="closeSettings(event)"><div class="sheet" onclick="event.stopPropagation();closeAllNotes()"><div class="sheet-handle"></div><div class="sheet-meta"><div class="sheet-author">설정</div></div><div style="margin-top:28px"><div class="add-label">글자 크기</div><div class="font-size-btns" style="flex-wrap:wrap;gap:10px"><button class="filter-btn" id="fs-small" onclick="setFontSize('small')">작게</button><button class="filter-btn" id="fs-small2" onclick="setFontSize('small2')">약간 작게</button><button class="filter-btn" id="fs-medium" onclick="setFontSize('medium')">보통</button><button class="filter-btn" id="fs-large2" onclick="setFontSize('large2')">약간 크게</button><button class="filter-btn" id="fs-large" onclick="setFontSize('large')">크게</button></div></div><div style="margin-top:28px"><div class="add-label">메모 미리보기</div><div class="font-size-btns"><button class="filter-btn" id="mp-on" onclick="setMemoPreview(true)">켜기</button><button class="filter-btn" id="mp-off" onclick="setMemoPreview(false)">끄기</button></div></div><div style="margin-top:28px" id="nt-section"><div class="add-label">오늘의 글 알림</div><div class="font-size-btns"><button class="filter-btn" id="nt-on" onclick="setNotify(true)">켜기</button><button class="filter-btn" id="nt-off" onclick="setNotify(false)">끄기</button></div><div id="nt-time-wrap" style="margin-top:14px;display:none"><input type="time" id="nt-time" onchange="setNotifyTime(this.value)" style="font-family:var(--sans);font-size:13px;font-weight:300;color:var(--muted);background:none;border:1px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer"></div></div><div style="margin-top:28px"><div class="add-label">초기화</div><div class="reset-btns"><button class="reset-btn" onclick="askReset('memo')">메모·갈피 초기화</button><button class="reset-btn" onclick="askReset('custom')">서랍 글 초기화</button></div></div><div style="margin-top:28px"><div class="add-label">온보딩</div><div class="reset-btns"><button class="reset-btn" onclick="replayOnboarding()">온보딩 화면 다시 보기</button></div></div><div class="legal-links"><button class="legal-link" onclick="openLegal('privacy')">개인정보처리방침</button><button class="legal-link" onclick="openLegal('terms')">이용약관</button></div></div></div>
-<div class="sheet-overlay" id="notify-ask-overlay" onclick="if(event.target.id==='notify-ask-overlay')closeNotifyAsk(false)"><div class="sheet centered" onclick="event.stopPropagation()"><div class="reset-confirm"><div class="reset-confirm-title">매일 한 편, 잊지 않도록</div><div class="reset-confirm-desc">커피 한 잔의 시간에 맞춰 오늘의 글을 알려드릴게요. 언제든 설정에서 끌 수 있어요.</div><div class="reset-confirm-btns"><button class="reset-cancel" onclick="closeNotifyAsk(false)">나중에</button><button class="confirm-go" onclick="closeNotifyAsk(true)">알림 받기</button></div></div></div></div><div class="sheet-overlay" id="reset-overlay" onclick="closeReset(event)"><div class="sheet" onclick="event.stopPropagation();closeAllNotes()"><div class="sheet-handle"></div><div class="reset-confirm"><div class="reset-confirm-title" id="reset-title">초기화할까요?</div><div class="reset-confirm-desc" id="reset-desc"></div><div class="reset-confirm-btns"><button class="reset-cancel" onclick="closeResetBtn()">취소</button><button class="reset-go" id="reset-go">초기화</button></div></div></div></div><div class="sheet-overlay" id="store-overlay" onclick="closeStore(event)"><div class="sheet" onclick="event.stopPropagation()"><div class="sheet-handle"></div><div class="store-choose"><div class="store-choose-title">어디에서 만나볼까요?</div><div class="store-choose-sub" id="store-sub"></div><div class="store-choose-btns"><button class="store-btn" onclick="pickStore('kyobo')">교보문고</button><button class="store-btn" onclick="pickStore('yes24')">YES24</button></div><div class="store-disclosure">제휴 링크 · 구매 가격에는 영향이 없습니다</div></div></div></div><div class="sheet-overlay" id="share-overlay" onclick="closeShareChoose(event)"><div class="sheet" onclick="event.stopPropagation()"><div class="sheet-handle"></div><div class="store-choose"><div class="store-choose-title">어떻게 공유할까요?</div><div class="store-choose-btns"><button class="store-btn" onclick="pickShare('text')">텍스트</button><button class="store-btn" onclick="pickShare('image')">이미지</button></div></div></div></div>
+<div class="sheet-overlay" id="settings-overlay" onclick="closeSettings(event)"><div class="sheet" onclick="event.stopPropagation()"><div class="sheet-handle"></div><div class="sheet-meta"><div class="sheet-author">설정</div></div><div style="margin-top:28px"><div class="add-label">글자 크기</div><div class="font-size-btns" style="flex-wrap:wrap;gap:10px"><button class="filter-btn" id="fs-small" onclick="setFontSize('small')">작게</button><button class="filter-btn" id="fs-small2" onclick="setFontSize('small2')">약간 작게</button><button class="filter-btn" id="fs-medium" onclick="setFontSize('medium')">보통</button><button class="filter-btn" id="fs-large2" onclick="setFontSize('large2')">약간 크게</button><button class="filter-btn" id="fs-large" onclick="setFontSize('large')">크게</button></div></div><div style="margin-top:28px"><div class="add-label">메모 미리보기</div><div class="font-size-btns"><button class="filter-btn" id="mp-on" onclick="setMemoPreview(true)">켜기</button><button class="filter-btn" id="mp-off" onclick="setMemoPreview(false)">끄기</button></div></div><div style="margin-top:28px" id="nt-section"><div class="add-label">오늘의 글 알림</div><div class="font-size-btns"><button class="filter-btn" id="nt-on" onclick="setNotify(true)">켜기</button><button class="filter-btn" id="nt-off" onclick="setNotify(false)">끄기</button></div><div id="nt-time-wrap" style="margin-top:14px;display:none"><input type="time" id="nt-time" onchange="setNotifyTime(this.value)" style="font-family:var(--sans);font-size:13px;font-weight:300;color:var(--muted);background:none;border:1px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer"></div></div><div style="margin-top:28px"><div class="add-label">초기화</div><div class="reset-btns"><button class="reset-btn" onclick="askReset('memo')">메모·갈피 초기화</button><button class="reset-btn" onclick="askReset('custom')">서랍 글 초기화</button></div></div><div style="margin-top:28px"><div class="add-label">온보딩</div><div class="reset-btns"><button class="reset-btn" onclick="replayOnboarding()">온보딩 화면 다시 보기</button></div></div><div class="legal-links"><button class="legal-link" onclick="openLegal('privacy')">개인정보처리방침</button><button class="legal-link" onclick="openLegal('terms')">이용약관</button></div></div></div>
+<div class="sheet-overlay" id="notify-ask-overlay" onclick="if(event.target.id==='notify-ask-overlay')closeNotifyAsk(false)"><div class="sheet centered" onclick="event.stopPropagation()"><div class="reset-confirm"><div class="reset-confirm-title">매일 한 편, 잊지 않도록</div><div class="reset-confirm-desc">커피 한 잔의 시간에 맞춰 오늘의 글을 알려드릴게요. 언제든 설정에서 끌 수 있어요.</div><div class="reset-confirm-btns"><button class="reset-cancel" onclick="closeNotifyAsk(false)">나중에</button><button class="confirm-go" onclick="closeNotifyAsk(true)">알림 받기</button></div></div></div></div><div class="sheet-overlay" id="reset-overlay" onclick="closeReset(event)"><div class="sheet" onclick="event.stopPropagation()"><div class="sheet-handle"></div><div class="reset-confirm"><div class="reset-confirm-title" id="reset-title">초기화할까요?</div><div class="reset-confirm-desc" id="reset-desc"></div><div class="reset-confirm-btns"><button class="reset-cancel" onclick="closeResetBtn()">취소</button><button class="reset-go" id="reset-go">초기화</button></div></div></div></div><div class="sheet-overlay" id="store-overlay" onclick="closeStore(event)"><div class="sheet" onclick="event.stopPropagation()"><div class="sheet-handle"></div><div class="store-choose"><div class="store-choose-title">어디에서 만나볼까요?</div><div class="store-choose-sub" id="store-sub"></div><div class="store-choose-btns"><button class="store-btn" onclick="pickStore('kyobo')">교보문고</button><button class="store-btn" onclick="pickStore('yes24')">YES24</button></div><div class="store-disclosure">제휴 링크 · 구매 가격에는 영향이 없습니다</div></div></div></div><div class="sheet-overlay" id="share-overlay" onclick="closeShareChoose(event)"><div class="sheet" onclick="event.stopPropagation()"><div class="sheet-handle"></div><div class="store-choose"><div class="store-choose-title">어떻게 공유할까요?</div><div class="store-choose-btns"><button class="store-btn" onclick="pickShare('text')">텍스트</button><button class="store-btn" onclick="pickShare('image')">이미지</button></div></div></div></div>
 <script src="quotes.js"></script>
 <script>
 var CATS=['전체','철학','문학','신학','동양고전','과학'];
@@ -326,8 +328,8 @@ function saveMemos(m){
   writeJSON(MEMO_KEY,m);
 }
 // TODO: 애드픽(교보문고)·텐핑(예스24) 제휴 링크 발급받으면 이 값들을 실제 트래킹 링크로 교체
-var BOOK_LINK_CONFIG={kyobo:'https://search.kyobobook.co.kr/search?keyword=',yes24:'https://m.yes24.com/Search?query='};
-function openStoreLink(id,store){var q=getQ().find(function(x){return x.id===id});if(!q||!q.bookTitle)return;var field=store==='kyobo'?'kyoboLink':null;track('book_link_click',{book:q.bookTitle,store:store});if(q[field]){window.open(q[field],'_blank');return}var query=encodeURIComponent(q.bookTitle);window.open(BOOK_LINK_CONFIG[store]+query,'_blank')}
+var BOOK_LINK_CONFIG={kyobo:'https://search.kyobobook.co.kr/search?keyword=',yes24:'https://www.yes24.com/product/search?domain=BOOK&query='};
+function openStoreLink(id,store){var q=getQ().find(function(x){return x.id===id});if(!q||!q.bookTitle)return;var field=store==='kyobo'?'kyoboLink':'yes24Link';track('book_link_click',{book:q.bookTitle,store:store});if(q[field]){window.open(q[field],'_blank');return}var raw=q.bookTitle+' '+(q.author||'');var query=encodeURIComponent(raw);if(store==='yes24')query=encodeURIComponent(query);window.open(BOOK_LINK_CONFIG[store]+query,'_blank')}
 var LEGAL_URLS={privacy:'https://eogishia.github.io/Grande/privacy.html',terms:'https://eogishia.github.io/Grande/terms.html'};
 function openLegal(kind){
   var url=LEGAL_URLS[kind];
@@ -354,8 +356,7 @@ function getIdForOffset(offset){
   return order[((n%order.length)+order.length)%order.length];
 }
 function renderToday(){var q=getQ(),el=document.getElementById('today-area');if(!q.length){el.innerHTML='<div class="empty">아직 글이 없습니다.</div>';return;}dayOffset=0;todayId=getIdForOffset(0);showAt(todayId)}
-function showAt(id,noFade){var quotes=getQ();if(!quotes.length)return;var q=null;for(var qi=0;qi<quotes.length;qi++)if(quotes[qi].id===id){q=quotes[qi];break}if(!q)return;todayId=id;if(dayOffset===0)addHistory(q.id);var memos=getMemos();var hasMemo=memos[q.id]?true:false;var memo=memos[q.id]||'';var dayLabel=(dayOffset===0?'오늘':(dayOffset===1?'어제':dayOffset+'일 전'));var fc=noFade?'today-content':'today-content fade-in';var fg=noFade?'today-galpi':'today-galpi fade-in';var h='<div class="'+fc+'"><div class="today-day">'+dayLabel+'</div><div class="today-text">'+esc(q.text)+'</div><div class="today-meta"><div class="today-author">'+esc(q.author||'')+'</div>'+(q.source?'<div class="today-source">'+esc(q.source)+(q.note?'<span class="note-wrap"><button class="note-btn" onclick="toggleNote(event)">?</button><div class="note-tooltip">'+esc(q.note)+'</div></span>':'')+'</div>':'')+'</div><div class="'+fg+'"><button class="'+(q.bm?'saved':'')+'" onclick="toggleGT(this,\''+q.id+'\')">'+(q.bm?'갈피 해제':'갈피 끼우기')+'</button><button class="'+(hasMemo?'saved':'')+'" onclick="toggleTodayMemo()">메모</button><button class="btn-share" onclick="shareChoose(\''+q.id+'\')">'+'공유</button></div><div class="today-memo" id="today-memo"><textarea class="memo-input" id="today-memo-input" placeholder="이 글에 대한 생각">'+esc(memo)+'</textarea><button class="memo-save" onclick="saveTodayMemo(\''+q.id+'\')">'+'저장</button></div></div>';document.getElementById('today-area').innerHTML=h;maybeQueueTodayHints(q)}
-var hintPendingFirstRun=false;
+function showAt(id,noFade){var quotes=getQ();if(!quotes.length)return;var q=null;for(var qi=0;qi<quotes.length;qi++)if(quotes[qi].id===id){q=quotes[qi];break}if(!q)return;todayId=id;if(dayOffset===0)addHistory(q.id);var memos=getMemos();var hasMemo=memos[q.id]?true:false;var memo=memos[q.id]||'';var dayLabel=(dayOffset===0?'오늘':(dayOffset===1?'어제':dayOffset+'일 전'));var fc=noFade?'today-content':'today-content fade-in';var fg=noFade?'today-galpi':'today-galpi fade-in';var h='<div class="'+fc+'"><div class="today-day">'+dayLabel+'</div><div class="today-text">'+para(q.text)+'</div><div class="today-meta"><div class="today-author">'+esc(q.author||'')+'</div>'+(q.source?'<div class="today-source">'+esc(q.source)+'</div>':'')+'</div>'+'<div class="'+fg+'"><button class="'+(q.bm?'saved':'')+'" onclick="toggleGT(this,\''+q.id+'\')">'+(q.bm?'갈피 해제':'갈피 끼우기')+'</button><button class="'+(hasMemo?'saved':'')+'" onclick="toggleTodayMemo()">메모</button><button class="btn-share" onclick="shareChoose(\''+q.id+'\')">'+'공유</button></div><div class="today-memo" id="today-memo"><textarea class="memo-input" id="today-memo-input" placeholder="이 글에 대한 생각">'+esc(memo)+'</textarea><button class="memo-save" onclick="saveTodayMemo(\''+q.id+'\')">'+'저장</button></div>'+(q.note?'<div class="note-sec"><div class="note-sec-label">주석</div><div class="note-sec-text">'+esc(q.note)+'</div></div>':'')+'</div>';document.getElementById('today-area').innerHTML=h;maybeQueueTodayHints(q)}
 function maybeQueueTodayHints(q,delay){
   if(!localStorage.getItem('grande_onboarded'))return;
   var ob=document.getElementById('onboarding');
@@ -365,9 +366,7 @@ function maybeQueueTodayHints(q,delay){
     if(activeView!=='today')return;
     queueHint('swipe','왼쪽으로 넘기면 지난 글들을 볼 수 있어요','.today-day',true);
     queueHint('galpi','마음에 드는 글엔 갈피를 끼워보세요','.today-galpi button',true);
-    if(q&&q.note&&q.source)queueHint('note','?를 누르면 글에 대한 설명을 볼 수 있어요','.today-source .note-btn');
     queueHint('share','텍스트나 인스타 스토리용 이미지로 공유할 수 있어요','.btn-share',true);
-    if(!hintQueue.length&&hintPendingFirstRun){hintPendingFirstRun=false;setTimeout(maybeAskNotify,500)}
   },delay==null?4200:delay)
 }
 function getHistory(){try{return JSON.parse(localStorage.getItem('grande_history')||'[]')}catch(e){return []}}
@@ -385,7 +384,6 @@ function go(v,btn){if(activeView===v)return;if(hintQueue.length){hintQueue.lengt
 function toggleGT(btn,id){var q=getQ(),memos=getMemos();var item=null;for(var i=0;i<q.length;i++){if(q[i].id===id){item=q[i];break}}if(!item||item.custom)return;if(item.bm&&memos[id]){var now=Date.now();if(!window._confirmUnbm||window._confirmUnbm.id!==id||now-window._confirmUnbm.time>3000){window._confirmUnbm={id:id,time:now};toast('적어둔 메모가 함께 사라져요. 한번 더 누르면 해제할게요');return}delete memos[id];saveMemos(memos);window._confirmUnbm=null}var on=!item.bm;setBookmark(id,on);btn.className=on?'saved':'';btn.textContent=on?'갈피 해제':'갈피 끼우기';track('bookmark_toggle',{action:on?'add':'remove',category:item.cat});toast(on?'갈피를 끼웠습니다':'갈피를 해제했습니다')}
 var ICON_QUILL='<svg width=\'12\' height=\'12\' viewBox=\'0 0 24 24\' style=\'vertical-align:middle;margin-right:4px\'><path d=\'M20 2C15 7 13 11 12 14l-2 4 4-2c3-1 7-3 12-8\' fill=\'none\' stroke=\'#A98053\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'></path><path d=\'M10 18l-4 4\' fill=\'none\' stroke=\'#A98053\' stroke-width=\'1.5\' stroke-linecap=\'round\'></path></svg>';
 var ICON_BM='<svg width=\'12\' height=\'12\' viewBox=\'0 0 24 24\' style=\'vertical-align:middle;margin-left:6px\'><path d=\'M6 2h12v20l-6-4-6 4V2z\' fill=\'none\' stroke=\'#A98053\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'></path></svg>';
-var ICON_NOTE='<svg width=\'12\' height=\'12\' viewBox=\'0 0 24 24\' style=\'vertical-align:middle;margin-left:6px;position:relative;top:-1px\'><circle cx=\'12\' cy=\'12\' r=\'10\' fill=\'none\' stroke=\'#A98053\' stroke-width=\'1.5\'></circle><text x=\'12\' y=\'12\' text-anchor=\'middle\' dominant-baseline=\'central\' font-size=\'11\' fill=\'#A98053\' font-family=\'sans-serif\'>?</text></svg>';
 // 주석에는 시대·배경·개념어가 들어 있어 가장 찾고 싶은 텍스트인데 검색 대상이 아니었다.
 // "스토아"나 "실존"으로 찾으면 344편 중 한 건도 걸리지 않았다.
 function matchQuote(q,sq){
@@ -405,13 +403,13 @@ function noteSnippet(note,sq){
   var i=note.toLowerCase().indexOf(sq),start=Math.max(0,i-16),end=start+60;
   return (start>0?'…':'')+note.slice(start,end)+(end<note.length?'…':'');
 }
-function renderShelf(){var quotes=getQ().filter(function(q){return !q.custom}),memos=getMemos(),mpOn=localStorage.getItem('grande_memo_preview')!=='false';var fw=document.getElementById('filter-wrap');var fh='';CATS.forEach(function(c){fh+='<button class="filter-btn'+(activeFilter===c?' active':'')+'" onclick="setFilter(\''+c+'\')">'+c+'</button>'});fw.innerHTML=fh;var filtered=quotes;if(activeFilter!=='전체'){filtered=quotes.filter(function(q){return q.cat===activeFilter})}if(searchQuery){var sq=searchQuery.toLowerCase();filtered=filtered.filter(function(q){return matchQuote(q,sq)})}filtered=filtered.slice().sort(function(a,b){return a.text.localeCompare(b.text,'ko')});var el=document.getElementById('shelf-list');if(!filtered.length){el.innerHTML='<div class="empty">검색 결과가 없습니다.</div>';return}var h='<div class="list-count">'+filtered.length+'</div>';var sq2=searchQuery?searchQuery.toLowerCase():'';filtered.forEach(function(q){h+='<div class="list-item" onclick="openSheet(\''+q.id+'\')"><div class="list-item-text">'+esc(q.text)+'</div><div class="list-item-meta">'+esc(q.author||'')+(q.source?' · '+esc(q.source):'')+'<span class="cat">'+esc(q.cat)+'</span>'+(q.note?ICON_NOTE:'')+(q.bm?ICON_BM:'')+'</div>'+(mpOn&&memos[q.id]?'<div class="list-item-memo">'+ICON_QUILL+esc(memos[q.id])+'</div>':'')+(noteOnlyMatch(q,sq2)?'<div class="list-item-note">'+ICON_NOTE+esc(noteSnippet(q.note,sq2))+'</div>':'')+'</div>'});el.innerHTML=h}
+function renderShelf(){var quotes=getQ().filter(function(q){return !q.custom}),memos=getMemos(),mpOn=localStorage.getItem('grande_memo_preview')!=='false';var fw=document.getElementById('filter-wrap');var fh='';CATS.forEach(function(c){fh+='<button class="filter-btn'+(activeFilter===c?' active':'')+'" onclick="setFilter(\''+c+'\')">'+c+'</button>'});fw.innerHTML=fh;var filtered=quotes;if(activeFilter!=='전체'){filtered=quotes.filter(function(q){return q.cat===activeFilter})}if(searchQuery){var sq=searchQuery.toLowerCase();filtered=filtered.filter(function(q){return matchQuote(q,sq)})}filtered=filtered.slice().sort(function(a,b){return a.text.localeCompare(b.text,'ko')});var el=document.getElementById('shelf-list');if(!filtered.length){el.innerHTML='<div class="empty">검색 결과가 없습니다.</div>';return}var h='<div class="list-count">'+filtered.length+'</div>';var sq2=searchQuery?searchQuery.toLowerCase():'';filtered.forEach(function(q){h+='<div class="list-item" onclick="openSheet(\''+q.id+'\')"><div class="list-item-text">'+hl(q.text,sq2)+'</div><div class="list-item-meta">'+hl(q.author||'',sq2)+(q.source?' · '+hl(q.source,sq2):'')+'<span class="cat">'+esc(q.cat)+'</span>'+(q.bm?ICON_BM:'')+'</div>'+(mpOn&&memos[q.id]?'<div class="list-item-memo">'+ICON_QUILL+esc(memos[q.id])+'</div>':'')+(noteOnlyMatch(q,sq2)?'<div class="list-item-note"><span class="note-tag">주석</span>'+hl(noteSnippet(q.note,sq2),sq2)+'</div>':'')+'</div>'});el.innerHTML=h}
 function setFilter(f){if(activeFilter===f)return;activeFilter=f;track('category_filter',{category:f});var el=document.getElementById('shelf-list');el.className='list-wrap leaving';setTimeout(function(){renderShelf();el.className='list-wrap entering'},180)}
 function onSearch(v){searchQuery=v;if(v&&v.length>=2)track('search',{view:'shelf'});renderShelf()}
 function onGalpiSearch(v){galpiSearchQuery=v;if(v&&v.length>=2)track('search',{view:'galpi'});renderGalpi()}
 function toggleMemoFilter(){galpiMemoFilter=!galpiMemoFilter;renderGalpi()}
-function renderGalpi(){var memos=getMemos(),mpOn=localStorage.getItem('grande_memo_preview')!=='false';var allBm=getQ().filter(function(q){return q.bm&&!q.custom});var quotes=galpiMemoFilter?allBm.filter(function(q){return memos[q.id]}):allBm;if(galpiSearchQuery){var sq=galpiSearchQuery.toLowerCase();quotes=quotes.filter(function(q){return matchQuote(q,sq)})}var el=document.getElementById('galpi-list');if(!allBm.length){el.innerHTML='<div class="empty">아직 갈피를 끼운 글이 없습니다.<br>마음에 남는 글에 갈피를 끼워 보세요.</div>';return}var memoCount=allBm.filter(function(q){return memos[q.id]}).length;var h='<div class="list-count"><span>'+quotes.length+'</span>';if(memoCount>0){h+='<button class="memo-filter-btn'+(galpiMemoFilter?' active':'')+'" onclick="toggleMemoFilter()">'+ICON_QUILL+' 메모 '+memoCount+'</button>'}h+='</div>';if(!quotes.length){h+='<div class="empty">'+(galpiSearchQuery?'검색 결과가 없습니다.':'메모가 있는 글이 없습니다.')+'</div>';el.innerHTML=h;return}var sq3=galpiSearchQuery?galpiSearchQuery.toLowerCase():'';quotes.forEach(function(q){h+='<div class="list-item" onclick="openSheet(\''+q.id+'\')"><div class="list-item-text">'+esc(q.text)+'</div><div class="list-item-meta">'+esc(q.author||'')+(q.source?' · '+esc(q.source):'')+(q.note?ICON_NOTE:'')+(memos[q.id]&&!mpOn?' · '+ICON_QUILL:'')+'</div>'+(mpOn&&memos[q.id]?'<div class="list-item-memo">'+ICON_QUILL+esc(memos[q.id])+'</div>':'')+(noteOnlyMatch(q,sq3)?'<div class="list-item-note">'+ICON_NOTE+esc(noteSnippet(q.note,sq3))+'</div>':'')+'</div>'});el.innerHTML=h}
-function openSheet(id){var quotes=getQ(),q=quotes.find(function(x){return x.id===id});if(!q)return;var memos=getMemos(),memo=memos[id]||'';var h='<div class="sheet-text">'+esc(q.text)+'</div><div class="sheet-meta"><div class="sheet-author">'+esc(q.author||'')+'</div>'+(q.source?'<div class="sheet-source">'+esc(q.source)+(q.note?'<span class="note-wrap"><button class="note-btn" onclick="toggleNote(event)">?</button><div class="note-tooltip">'+esc(q.note)+'</div></span>':'')+'</div>':'')+'<div class="sheet-cat"><span class="sheet-cat-label">'+esc(q.cat)+'</span>'+(q.bookTitle&&!q.custom?'<button class="open-book-btn" onclick="openBookChooser(\''+q.id+'\')">이 책 펼치기</button>':'')+'</div></div>'+(memo?'<div class="sheet-memo"><div class="sheet-memo-label">내 메모</div><div class="sheet-memo-text">'+esc(memo)+'</div></div>':'')+'<div class="sheet-actions">'+(q.custom?'':'<button class="sheet-btn'+(q.bm?' saved':'')+'" onclick="toggleGS(\''+q.id+'\')">'+(q.bm?'갈피 해제':'갈피')+'</button>')+'<button class="sheet-btn" onclick="shareChoose(\''+q.id+'\')">공유</button><button class="sheet-btn" onclick="toggleMemo()">메모</button>'+''+''+(q.custom?'<button class="sheet-btn" onclick="editQuote(\''+q.id+'\')">수정</button><button class="sheet-btn" onclick="deleteQ(\''+q.id+'\')">삭제</button>':'')+'</div><div class="memo-area" id="memo-area"><textarea class="memo-input" id="memo-input" placeholder="이 글에 대한 생각">'+esc(memo)+'</textarea><button class="memo-save" onclick="saveMemo(\''+q.id+'\')">메모 저장</button></div>';document.getElementById('sheet-body').innerHTML=h;document.getElementById('sheet-overlay').className='sheet-overlay open';document.body.style.overflow='hidden';if(q.bookTitle&&!q.custom)setTimeout(function(){queueHint('buy','이 책을 교보문고·YES24에서 만나볼 수 있어요','.open-book-btn')},450)}
+function renderGalpi(){var memos=getMemos(),mpOn=localStorage.getItem('grande_memo_preview')!=='false';var allBm=getQ().filter(function(q){return q.bm&&!q.custom});var quotes=galpiMemoFilter?allBm.filter(function(q){return memos[q.id]}):allBm;if(galpiSearchQuery){var sq=galpiSearchQuery.toLowerCase();quotes=quotes.filter(function(q){return matchQuote(q,sq)})}var el=document.getElementById('galpi-list');if(!allBm.length){el.innerHTML='<div class="empty">아직 갈피를 끼운 글이 없습니다.<br>마음에 남는 글에 갈피를 끼워 보세요.</div>';return}var memoCount=allBm.filter(function(q){return memos[q.id]}).length;var h='<div class="list-count"><span>'+quotes.length+'</span>';if(memoCount>0){h+='<button class="memo-filter-btn'+(galpiMemoFilter?' active':'')+'" onclick="toggleMemoFilter()">'+ICON_QUILL+' 메모 '+memoCount+'</button>'}h+='</div>';if(!quotes.length){h+='<div class="empty">'+(galpiSearchQuery?'검색 결과가 없습니다.':'메모가 있는 글이 없습니다.')+'</div>';el.innerHTML=h;return}var sq3=galpiSearchQuery?galpiSearchQuery.toLowerCase():'';quotes.forEach(function(q){h+='<div class="list-item" onclick="openSheet(\''+q.id+'\')"><div class="list-item-text">'+hl(q.text,sq3)+'</div><div class="list-item-meta">'+hl(q.author||'',sq3)+(q.source?' · '+hl(q.source,sq3):'')+(memos[q.id]&&!mpOn?' · '+ICON_QUILL:'')+'</div>'+(mpOn&&memos[q.id]?'<div class="list-item-memo">'+ICON_QUILL+esc(memos[q.id])+'</div>':'')+(noteOnlyMatch(q,sq3)?'<div class="list-item-note"><span class="note-tag">주석</span>'+hl(noteSnippet(q.note,sq3),sq3)+'</div>':'')+'</div>'});el.innerHTML=h}
+function openSheet(id){var quotes=getQ(),q=quotes.find(function(x){return x.id===id});if(!q)return;var memos=getMemos(),memo=memos[id]||'';var h='<div class="sheet-text">'+para(q.text)+'</div><div class="sheet-meta"><div class="sheet-author">'+esc(q.author||'')+'</div>'+(q.source?'<div class="sheet-source">'+esc(q.source)+'</div>':'')+'<div class="sheet-cat"><span class="sheet-cat-label">'+esc(q.cat)+'</span>'+(q.bookTitle&&!q.custom?'<button class="open-book-btn" onclick="openBookChooser(\''+q.id+'\')">이 책 펼치기</button>':'')+'</div></div>'+(q.note?'<div class="note-sec"><div class="note-sec-label">주석</div><div class="note-sec-text">'+esc(q.note)+'</div></div>':'')+(memo?'<div class="sheet-memo"><div class="sheet-memo-label">내 메모</div><div class="sheet-memo-text">'+esc(memo)+'</div></div>':'')+'<div class="sheet-actions">'+(q.custom?'':'<button class="sheet-btn'+(q.bm?' saved':'')+'" onclick="toggleGS(\''+q.id+'\')">'+(q.bm?'갈피 해제':'갈피')+'</button>')+'<button class="sheet-btn" onclick="shareChoose(\''+q.id+'\')">공유</button><button class="sheet-btn" onclick="toggleMemo()">메모</button>'+''+''+(q.custom?'<button class="sheet-btn" onclick="editQuote(\''+q.id+'\')">수정</button><button class="sheet-btn" onclick="deleteQ(\''+q.id+'\')">삭제</button>':'')+'</div><div class="memo-area" id="memo-area"><textarea class="memo-input" id="memo-input" placeholder="이 글에 대한 생각">'+esc(memo)+'</textarea><button class="memo-save" onclick="saveMemo(\''+q.id+'\')">메모 저장</button></div>';document.getElementById('sheet-body').innerHTML=h;document.getElementById('sheet-overlay').className='sheet-overlay open';document.body.style.overflow='hidden';if(q.bookTitle&&!q.custom)setTimeout(function(){queueHint('buy','이 책을 교보문고·YES24에서 만나볼 수 있어요','.open-book-btn')},450)}
 function closeSheet(e){if(e.target.id==='sheet-overlay'){document.getElementById('sheet-overlay').className='sheet-overlay';document.body.style.overflow=''}}
 (function(){
   var SWIPE_CLOSE_PX=70;
@@ -499,7 +497,6 @@ function closeShareChoose(e){if(e.target.id==='share-overlay'){closeShareOverlay
 function closeResetBtn(){document.getElementById('reset-overlay').className='sheet-overlay'}
 function doReset(type){if(type==='memo'){saveMemos({});clearBookmarks();var _m=getSyncMeta();_m.memoAt={};_m.memoDel={};saveSyncMeta(_m);toast('메모와 갈피를 초기화했습니다')}else{clearCustom();toast('서랍 글을 초기화했습니다')}document.getElementById('reset-overlay').className='sheet-overlay';document.getElementById('settings-overlay').className='sheet-overlay';document.body.style.overflow='';if(activeView==='today')showAt(todayId);if(activeView==='shelf')renderShelf();if(activeView==='galpi')renderGalpi();if(activeView==='drawer')renderDrawer()}
 function dismissOnboarding(){
-  hintPendingFirstRun=true;   // 힌트 준비 전 폴링이 끼어드는 틈을 막는다
   localStorage.setItem('grande_onboarded','true');
   track('onboarding_complete',{});
   var ob=document.getElementById('onboarding');
@@ -517,10 +514,6 @@ function dismissOnboarding(){
   ob.addEventListener('transitionend',onEnd);
   setTimeout(proceed,600); // transitionend 미발생 대비 폴백
 }
-function closeAllNotes(){var all=document.querySelectorAll('.note-tooltip.show');for(var i=0;i<all.length;i++){all[i].className='note-tooltip'}}
-function toggleNote(e){e.stopPropagation();var btn=e.currentTarget;var tip=btn.nextElementSibling;var wasOpen=tip.className.indexOf('show')>-1;closeAllNotes();if(!wasOpen){tip.className='note-tooltip show';tip.style.left='';tip.style.right='';var r=tip.getBoundingClientRect();var margin=12;if(r.right>window.innerWidth-margin){var overflow=r.right-(window.innerWidth-margin);tip.style.left=(-overflow)+'px'}if(r.left<margin){tip.style.left=(margin-r.left)+'px'}track('note_open',{})}}
-document.addEventListener('click',closeAllNotes);
-document.addEventListener('click',function(e){var inside=e.target.closest?e.target.closest('.note-wrap'):null;if(!inside){var all=document.querySelectorAll('.note-tooltip');for(var i=0;i<all.length;i++){all[i].className='note-tooltip'}}});
 function setFontSize(size){localStorage.setItem('grande_fontsize',size);document.body.setAttribute('data-fontsize',size);['small','small2','medium','large2','large'].forEach(function(k){document.getElementById('fs-'+k).className='filter-btn'+(size===k?' active':'')})}
 function setMemoPreview(on){localStorage.setItem('grande_memo_preview',on?'true':'false');document.getElementById('mp-on').className='filter-btn'+(on?' active':'');document.getElementById('mp-off').className='filter-btn'+(on?'':' active');if(activeView==='shelf')renderShelf();if(activeView==='galpi')renderGalpi()}
 var NOTIF_ID=1101;
@@ -605,13 +598,7 @@ function trackOpenDay(){
   if(arr.indexOf(d)===-1){arr.push(d);if(arr.length>30)arr=arr.slice(-30);localStorage.setItem('grande_open_days',JSON.stringify(arr))}
   return arr.length;
 }
-var notifyAskedThisRun=false;
 function openNotifyAsk(){
-  if(notifyAskedThisRun)return;
-  notifyAskedThisRun=true;
-  var _o=document.getElementById('notify-ask-overlay');
-  if(_o&&_o.className.indexOf('open')>-1)return;
-  console.trace();
   document.getElementById('notify-ask-overlay').className='sheet-overlay modal open';
   document.body.style.overflow='hidden';
   track('notify_prompt_shown',{});
@@ -636,11 +623,6 @@ function maybeAskNotify(){
                 'sheet-overlay','notify-ask-overlay'];
   function busy(){
     if(hintQueue.length)return true;
-    if(!localStorage.getItem('grande_onboarded'))return true;
-    var sp=document.getElementById('splash');
-    if(sp&&sp.style.display!=='none')return true;
-    var hb=document.getElementById('hint-block');
-    if(hb&&hb.style.display==='block')return true;
     var ob=document.getElementById('onboarding');
     if(ob&&ob.className.indexOf('show')>-1)return true;
     for(var i=0;i<BLOCKERS.length;i++){
@@ -651,10 +633,8 @@ function maybeAskNotify(){
   }
   var tries=0;
   (function attempt(){
-    if(tries++>600)return;            // 최대 1분쯤 기다리고 이번 실행은 포기
+    if(tries++>60)return;            // 최대 1분쯤 기다리고 이번 실행은 포기
     if(busy()){setTimeout(attempt,1000);return}
-    // 첫 실행은 힌트 종료 시점에 직접 호출하므로 폴링은 물러난다.
-    if(hintPendingFirstRun){return}
     openNotifyAsk();
   })();
 }
@@ -670,6 +650,28 @@ function initNotify(){
   maybeAskNotify();
 }
 function esc(s){if(!s)return '';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+// 검색어가 어디에 걸렸는지 안 보이면 목록이 무작위처럼 읽힌다. 원문에서 위치를 찾고
+// 조각마다 따로 이스케이프한 뒤 이어 붙인다. 이스케이프한 문자열에서 찾으면
+// &amp; 같은 치환 때문에 위치가 어긋난다.
+function hl(s,sq){
+  if(!s)return '';
+  if(!sq)return esc(s);
+  var low=s.toLowerCase(),out='',i=0,j;
+  while((j=low.indexOf(sq,i))>-1){
+    out+=esc(s.slice(i,j))+'<mark class="hl">'+esc(s.slice(j,j+sq.length))+'</mark>';
+    i=j+sq.length;
+  }
+  return out+esc(s.slice(i));
+}
+// pre-line + line-height 2.1이면 빈 줄 하나가 33.6px를 통째로 먹어 문단 사이가
+// 행간의 두 배가 된다. 행간을 줄이면 본문 전체가 답답해지므로, 문단을 <p>로
+// 끊어 간격만 따로 제어한다.
+function para(s){
+  if(!s)return '';
+  return s.split(/\n\s*\n/).map(function(t){
+    return '<p>'+esc(t).replace(/\n/g,'<br>')+'</p>';
+  }).join('');
+}
 function toggleTodayMemo(){var m=document.getElementById('today-memo');if(!m)return;if(m.className.indexOf('open')===-1){m.className='today-memo open';var ta=document.getElementById('today-memo-input');if(ta)setTimeout(function(){ta.focus()},350)}else{m.className='today-memo'}}
 function saveTodayMemo(id){var m=getMemos();var val=document.getElementById('today-memo-input').value;var hadMemo=!!m[id];if(val.trim()){m[id]=val;saveMemos(m);var q=getQ(),wasBookmarked=true;for(var i=0;i<q.length;i++){if(q[i].id===id&&!q[i].bm&&!q[i].custom){setBookmark(id,true);wasBookmarked=false;break}}track('memo_save',{source:'today'});showAt(todayId);toast(wasBookmarked?'메모를 저장했습니다':'메모를 적어서 갈피와 함께 끼워놓았어요')}else{if(hadMemo){delete m[id];saveMemos(m);showAt(todayId)}toast(hadMemo?'메모를 저장했어요':'작성된 메모가 없어서 기록하지 않았어요')}}
 function splitLongWord(ctx,w,maxW){
@@ -911,10 +913,6 @@ function hideHintUI(){
   if(sp)sp.className='hint-spot';
   if(pp)pp.className='hint-pop';
   if(bl)bl.style.display='none';
-  if(hintPendingFirstRun&&!hintQueue.length){
-    hintPendingFirstRun=false;
-    setTimeout(maybeAskNotify,500);
-  }
 }
 function isHintTargetVisible(el){
   if(!el)return false;
@@ -1081,7 +1079,7 @@ function dismissHint(){
   var txt = document.querySelector('.splash-text');
   if(txt){ txt.style.opacity='0'; txt.style.transform='translateY(8px)'; }
 })();
-setTimeout(function(){if(!localStorage.getItem('grande_onboarded')){document.getElementById('onboarding').className='onboarding show';document.body.style.overflow='hidden'}document.getElementById('splash').className='splash done';setTimeout(function(){document.getElementById('splash').style.display='none';if(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.StatusBar){window.Capacitor.Plugins.StatusBar.setStyle({style:'LIGHT'}).catch(function(){})}},700)},2600);
+setTimeout(function(){document.getElementById('splash').className='splash done';setTimeout(function(){document.getElementById('splash').style.display='none';if(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.StatusBar){window.Capacitor.Plugins.StatusBar.setStyle({style:'LIGHT'}).catch(function(){})}if(!localStorage.getItem('grande_onboarded')){document.getElementById('onboarding').className='onboarding show';document.body.style.overflow='hidden';return}},700)},2600);
 renderToday();
 getMemos(); // 메모까지 읽어 본 뒤에 유실 여부를 보고한다
 reportLoadError();

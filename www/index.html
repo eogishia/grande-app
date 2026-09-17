@@ -36,8 +36,13 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink);max-width:
 .view.leaving{display:flex;animation:viewOut .2s ease both}
 @keyframes viewIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 @keyframes viewOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-6px)}}
-.today{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 28px calc(120px + env(safe-area-inset-bottom, 0px));min-height:80vh}
-.today-content{max-width:440px;width:100%;opacity:1}
+/* 위 여백에 safe-area를 더한다. viewport-fit=cover라 이게 없으면 날짜 글씨가
+   상태바 밑에 깔린다(다른 탭은 .page-header에서 이미 더하고 있다).
+   justify-content:center는 내용이 화면보다 길어지면 윗부분을 컨테이너 위로
+   밀어내 스크롤로도 닿을 수 없게 만든다. margin-block:auto로 가운데를 맞추면
+   여유가 있을 때만 가운데로 가고, 없으면 위쪽에 붙어 전부 스크롤된다. */
+.today{flex:1;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;padding:calc(56px + env(safe-area-inset-top, 0px)) 28px calc(120px + env(safe-area-inset-bottom, 0px));min-height:80vh}
+.today-content{max-width:440px;width:100%;opacity:1;margin-block:auto}
 .today-content.fade-in{opacity:0;animation:fadeUp .6s ease .3s both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 .today-text{font-family:var(--serif);font-size:15px;font-weight:300;line-height:2.1;color:var(--ink);word-break:keep-all;text-align:justify}
@@ -134,7 +139,7 @@ mark.hl{background:rgba(169,128,83,.28);color:inherit;padding:0 1px;border-radiu
 /* 날짜 넘김 — 글자가 민 방향으로 번지며 물러나고, 다음 글이 반대편에서 또렷해진다.
    예전에는 newer/older CSS가 똑같아 방향이 화면에 드러나지 않았고, 페이드아웃이
    끝난 뒤 교체까지 100ms가 비어 글이 툭 나타났다. 이제 두 장이 겹쳐 오간다. */
-.tc-ghost{position:absolute;pointer-events:none}
+.tc-ghost{position:absolute;pointer-events:none;margin-block:0}
 .tc-out-older{animation:tcOutR .34s ease-in both}
 .tc-in-older {animation:tcInL .44s ease-out .08s both}
 .tc-out-newer{animation:tcOutL .34s ease-in both}

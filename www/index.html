@@ -41,7 +41,7 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink);max-width:
    justify-content:center는 내용이 화면보다 길어지면 윗부분을 컨테이너 위로
    밀어내 스크롤로도 닿을 수 없게 만든다. margin-block:auto로 가운데를 맞추면
    여유가 있을 때만 가운데로 가고, 없으면 위쪽에 붙어 전부 스크롤된다. */
-.today{flex:1;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;padding:calc(56px + env(safe-area-inset-top, 0px)) 28px calc(120px + env(safe-area-inset-bottom, 0px));min-height:80vh}
+.today{flex:1;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;padding:calc(56px + env(safe-area-inset-top, 0px)) 28px calc(160px + env(safe-area-inset-bottom, 0px));min-height:80vh}
 .today-content{max-width:440px;width:100%;opacity:1;margin-block:auto}
 .today-content.fade-in{opacity:0;animation:fadeUp .6s ease .3s both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
@@ -627,6 +627,13 @@ function maybeAskNotify(){
   var BLOCKERS=['share-overlay','store-overlay','reset-overlay','settings-overlay',
                 'sheet-overlay','notify-ask-overlay'];
   function busy(){
+    // initNotify()는 스크립트 로드와 동시에 돈다. 그때는 스플래시가 떠 있고
+    // 온보딩은 아직 .show 가 아니라서, 이 두 가지를 보지 않으면 첫 화면이
+    // 뜨기도 전에 팝업이 열려 온보딩·힌트 위에 계속 남아 있게 된다.
+    var sp=document.getElementById('splash');
+    if(sp&&sp.style.display!=='none')return true;
+    // 첫 실행이면 온보딩이 곧 뜬다. 마칠 때까지 기다린다.
+    if(!localStorage.getItem('grande_onboarded'))return true;
     if(hintQueue.length)return true;
     var ob=document.getElementById('onboarding');
     if(ob&&ob.className.indexOf('show')>-1)return true;
@@ -638,7 +645,7 @@ function maybeAskNotify(){
   }
   var tries=0;
   (function attempt(){
-    if(tries++>60)return;            // 최대 1분쯤 기다리고 이번 실행은 포기
+    if(tries++>120)return;           // 최대 2분쯤 기다리고 이번 실행은 포기
     if(busy()){setTimeout(attempt,1000);return}
     openNotifyAsk();
   })();

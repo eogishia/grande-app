@@ -92,6 +92,12 @@ mark.hl{background:rgba(169,128,83,.28);color:inherit;padding:0 1px;border-radiu
 .list-item-note{margin-top:6px;font-family:var(--sans);font-size:11px;font-weight:300;color:var(--faint);line-height:1.6;word-break:keep-all}
 .list-item-meta .cat{color:var(--faint);margin-left:8px}
 .empty{text-align:center;padding:80px 28px;font-family:var(--sans);font-size:12px;font-weight:300;color:var(--faint);line-height:1.8}
+/* 스크롤하면 글자가 상태바 뒤로 지나가며 비쳐 보인다. targetSdk 36에서는
+   안드로이드가 edge-to-edge를 강제해 네이티브로 상태바를 불투명하게 만들 수 없다
+   (StatusBar 플러그인의 setStatusBarColor가 무시된다). 그래서 하단 nav와 같은
+   방식으로 웹 쪽에서 상태바 높이만큼 덮고, 그 아래 20px만 부드럽게 흐린다.
+   설정 버튼(z-index 40)보다 아래에 두어 버튼을 가리지 않는다. */
+.statusveil{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;height:calc(env(safe-area-inset-top, 0px) + 20px);background:linear-gradient(var(--paper) env(safe-area-inset-top, 0px),transparent);z-index:35;pointer-events:none}
 .nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;display:flex;justify-content:space-between;gap:4px;padding:32px 26px calc(14px + env(safe-area-inset-bottom, 0px));background:linear-gradient(transparent,var(--paper) 32px);z-index:50}
 .nav button{background:none;border:none;font-family:var(--sans);font-size:15px;font-weight:300;color:var(--faint);cursor:pointer;letter-spacing:1.5px;transition:color .2s;padding:16px 18px}
 .nav button.active{color:var(--accent);font-weight:400}
@@ -200,6 +206,7 @@ body[data-fontsize="large"] .note-sec-text{font-size:14px}
 <div class="view" id="v-galpi"><div class="page-header"><div class="page-title">갈피</div><div class="page-subtitle">마음에 남은 글</div></div><div class="search-wrap"><input class="search-input" placeholder="검색" oninput="onGalpiSearch(this.value)"></div><div class="list-wrap" id="galpi-list"></div></div>
 <div class="view" id="v-drawer"><div class="page-header"><div class="page-title">서랍</div><div class="page-subtitle">내가 기록한 글</div></div><div class="list-wrap" id="drawer-list"></div><div class="add-wrap"><button class="add-submit" id="add-toggle-btn" onclick="toggleAddForm()" style="margin-bottom:20px">새 글 추가</button><div id="add-form" class="add-form-area"><input type="hidden" id="edit-id" value=""><div class="add-group"><div class="add-label">글</div><textarea class="add-textarea" id="add-text" placeholder="기억하고 싶은 문단"></textarea></div><div class="add-group"><div class="add-label">저자</div><input class="add-input" id="add-author" placeholder="누구의 글인가요"></div><div class="add-group"><div class="add-label">출처</div><input class="add-input" id="add-source" placeholder="어디서 만난 글인가요"></div><div class="add-group"><div class="add-label">분류</div><select class="add-select" id="add-cat"><option value="철학">철학</option><option value="문학">문학</option><option value="신학">신학</option><option value="동양고전">동양고전</option><option value="과학">과학</option><option value="기타">기타</option></select></div><button class="add-submit" onclick="addQuote()">저장</button> <button class="add-submit" onclick="cancelEdit()" style="color:var(--muted)">취소</button></div></div></div>
 </div>
+<div class="statusveil"></div>
 <div class="nav"><button class="active" onclick="go('today',this)">오늘</button><button onclick="go('shelf',this)">서가</button><button onclick="go('galpi',this)">갈피</button><button onclick="go('drawer',this)">서랍</button></div>
 <div class="sheet-overlay" id="sheet-overlay" onclick="closeSheet(event)"><div class="sheet" onclick="event.stopPropagation()"><div class="sheet-handle"></div><div id="sheet-body"></div></div></div>
 <div class="toast" id="toast"></div>

@@ -41,7 +41,7 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink);max-width:
    justify-content:center는 내용이 화면보다 길어지면 윗부분을 컨테이너 위로
    밀어내 스크롤로도 닿을 수 없게 만든다. margin-block:auto로 가운데를 맞추면
    여유가 있을 때만 가운데로 가고, 없으면 위쪽에 붙어 전부 스크롤된다. */
-.today{flex:1;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;padding:calc(56px + env(safe-area-inset-top, 0px)) 28px calc(112px + env(safe-area-inset-bottom, 0px));min-height:80vh}
+.today{flex:1;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;padding:calc(56px + env(safe-area-inset-top, 0px)) 28px calc(108px + env(safe-area-inset-bottom, 0px));min-height:80vh}
 .today-content{max-width:440px;width:100%;opacity:1;margin-block:auto}
 .today-content.fade-in{opacity:0;animation:fadeUp .6s ease .3s both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
@@ -92,8 +92,7 @@ mark.hl{background:rgba(169,128,83,.28);color:inherit;padding:0 1px;border-radiu
 .list-item-note{margin-top:6px;font-family:var(--sans);font-size:11px;font-weight:300;color:var(--faint);line-height:1.6;word-break:keep-all}
 .list-item-meta .cat{color:var(--faint);margin-left:8px}
 .empty{text-align:center;padding:80px 28px;font-family:var(--sans);font-size:12px;font-weight:300;color:var(--faint);line-height:1.8}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;display:flex;justify-content:space-between;gap:4px;padding:32px 26px calc(14px + env(safe-area-inset-bottom, 0px));background:linear-gradient(transparent,var(--paper) 28%);z-index:50}
-.nav::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:72px;background:linear-gradient(transparent,var(--paper));pointer-events:none}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;display:flex;justify-content:space-between;gap:4px;padding:32px 26px calc(14px + env(safe-area-inset-bottom, 0px));background:linear-gradient(transparent,var(--paper) 32px);z-index:50}
 .nav button{background:none;border:none;font-family:var(--sans);font-size:15px;font-weight:300;color:var(--faint);cursor:pointer;letter-spacing:1.5px;transition:color .2s;padding:16px 18px}
 .nav button.active{color:var(--accent);font-weight:400}
 .sheet-overlay{position:fixed;inset:0;background:rgba(44,42,40,.15);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s ease}

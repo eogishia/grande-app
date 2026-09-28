@@ -13,6 +13,10 @@
 <link rel="stylesheet" href="./fonts/fonts.css">
 <script src="./lib/mp4-muxer.js" onerror="window.__muxErr=1"></script>
 <script src="./quotes.js" onerror="window.__qErr=1"></script>
+<!-- 반전 카루셀: 전용 서체(명조 400/600 · Pretendard 500/600), 확정 문구, 조판 -->
+<link rel="stylesheet" href="./twist-fonts/twist-fonts.css">
+<script src="./posts.js" onerror="window.__pErr=1"></script>
+<script src="./twist.js"></script>
 <style>
 :root{
   --ink:#0F0E0C; --panel:#1A1815; --panel2:#221F1B; --line:#302C26;
@@ -142,6 +146,13 @@ textarea.cap:focus{border-color:var(--accent)}
 .outro-in{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:11px;
   padding:11px 13px;font-size:13.5px;outline:none;min-height:76px;resize:vertical;line-height:1.6}
 .outro-in:focus{border-color:var(--accent)}
+.tw{display:inline-block;margin-right:6px;padding:0 6px;border:1px solid var(--accent);border-radius:5px;
+  font-size:10.5px;line-height:17px;color:var(--accent);vertical-align:1px}
+.row.done .tw{border-color:var(--dim);color:var(--dim)}
+.fl{display:block;font-size:14px;margin:14px 0 7px}
+.fl .sub{display:inline;margin-left:6px;font-size:11.5px;color:var(--dim)}
+.twarn{display:block;font-size:12px;color:#D98C6A;margin-top:6px}
+.twarn:empty{display:none}
 .mini{flex:none;font-size:12.5px;padding:7px 13px;border:1px solid var(--line);
   border-radius:999px;color:var(--dim);transition:border-color .15s,color .15s}
 .mini[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
@@ -225,6 +236,33 @@ input[type=file]{display:none}
     <div class="deckhint">옆으로 밀어 카드를 확인하세요 · 1080 × 1350</div>
 
     <div class="sect">
+      <h3>형식</h3>
+      <div class="ctrl">
+        <span class="lbl">카드 구성<span class="sub" id="modeNote"></span></span>
+        <div class="seg" id="segMode">
+          <button data-v="twist">반전</button>
+          <button data-v="basic" aria-pressed="true">기본</button>
+        </div>
+      </div>
+      <div id="twistBox" style="display:none;padding-bottom:8px">
+        <label class="fl" for="tHook">훅<span class="sub">첫 장 · 답은 숨기고 빈칸을 남기는 두세 줄</span></label>
+        <textarea class="outro-in" id="tHook" rows="3"></textarea>
+        <label class="fl" for="tSetup">맥락<span class="sub">둘째 장 · 비우면 건너뜁니다</span></label>
+        <textarea class="outro-in" id="tSetup" rows="2"></textarea>
+        <label class="fl" for="tHl">밑줄<span class="sub">본문에 있는 구절을 그대로</span></label>
+        <input class="outro-in" id="tHl" style="min-height:0" autocomplete="off">
+        <span class="twarn" id="hlWarn"></span>
+        <label class="fl" for="tReveal">해설<span class="sub">훅의 답 · 비우면 주석을 씁니다</span></label>
+        <textarea class="outro-in" id="tReveal" rows="5"></textarea>
+        <label class="fl" for="tAbout">캡션 소개<span class="sub">인물 · 책 · 시대 · 답은 말하지 않기</span></label>
+        <textarea class="outro-in" id="tAbout" rows="3"></textarea>
+        <label class="fl" for="tAsk">캡션 질문<span class="sub">댓글을 부르는 한 줄 · 선택</span></label>
+        <input class="outro-in" id="tAsk" style="min-height:0" autocomplete="off">
+        <button class="mini wide" id="copyPost">posts.js 항목 복사</button>
+      </div>
+    </div>
+
+    <div class="sect" data-basic>
       <h3>본문</h3>
       <div class="ctrl">
         <span class="lbl">장수<span class="sub" id="autoNote"></span></span>
@@ -255,7 +293,7 @@ input[type=file]{display:none}
       </div>
     </div>
 
-    <div class="sect">
+    <div class="sect" data-basic>
       <h3>주석</h3>
       <div class="ctrl">
         <span class="lbl">주석 카드<span class="sub">출처와 해설을 한 장에</span></span>
@@ -283,7 +321,7 @@ input[type=file]{display:none}
       </div>
     </div>
 
-    <div class="sect">
+    <div class="sect" data-basic>
       <h3>마무리</h3>
       <div class="ctrl">
         <span class="lbl">마무리 카드<span class="sub">앱 안내 · 문구 수정 가능</span></span>
@@ -384,13 +422,28 @@ function showNotice(){
 /* ═══════════════ 상태 ═══════════════ */
 var PKEY='grande_ig_posted';
 var posted={};
+
+/* ── 반전 문구: posts.js(확정본) 위에 이 기기에서 고친 초안을 덮는다 ── */
+var POSTS={};
+(window.GRANDE_POSTS||[]).forEach(function(x){ if(x&&x.id) POSTS[x.id]=x });
+var TKEY='grande_ig_twist', drafts={};
+try{ drafts=JSON.parse(localStorage.getItem(TKEY)||'{}')||{}; }catch(e){ drafts={}; }
+function saveDrafts(){ try{ localStorage.setItem(TKEY,JSON.stringify(drafts)); }catch(e){} }
+var TW_KEYS=['hook','setup','highlight','reveal','about','ask'];
+function twistOf(id){
+  var src=drafts[id]||POSTS[id]||{}, o={};
+  TW_KEYS.forEach(function(k){ o[k]=src[k]||'' });
+  return o;
+}
+function hasTwist(id){ return !!twistOf(id).hook.trim() }
+var onlyTwist=false;
 try{ posted=JSON.parse(localStorage.getItem(PKEY)||'{}')||{}; }catch(e){ posted={}; }
 function savePosted(){ try{ localStorage.setItem(PKEY,JSON.stringify(posted)); }catch(e){} }
 
 var CATS=['철학','문학','동양고전','신학','과학'];
 var filterCat='', onlyNew=false, query='';
 var cur=null;                                     // 선택된 글
-var opt={ split:'auto', fsAdj:0, note:true, outro:true, outroText:'',
+var opt={ mode:'basic', split:'auto', fsAdj:0, note:true, outro:true, outroText:'',
           text:null, noteText:null, noteFsAdj:0, labelFsAdj:0, lineAdj:0 };
 
 /* 본문·주석을 고친 내용은 이 도구 안에만 남는다. 원본은 quotes.js이고 앱이 쓰는
@@ -444,6 +497,11 @@ function buildChips(){
   nb.setAttribute('aria-pressed',onlyNew?'true':'false');
   nb.onclick=function(){ onlyNew=!onlyNew; buildChips(); render(); };
   box.appendChild(nb);
+  var tb=document.createElement('button');
+  tb.className='chip ghost'; tb.textContent='반전 준비됨';
+  tb.setAttribute('aria-pressed',onlyTwist?'true':'false');
+  tb.onclick=function(){ onlyTwist=!onlyTwist; buildChips(); render(); };
+  box.appendChild(tb);
 
   function mk(label,val,on){
     var b=document.createElement('button');
@@ -457,6 +515,7 @@ function buildChips(){
 function match(x){
   if(filterCat && x.cat!==filterCat) return false;
   if(onlyNew && posted[x.id]) return false;
+  if(onlyTwist && !hasTwist(x.id)) return false;
   if(!query) return true;
   var q=query.toLowerCase();
   return (x.text+' '+x.author+' '+x.source+' '+(x.bookTitle||'')).toLowerCase().indexOf(q)>-1;
@@ -480,6 +539,10 @@ function render(){
     b.innerHTML='<span class="dot"></span><span class="rmain">'+
       '<span class="rmeta"></span><span class="rtext"></span></span>';
     b.querySelector('.rmeta').textContent=meta;
+    if(hasTwist(x.id)){
+      var tg=document.createElement('span'); tg.className='tw'; tg.textContent='반전';
+      b.querySelector('.rmeta').prepend(tg);
+    }
     b.querySelector('.rtext').textContent=x.text.replace(/\n+/g,' ');
     b.onclick=function(){ open(x) };
     f.appendChild(b);
@@ -833,6 +896,8 @@ function open(q){
   opt.text = typeof ed.text==='string' ? ed.text : null;
   opt.noteText = typeof ed.note==='string' ? ed.note : null;
   opt.outroText=opt.outroText||savedOutro()||DEFAULT_OUTRO;
+  opt.mode=hasTwist(q.id)?'twist':'basic';
+  fillTwist(q);
   document.getElementById('etitle').textContent=q.author+' · '+(q.bookTitle||q.source);
   document.getElementById('outroTx').value=opt.outroText;
   document.getElementById('handleTx').value=handle();
@@ -869,7 +934,52 @@ function syncControls(){
   document.getElementById('outroRow').style.display=opt.outro?'block':'none';
   markEdited('textState','textReset',opt.text!=null);
   markEdited('noteState','noteReset',opt.noteText!=null);
+  var tw=opt.mode==='twist';
+  [].forEach.call(document.querySelectorAll('#segMode button'),function(b){
+    b.setAttribute('aria-pressed', b.dataset.v===opt.mode ? 'true':'false');
+  });
+  document.getElementById('twistBox').style.display=tw?'block':'none';
+  [].forEach.call(document.querySelectorAll('.sect[data-basic]'),function(el){ el.style.display=tw?'none':'' });
+  document.getElementById('modeNote').textContent=tw
+    ? '훅 · 맥락 · 본문 · 해설 · 마무리'
+    : '본문 · 주석 · 마무리';
 }
+
+/* ── 반전 문구 편집 ── */
+var TW_IDS={hook:'tHook',setup:'tSetup',highlight:'tHl',reveal:'tReveal',about:'tAbout',ask:'tAsk'};
+function twistFields(){
+  var o={}; TW_KEYS.forEach(function(k){ o[k]=document.getElementById(TW_IDS[k]).value }); return o;
+}
+function fillTwist(q){
+  var t=twistOf(q.id);
+  TW_KEYS.forEach(function(k){ document.getElementById(TW_IDS[k]).value=t[k] });
+  document.getElementById('tReveal').placeholder=q.note||'';
+}
+var twTimer=null;
+TW_KEYS.forEach(function(k){
+  document.getElementById(TW_IDS[k]).addEventListener('input',function(){
+    if(!cur) return;
+    var f=twistFields(), any=TW_KEYS.some(function(x){ return f[x] });
+    if(any) drafts[cur.id]=f; else delete drafts[cur.id];
+    saveDrafts();
+    clearTimeout(twTimer);
+    twTimer=setTimeout(function(){ build(); refreshCaption() },260);
+  });
+});
+document.getElementById('segMode').onclick=function(e){
+  var b=e.target.closest('button'); if(!b||!cur||b.dataset.v===opt.mode) return;
+  opt.mode=b.dataset.v; syncControls(); build(); refreshCaption();
+};
+document.getElementById('copyPost').onclick=function(){
+  if(!cur) return;
+  var f=twistFields(), o={id:cur.id};
+  TW_KEYS.forEach(function(k){ if(f[k].trim()) o[k]=f[k].trim() });
+  var txt='  '+JSON.stringify(o,null,2).replace(/\n/g,'\n  ')+',';
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(txt).then(function(){ toast('posts.js 항목을 복사했습니다') },
+      function(){ toast('복사하지 못했습니다') });
+  else toast('복사하지 못했습니다');
+};
 // 고쳐 쓴 글은 앱과 달라지므로 그 사실이 보여야 한다. 되돌리기도 그때만 켠다.
 function markEdited(labelId,resetId,on){
   var el=document.getElementById(labelId);
@@ -899,9 +1009,31 @@ function loadFonts(s){
     return document.fonts.load(f,s).catch(function(){});
   }));
 }
-var _fontTries=0;
+var _fontTries=0, _twTries=0;
+function buildTwist(){
+  var T=twistOf(cur.id), o={text:curText(), note:curNote()};
+  var s=GrandeTwist.sample(cur,T,o);
+  if(!GrandeTwist.fontsReady(s) && _twTries<3){
+    _twTries++;
+    GrandeTwist.loadFonts(s).then(function(){ build() });
+    return;
+  }
+  _twTries=0;
+  var r=GrandeTwist.renderAll(cur,T,o);
+  cards=r.cards;
+  document.getElementById('hlWarn').textContent=r.warn;
+  deck.innerHTML='';
+  cards.forEach(function(c,i){
+    var d=document.createElement('div'); d.className='slide';
+    var lab=document.createElement('span'); lab.className='lab';
+    lab.textContent=(i+1)+'. '+c.name;
+    d.appendChild(c.cv); d.appendChild(lab);
+    deck.appendChild(d);
+  });
+}
 function build(){
   if(!cur) return;
+  if(opt.mode==='twist'){ buildTwist(); return; }
   var sample=fontSample();
   if(!fontsReady(sample) && _fontTries<3){
     // 아직 안 실린 조각이 있다. 싣고 나서 조판 캐시를 버리고 다시 그린다.
@@ -1067,6 +1199,7 @@ var TAGS={
 var BASE=['#그란데','#고전','#책스타그램','#독서기록','#문장수집','#밑줄긋기','#책추천','#독서스타그램','#북스타그램'];
 
 function caption(q){
+  if(opt.mode==='twist') return GrandeTwist.caption(q,twistOf(q.id));
   // 카드에 그린 글과 캡션이 어긋나면 안 되므로 고쳐 쓴 쪽을 따른다
   var text=curText(), note=curNote();
   var first=text.split(/\n/)[0];
@@ -1482,12 +1615,34 @@ async function start(){
     await document.fonts.ready;
   }catch(e){}
   _lc={};   // 서체가 바뀌었으니 조판 캐시를 버린다
+  if(window.GrandeTwist) GrandeTwist.resetCache();
   if(cur){ build(); refreshReel() }
+  window.GRANDE.ready=true;
 }
 
 window.addEventListener('keydown',function(e){
   if(e.key==='Escape' && editor.classList.contains('open')) close();
 });
+
+/* 자동화 진입점 (insta/render.mjs). 편집 화면과 같은 코드로 반전 카루셀을 그린다.
+   GRANDE.render('p59') → { names, pngs(dataURL), caption, warn } */
+window.GRANDE={
+  ready:false,
+  render:async function(id){
+    var q=(QUOTES||[]).filter(function(x){return x.id===id})[0];
+    if(!q) throw new Error('quotes.js에 없는 id: '+id);
+    open(q);
+    opt.mode='twist'; syncControls();
+    var T=twistOf(id), o={text:curText(), note:curNote()};
+    await GrandeTwist.loadFonts(GrandeTwist.sample(q,T,o));
+    await document.fonts.ready;
+    var r=GrandeTwist.renderAll(q,T,o);
+    cards=r.cards;
+    return { names:cards.map(function(c){return c.name}),
+             pngs:cards.map(function(c){return c.cv.toDataURL('image/png')}),
+             caption:GrandeTwist.caption(q,T), warn:r.warn };
+  }
+};
 
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
 else boot();

@@ -1,0 +1,16 @@
+{
+  "name": "grande-insta",
+  "private": true,
+  "type": "module",
+  "description": "Grande 인스타 반전 카루셀 자동 초안 (카드 도구를 headless로 실행)",
+  "scripts": {
+    "render": "node render.mjs",
+    "inbox": "node inbox.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "1.56.0"
+  },
+  "optionalDependencies": {
+    "@sparticuz/chromium": "^138.0.0"
+  }
+}

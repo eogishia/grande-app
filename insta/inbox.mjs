@@ -97,7 +97,7 @@ function article(x, open) {
       <details class="memo"><summary>검증 메모</summary><div class="memo-body">${x.memo || '<p>메모가 없습니다.</p>'}</div></details>${open ? `
       <aside class="fb">
         <h3>고치고 싶은 곳이 있다면</h3>
-        <p>Claude 앱 <b>Code</b> 탭에서 오늘 날짜의 <b>Grande 인스타 초안</b> 세션을 열고 그대로 말해 주세요.
+        <p>Grande 프로젝트 채팅에서 그대로 말해 주세요.
         "훅을 더 짧게", "밑줄을 둘째 문단으로"처럼요. 고친 버전이 이 페이지에 다시 올라오고,
         다음 초안에도 적용할 기준은 따로 기록돼 쌓입니다.</p>
       </aside>` : ''}`;
@@ -108,6 +108,13 @@ function article(x, open) {
     : `<details class="draft older"><summary>${head}<span class="peek">${esc(x.hook.split('\n')[0])}</span></summary>${body}</details>`;
 }
 
+const STATE = {
+  updated: new Date().toISOString(),
+  used: read(path.join(HERE, 'used.md')),
+  feedback: read(path.join(HERE, 'feedback.md')),
+  drafts: dirs.map((d) => ({ key: d, post: JSON.parse(read(path.join(DRAFTS, d, 'post.json')) || '{}'),
+                             memo: read(path.join(DRAFTS, d, 'memo.md')) })),
+};
 const IMG_DATA = Object.fromEntries(drafts.map((x) => [x.key, x.imgs]));
 const NAMES = Object.fromEntries(drafts.map((x) => [x.key, `grande_${x.date}_${x.id}`]));
 const updated = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul', dateStyle: 'medium', timeStyle: 'short' });
@@ -199,6 +206,8 @@ details.older[open]>summary{margin-bottom:4px}
   ${drafts.length > 1 ? `<h2>지난 초안</h2>${drafts.slice(1).map((x) => article(x, false)).join('\n')}` : ''}
 </main>
 <div class="toast" role="status" aria-live="polite"></div>
+<!-- 작업 상태: 사용 기록 · 피드백 기준 · 최근 초안 문구. 새 채팅에서 이어 작업할 때 읽는다. -->
+<script type="application/json" id="grande-state">${JSON.stringify(STATE).replace(/</g, "\\u003c")}</script>
 <script>
 (function(){
   var IMGS=${JSON.stringify(IMG_DATA)};

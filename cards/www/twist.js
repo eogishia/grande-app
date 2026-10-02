@@ -263,7 +263,7 @@ function renderNote(cv,q,text){
   cv.width=W; cv.height=H;
   var ctx=cv.getContext('2d');
   paper(ctx);
-  wordmark(ctx,'주석');
+  wordmark(ctx,'해설');
 
   var NS=[46,44,42,40,38,36,34,32,30], maxW=W-PADX*2, avail=TEXT_BOT-TEXT_TOP-40;
   var fs=NS[NS.length-1], lines=[];

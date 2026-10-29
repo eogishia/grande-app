@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="fonts/fonts.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--paper:#F8F6F1;--ink:#2C2A28;--accent:#A98053;--accent-text:#8C6A40;--muted:#6F6B66;--faint:#8E8984;--line:#E5E0D8;--serif:'Noto Serif KR',serif;--sans:'Pretendard',sans-serif}
+:root{--paper:#F8F6F1;--ink:#2C2A28;--accent:#A98053;--accent-text:#8C6A40;--muted:#6F6B66;--faint:#7A7570;--line:#E5E0D8;--serif:'Noto Serif KR',serif;--sans:'Pretendard',sans-serif}
 html{background:var(--paper)}
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);max-width:520px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 .splash{position:fixed;inset:0;background:var(--paper);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:1;transition:opacity .7s ease;pointer-events:none;text-align:center}
@@ -17,7 +17,7 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink);max-width:
 .splash-canvas{width:220px;height:220px;margin-bottom:28px}
 .splash-text{
   font-family:var(--sans);font-size:22px;font-weight:300;
-  letter-spacing:8px;color:var(--accent);
+  letter-spacing:8px;color:var(--accent-text);
   opacity:0;transform:translateY(8px);
 }
 .onboarding{position:fixed;inset:0;background:var(--paper);z-index:900;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s ease;padding:calc(28px + env(safe-area-inset-top, 0px)) 28px calc(28px + env(safe-area-inset-bottom, 0px))}
